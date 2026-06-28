@@ -274,6 +274,50 @@ es-tu américain · je vais en Espagne · j'habite en France · il habite au Jap
 **Flagged:** la semaine prochaine · ça coûte dix euros · mon anniversaire est en janvier ·
 je me présente · quel âge as-tu. (All already in the app.)
 
+### App sync 2026-06-28 (session 2) — misses (due 2026-06-29), grouped by pattern
+From a second device (its local counters: 171 correct · 63 mastered · streak 1 — a fresh
+device, NOT a drop in her real totals). NOUN GENDER is again the dominant weak spot, exactly
+as in the 06-27 (session 2) sync — keep leading with un/une drills.
+
+**Pattern A — NOUN GENDER (un/une): still the #1 gap (Genre drills).**
+- une demie (2x) | half (time) | f | 2026-06-29
+- une gomme (2x) | eraser | f | 2026-06-29
+- un fils (2x) | son | m | 2026-06-29
+- un cuisinier (2x) | cook | m | 2026-06-29
+- un coiffeur (1x) | hairdresser | m | 2026-06-29
+- une horloge (1x) | clock | f | 2026-06-29
+- une gorge (1x) | throat | f | 2026-06-29
+- une femme (1x) | wife/woman | f | 2026-06-29
+- une jambe (1x) | leg | f | 2026-06-29
+- un gâteau (1x) | cake | m (-eau→m) | 2026-06-29
+- un football (1x) | football | m | 2026-06-29
+- un stylo (1x) | pen | m | 2026-06-29
+- une télévision (1x) | television | f (-sion→f) | 2026-06-29
+- un serveur (1x) | waiter | m | 2026-06-29
+- un frère (1x) | brother | m | 2026-06-29
+- une danse (1x) | dance | f | 2026-06-29
+→ Hooks to re-drill: -eau→(m) un gâteau; -sion/-tion→(f) une télévision; -eur jobs→(m)
+un coiffeur, un serveur, un cuisinier; the -e (m) traps un stylo / un football.
+
+**Pattern B — country / proper-noun recall.**
+- Allemagne (3x) | Germany | 2026-06-29
+- États-Unis (2x) | United States | 2026-06-29
+- Chine (1x) | China | 2026-06-29
+
+**Pattern C — calendar (days / months / seasons / time).**
+- vendredi (1x) | Friday | 2026-06-29
+- printemps (1x) | spring | 2026-06-29
+- mars (1x) | March | 2026-06-29
+- minuit (1x) | midnight | 2026-06-29
+
+**Pattern D — adjective / ordinal recall.**
+- jeune (1x) | young | 2026-06-29
+- premier (1x) | first | 2026-06-29
+
+**New words flagged (reinforce next lesson):** un réveil, un gâteau (also missed above),
+une jambe (also missed above), un jus d'orange, une boulangerie, une trousse.
+(All already in the app, with IPA + example sentences — no app changes needed this sync.)
+
 ## Lesson log
 Format: date — theme — note
 - 2026-06-21 — setup — baseline built from Cantonese course Lessons 1–8; level set to A1, grammar-focused plan
@@ -287,4 +331,5 @@ Format: date — theme — note
 - 2026-06-28 (lesson) — U6 L'heure TAUGHT — quelle heure est-il / il est…, et quart / et demie / moins le quart, demi vs demie (midi/minuit→demi), am/pm + 24h, à quelle heure. Added to practice.html: 9 Time-theme VOCAB words (with IPA) + 10 time sentences. Phone copy (phone-app/index.html) also refreshed. Next: U9 description physique.
 - 2026-06-28 (sync) — app practice synced — 1032 correct, 378 mastered, streak 8. Big volume on new U4/U5. ⚠️ Found & FIXED an app bug: the Conjugation tab rejected "j'ai" (accepted only "ai"/"je ai") → she "missed" je-avoir 16x. Patched checkConj to accept elision (j'+vowel) and show/record the clean form (j'ai, je m'appelle). Real weak spots: aller (va/vont/vas), s'appeler forms, introduction phrases (comment allez-vous / vous appelez-vous / ça va), date sentences, and the new hundreds (438/526/914). No new vocab to add — all items already in app. Then ran a full revision session.
 - 2026-06-27 (lesson) — U4 Nombres + U5 Calendrier TAUGHT. U4: 70–99 review, 100–1000 (cent/cents/mille rules), prices, ordinals (premier/deuxième/troisième). U5: days+months (lowercase, m), seasons (au printemps / en été…), the date. Added to practice.html: 31 VOCAB rows (Days/Months/Seasons/Time/ordinals, all with IPA) + 10 sentences, AND upgraded the Numbers tab generator from 0–100 to **0–1000** (new numToFr100 helper + numToFr for hundreds/mille; newNum range *1001). Verified in browser: numToFr correct for 0/21/71/80/91/99/100/101/180/200/201/248/300/999/1000; calendar words show IPA (Monday→lundi /lœ̃.di/). Next: U6 l'heure.
+- 2026-06-28 (sync 2) — app practice synced from a SECOND device (local counters 171 correct · 63 mastered · streak 1 — a fresh device, so cumulative snapshot totals left unchanged). NOUN GENDER is again the #1 gap (une demie/gomme 2x, un fils/cuisinier 2x + ~12 more un/une misses) — mirrors the 06-27 session-2 pattern. Smaller clusters: country recall (Allemagne 3x, États-Unis 2x, Chine), calendar words (vendredi, printemps, mars, minuit), and adjective/ordinal recall (jeune, premier). Flagged for reinforcement: un réveil, un jus d'orange, une boulangerie, une trousse (+ gâteau/jambe). No new vocab to add — all 29 items already in practice.html with IPA. Next lesson: lead with un/une gender patterns (esp. -eau/-eur/-sion), then light calendar + country upkeep.
 - 2026-06-27 (plan overhaul) — Iris provided the 3 textbooks (Livre A1.1 / A1 / A2 B1) after finding vocab missing. PDFs are scanned images with NO text layer; this env has no pdftoppm/OCR/ImageMagick and the browser PDF viewer hangs — so could NOT OCR the bold words. Rebuilt vocab-plan.md from the standard published contents of these CLE titles into a 40-unit, 8-week A1.1→A2/B1 sprint (grammar track + daily routine included), flagged for Iris to verify against each Sommaire. Switched theme tracking from T-codes to U-codes (units). Next teaching target: U5 Le calendrier.
