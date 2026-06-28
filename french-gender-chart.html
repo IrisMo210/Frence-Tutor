@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Masculine & Feminine in French</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Karla:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F4EF;
+    --ink:#23262B;
+    --ink-soft:#5C636E;
+    --line:#E0DBD1;
+
+    --m-deep:#2C5C86;      /* masculine */
+    --m-bg:#E6EEF6;
+    --m-edge:#B9D0E5;
+
+    --f-deep:#A8425A;      /* feminine */
+    --f-bg:#F7E6EA;
+    --f-edge:#E8BFC9;
+
+    --gold:#B68A35;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+
+  body{
+    font-family:'Karla',system-ui,sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.55;
+    padding:clamp(20px,5vw,64px) clamp(16px,5vw,48px);
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .wrap{max-width:980px;margin:0 auto;}
+
+  /* ---------- header ---------- */
+  header{
+    text-align:center;
+    padding-bottom:36px;
+    border-bottom:1px solid var(--line);
+    margin-bottom:48px;
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:.72rem;
+    letter-spacing:.32em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin-bottom:18px;
+  }
+  h1{
+    font-family:'Cormorant Garamond',serif;
+    font-weight:600;
+    font-size:clamp(2.6rem,7vw,4.4rem);
+    line-height:1.02;
+    letter-spacing:-.5px;
+  }
+  h1 .m{color:var(--m-deep);font-style:italic;}
+  h1 .f{color:var(--f-deep);font-style:italic;}
+  .sub{
+    margin-top:14px;
+    color:var(--ink-soft);
+    font-size:1.02rem;
+    max-width:46ch;
+    margin-left:auto;margin-right:auto;
+  }
+
+  /* ---------- section heads ---------- */
+  .sec-head{
+    display:flex;align-items:baseline;gap:14px;
+    margin:54px 0 22px;
+  }
+  .sec-num{
+    font-family:'JetBrains Mono',monospace;
+    font-size:.8rem;color:var(--gold);
+    border:1px solid var(--gold);
+    border-radius:50%;
+    width:30px;height:30px;
+    display:flex;align-items:center;justify-content:center;
+    flex:0 0 auto;
+  }
+  .sec-head h2{
+    font-family:'Cormorant Garamond',serif;
+    font-weight:600;font-size:clamp(1.6rem,4vw,2.1rem);
+    letter-spacing:-.3px;
+  }
+
+  /* ---------- articles table ---------- */
+  .articles{
+    width:100%;border-collapse:collapse;
+    background:#fff;border:1px solid var(--line);
+    border-radius:12px;overflow:hidden;
+  }
+  .articles th,.articles td{
+    padding:14px 16px;text-align:left;
+    border-bottom:1px solid var(--line);
+    font-size:1rem;
+  }
+  .articles thead th{
+    font-family:'JetBrains Mono',monospace;
+    font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--ink-soft);font-weight:500;
+    background:var(--paper);
+  }
+  .articles td:first-child{
+    color:var(--ink-soft);font-size:.92rem;width:38%;
+  }
+  .articles .col-m{color:var(--m-deep);font-weight:700;}
+  .articles .col-f{color:var(--f-deep);font-weight:700;}
+  .articles tr:last-child td{border-bottom:none;}
+  .articles td b{font-size:1.05rem;}
+
+  /* ---------- two gender columns ---------- */
+  .grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:22px;
+  }
+  .card{
+    border-radius:14px;padding:24px 22px 10px;
+    border:1px solid;
+  }
+  .card.m{background:var(--m-bg);border-color:var(--m-edge);}
+  .card.f{background:var(--f-bg);border-color:var(--f-edge);}
+  .card .tag{
+    font-family:'JetBrains Mono',monospace;
+    font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;
+    display:inline-block;padding:5px 12px;border-radius:20px;color:#fff;
+    margin-bottom:6px;
+  }
+  .card.m .tag{background:var(--m-deep);}
+  .card.f .tag{background:var(--f-deep);}
+  .card h3{
+    font-family:'Cormorant Garamond',serif;
+    font-weight:600;font-size:1.7rem;margin:8px 0 16px;
+  }
+  .card.m h3{color:var(--m-deep);}
+  .card.f h3{color:var(--f-deep);}
+
+  .end-row{
+    display:flex;align-items:baseline;gap:12px;
+    padding:11px 0;border-top:1px dashed rgba(0,0,0,.12);
+  }
+  .end-row:first-of-type{border-top:none;}
+  .ending{
+    font-family:'JetBrains Mono',monospace;
+    font-weight:500;font-size:.95rem;flex:0 0 78px;
+  }
+  .card.m .ending{color:var(--m-deep);}
+  .card.f .ending{color:var(--f-deep);}
+  .examples{font-size:.94rem;color:var(--ink);}
+  .examples em{color:var(--ink-soft);font-style:italic;}
+
+  /* ---------- exceptions ---------- */
+  .warn{
+    background:#fff;border:1px solid var(--line);
+    border-left:3px solid var(--gold);
+    border-radius:10px;padding:18px 22px;margin-top:20px;
+  }
+  .warn h4{
+    font-family:'JetBrains Mono',monospace;font-size:.74rem;
+    letter-spacing:.16em;text-transform:uppercase;color:var(--gold);
+    margin-bottom:10px;font-weight:500;
+  }
+  .warn p{font-size:.95rem;color:var(--ink);margin-bottom:7px;}
+  .warn p:last-child{margin-bottom:0;}
+  .chip{
+    font-family:'JetBrains Mono',monospace;font-size:.82rem;
+    padding:2px 7px;border-radius:5px;
+  }
+  .chip.m{background:var(--m-bg);color:var(--m-deep);}
+  .chip.f{background:var(--f-bg);color:var(--f-deep);}
+
+  /* ---------- adjectives ---------- */
+  .adj{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:14px;
+  }
+  .adj-cell{
+    background:#fff;border:1px solid var(--line);border-radius:10px;
+    padding:14px 16px;
+  }
+  .adj-cell .rule{
+    font-family:'JetBrains Mono',monospace;font-size:.82rem;
+    color:var(--gold);margin-bottom:6px;
+  }
+  .adj-cell .ex{font-size:.96rem;}
+  .adj-cell .ex .mm{color:var(--m-deep);font-weight:700;}
+  .adj-cell .ex .ff{color:var(--f-deep);font-weight:700;}
+  .adj-cell .ex span.arrow{color:var(--ink-soft);margin:0 6px;}
+
+  /* ---------- memory tips ---------- */
+  .tips{display:flex;flex-direction:column;gap:14px;}
+  .tip{
+    display:flex;gap:16px;align-items:flex-start;
+    background:#fff;border:1px solid var(--line);border-radius:12px;
+    padding:18px 20px;
+  }
+  .tip .n{
+    font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;
+    color:var(--gold);line-height:1;flex:0 0 auto;width:34px;
+  }
+  .tip h4{font-size:1.02rem;margin-bottom:3px;}
+  .tip p{font-size:.95rem;color:var(--ink-soft);}
+  .tip p b.m{color:var(--m-deep);}
+  .tip p b.f{color:var(--f-deep);}
+
+  /* ---------- quiz ---------- */
+  .quiz{
+    background:#23262B;color:#F6F4EF;border-radius:16px;
+    padding:clamp(26px,5vw,40px);text-align:center;margin-top:24px;
+  }
+  .quiz .q-eyebrow{
+    font-family:'JetBrains Mono',monospace;font-size:.72rem;
+    letter-spacing:.28em;text-transform:uppercase;color:#9AA3AE;margin-bottom:8px;
+  }
+  .quiz h3{
+    font-family:'Cormorant Garamond',serif;font-weight:600;
+    font-size:clamp(1.5rem,4vw,2rem);margin-bottom:24px;
+  }
+  .word{
+    font-family:'Cormorant Garamond',serif;font-style:italic;
+    font-size:clamp(2.4rem,9vw,3.6rem);margin-bottom:6px;min-height:1.1em;
+  }
+  .word .blank{color:var(--gold);}
+  .word-hint{font-size:.86rem;color:#9AA3AE;min-height:1.2em;margin-bottom:24px;}
+  .btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+  .btns button{
+    font-family:'Karla',sans-serif;font-weight:700;font-size:1.1rem;
+    border:none;border-radius:10px;padding:14px 34px;cursor:pointer;
+    transition:transform .12s ease,filter .12s ease;color:#fff;
+  }
+  .btns button:hover{transform:translateY(-2px);}
+  .btns button:focus-visible{outline:3px solid var(--gold);outline-offset:3px;}
+  .btn-le{background:var(--m-deep);}
+  .btn-la{background:var(--f-deep);}
+  .feedback{
+    margin-top:22px;font-size:1.05rem;min-height:1.6em;font-weight:500;
+  }
+  .feedback.ok{color:#8FD19E;}
+  .feedback.no{color:#F0A6A6;}
+  .feedback .answer{color:#F6F4EF;}
+  .score{margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:.8rem;color:#9AA3AE;}
+
+  footer{
+    text-align:center;margin-top:56px;padding-top:24px;
+    border-top:1px solid var(--line);
+    font-size:.86rem;color:var(--ink-soft);
+  }
+
+  @media(max-width:640px){
+    .grid{grid-template-columns:1fr;}
+    .articles td:first-child{width:30%;}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *{transition:none!important;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">French Grammar · Le genre</div>
+    <h1><span class="m">Masculin</span> &amp; <span class="f">Féminin</span></h1>
+    <p class="sub">Every French noun is either masculine or feminine. The trick is to learn the patterns in the endings — and one short list of exceptions.</p>
+  </header>
+
+  <!-- 1. ARTICLES -->
+  <div class="sec-head">
+    <span class="sec-num">1</span>
+    <h2>The words that signal gender</h2>
+  </div>
+  <table class="articles">
+    <thead>
+      <tr><th>Situation</th><th class="col-m">Masculine</th><th class="col-f">Feminine</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>"the" (singular)</td><td class="col-m"><b>le</b> garçon</td><td class="col-f"><b>la</b> fille</td></tr>
+      <tr><td>"a / an" (singular)</td><td class="col-m"><b>un</b> livre</td><td class="col-f"><b>une</b> table</td></tr>
+      <tr><td>before a vowel or silent h</td><td class="col-m"><b>l'</b>homme</td><td class="col-f"><b>l'</b>eau</td></tr>
+      <tr><td>"the" / "some" (plural)</td><td class="col-m"><b>les</b> · <b>des</b></td><td class="col-f"><b>les</b> · <b>des</b></td></tr>
+    </tbody>
+  </table>
+  <div class="warn">
+    <h4>Note</h4>
+    <p>In the plural, <span class="chip m">les</span> and <span class="chip f">des</span> are the same for both genders — so the gender "hides" in the plural. Always learn a noun in its <b>singular</b> form with <b>le</b> or <b>la</b>.</p>
+  </div>
+
+  <!-- 2. PARTITIVE -->
+  <div class="sec-head">
+    <span class="sec-num">2</span>
+    <h2>"Some / any" — du, de la, des</h2>
+  </div>
+  <p class="sub" style="text-align:left;margin:0 0 18px;max-width:62ch;">Use these when you mean an unspecified amount ("some bread", "some water"). The form depends on the gender of the noun — so it's another place gender shows up.</p>
+  <table class="articles">
+    <thead>
+      <tr><th>Situation</th><th class="col-m">Form</th><th>Example</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>masculine noun</td><td class="col-m"><b>du</b> <span style="color:var(--ink-soft);font-size:.85rem;">(= de + le)</span></td><td><span class="col-m">du</span> pain &nbsp;<em style="color:var(--ink-soft);">— some bread</em></td></tr>
+      <tr><td>feminine noun</td><td class="col-f"><b>de la</b></td><td><span class="col-f">de la</span> confiture &nbsp;<em style="color:var(--ink-soft);">— some jam</em></td></tr>
+      <tr><td>before a vowel / silent h</td><td style="color:var(--ink);"><b>de l'</b></td><td>de l'eau, de l'argent &nbsp;<em style="color:var(--ink-soft);">— some water / money</em></td></tr>
+      <tr><td>plural (both genders)</td><td style="color:var(--ink);"><b>des</b></td><td>des fruits &nbsp;<em style="color:var(--ink-soft);">— some fruit</em></td></tr>
+    </tbody>
+  </table>
+  <div class="warn">
+    <h4>The one big rule</h4>
+    <p>After a <b>negative</b>, du / de la / des all collapse to <span class="chip m" style="background:#EDEAE2;color:var(--ink);">de</span> (or <b>d'</b> before a vowel):</p>
+    <p style="margin-top:8px;">Je mange <span class="chip m">du</span> pain &nbsp;→&nbsp; Je ne mange pas <span class="chip m" style="background:#EDEAE2;color:var(--ink);">de</span> pain.</p>
+    <p>Il y a <span class="chip f">de la</span> place &nbsp;→&nbsp; Il n'y a pas <span class="chip m" style="background:#EDEAE2;color:var(--ink);">de</span> place.</p>
+    <p style="margin-top:10px;color:var(--ink-soft);font-size:.9rem;">Note: <b>du</b> and <b>des</b> also mean "of the / from the" (le livre <b>du</b> prof = de + le). Same words, decided by the same gender logic.</p>
+  </div>
+
+  <!-- 3. ENDINGS -->
+  <div class="sec-head">
+    <span class="sec-num">3</span>
+    <h2>Tell gender by the ending</h2>
+  </div>
+  <div class="grid">
+    <div class="card m">
+      <span class="tag">Usually Masculine</span>
+      <h3>le …</h3>
+      <div class="end-row"><span class="ending">-age</span><span class="examples">le from<b>age</b>, le voy<b>age</b> <em>(cheese, trip)</em></span></div>
+      <div class="end-row"><span class="ending">-ment</span><span class="examples">le mo<b>ment</b>, le bâti<b>ment</b></span></div>
+      <div class="end-row"><span class="ending">-eau</span><span class="examples">le bat<b>eau</b>, le chât<b>eau</b></span></div>
+      <div class="end-row"><span class="ending">-eu</span><span class="examples">le f<b>eu</b>, le j<b>eu</b> <em>(fire, game)</em></span></div>
+      <div class="end-row"><span class="ending">-isme</span><span class="examples">le tour<b>isme</b>, le réal<b>isme</b></span></div>
+      <div class="end-row"><span class="ending">-in / -on</span><span class="examples">le jard<b>in</b>, le poiss<b>on</b></span></div>
+      <div class="end-row"><span class="ending">-oir</span><span class="examples">le s<b>oir</b>, le mir<b>oir</b></span></div>
+      <div class="end-row"><span class="ending">-ail / -eil</span><span class="examples">le trav<b>ail</b>, le sol<b>eil</b></span></div>
+    </div>
+
+    <div class="card f">
+      <span class="tag">Usually Feminine</span>
+      <h3>la …</h3>
+      <div class="end-row"><span class="ending">-tion</span><span class="examples">la na<b>tion</b>, la ques<b>tion</b> <em>(very reliable)</em></span></div>
+      <div class="end-row"><span class="ending">-sion</span><span class="examples">la télévi<b>sion</b>, la déci<b>sion</b></span></div>
+      <div class="end-row"><span class="ending">-té</span><span class="examples">la liber<b>té</b>, la beau<b>té</b></span></div>
+      <div class="end-row"><span class="ending">-ette</span><span class="examples">la bagu<b>ette</b>, la fourch<b>ette</b></span></div>
+      <div class="end-row"><span class="ending">-ence / -ance</span><span class="examples">la sci<b>ence</b>, la ch<b>ance</b></span></div>
+      <div class="end-row"><span class="ending">-ure</span><span class="examples">la voit<b>ure</b>, la nat<b>ure</b></span></div>
+      <div class="end-row"><span class="ending">-ie</span><span class="examples">la v<b>ie</b>, la boulanger<b>ie</b></span></div>
+      <div class="end-row"><span class="ending">-elle / -ille</span><span class="examples">la poub<b>elle</b>, la fam<b>ille</b></span></div>
+    </div>
+  </div>
+  <div class="warn">
+    <h4>Watch the traps</h4>
+    <p>A few common words break the rules — memorise these:</p>
+    <p>"-age" but feminine: <span class="chip f">la page</span> <span class="chip f">la plage</span> <span class="chip f">l'image</span></p>
+    <p>"-eau" but feminine: <span class="chip f">l'eau</span> <span class="chip f">la peau</span> &nbsp;·&nbsp; "-on" but feminine: <span class="chip f">la maison</span> <span class="chip f">la raison</span> <span class="chip f">la saison</span></p>
+    <p>"-té / -ée" but masculine: <span class="chip m">le côté</span> <span class="chip m">l'été</span> <span class="chip m">le musée</span> <span class="chip m">le lycée</span></p>
+  </div>
+
+  <!-- 4. ADJECTIVES -->
+  <div class="sec-head">
+    <span class="sec-num">4</span>
+    <h2>Adjectives must match the noun</h2>
+  </div>
+  <div class="adj">
+    <div class="adj-cell"><div class="rule">basic rule: add -e</div><div class="ex"><span class="mm">grand</span><span class="arrow">→</span><span class="ff">grande</span></div></div>
+    <div class="adj-cell"><div class="rule">-er → -ère</div><div class="ex"><span class="mm">cher</span><span class="arrow">→</span><span class="ff">chère</span></div></div>
+    <div class="adj-cell"><div class="rule">-eux → -euse</div><div class="ex"><span class="mm">heureux</span><span class="arrow">→</span><span class="ff">heureuse</span></div></div>
+    <div class="adj-cell"><div class="rule">-f → -ve</div><div class="ex"><span class="mm">sportif</span><span class="arrow">→</span><span class="ff">sportive</span></div></div>
+    <div class="adj-cell"><div class="rule">-eau → -elle</div><div class="ex"><span class="mm">beau</span><span class="arrow">→</span><span class="ff">belle</span></div></div>
+    <div class="adj-cell"><div class="rule">already ends -e: no change</div><div class="ex"><span class="mm">rouge</span><span class="arrow">→</span><span class="ff">rouge</span></div></div>
+  </div>
+
+  <!-- 5. MEMORY -->
+  <div class="sec-head">
+    <span class="sec-num">5</span>
+    <h2>How to remember it easily</h2>
+  </div>
+  <div class="tips">
+    <div class="tip"><div class="n">1</div><div><h4>Never learn a noun alone</h4><p>Store the article with the word: not "table" but <b class="f">la table</b>, not "livre" but <b class="m">le livre</b>. The gender becomes part of the word in your memory.</p></div></div>
+    <div class="tip"><div class="n">2</div><div><h4>Colour-code your vocabulary</h4><p>Write masculine words in <b class="m">one colour</b> and feminine words in <b class="f">another</b>. Your eye learns the split before your brain does.</p></div></div>
+    <div class="tip"><div class="n">3</div><div><h4>Learn the endings, not every word</h4><p>The table above covers most nouns. If a word ends in <b class="f">-tion</b>, <b class="f">-té</b>, or <b class="f">-ette</b>, bet feminine. If it ends in <b class="m">-age</b>, <b class="m">-ment</b>, or <b class="m">-eau</b>, bet masculine.</p></div></div>
+    <div class="tip"><div class="n">4</div><div><h4>Say it in a short phrase</h4><p>Lock gender in with a tiny image: <em>"un grand château"</em>, <em>"une petite maison"</em>. The matching adjective reinforces the gender every time.</p></div></div>
+    <div class="tip"><div class="n">5</div><div><h4>Memorise only the exceptions</h4><p>You don't need to memorise thousands of words — just the short trap-list above. Everything else follows a pattern.</p></div></div>
+  </div>
+
+  <!-- 6. QUIZ -->
+  <div class="sec-head">
+    <span class="sec-num">6</span>
+    <h2>Test yourself</h2>
+  </div>
+  <div class="quiz">
+    <div class="q-eyebrow">Le or La?</div>
+    <h3>Pick the right article</h3>
+    <div class="word"><span class="blank">___</span> <span id="qword">table</span></div>
+    <div class="word-hint" id="qhint">&nbsp;</div>
+    <div class="btns">
+      <button class="btn-le" onclick="answer('m')">le</button>
+      <button class="btn-la" onclick="answer('f')">la</button>
+    </div>
+    <div class="feedback" id="qfeedback">&nbsp;</div>
+    <div class="score" id="qscore">Score: 0 / 0</div>
+  </div>
+
+  <footer>A reference for learners · keep it nearby and quiz yourself often. Bonne chance !</footer>
+
+</div>
+
+<script>
+  const words = [
+    {w:"table", g:"f", h:"no clear ending — a word to just learn"},
+    {w:"livre", g:"m", h:"a book"},
+    {w:"voiture", g:"f", h:"ends in -ure"},
+    {w:"fromage", g:"m", h:"ends in -age"},
+    {w:"nation", g:"f", h:"ends in -tion"},
+    {w:"jardin", g:"m", h:"ends in -in"},
+    {w:"liberté", g:"f", h:"ends in -té"},
+    {w:"bateau", g:"m", h:"ends in -eau"},
+    {w:"musique", g:"f", h:"ends in -ique"},
+    {w:"moment", g:"m", h:"ends in -ment"},
+    {w:"baguette", g:"f", h:"ends in -ette"},
+    {w:"soleil", g:"m", h:"ends in -eil"},
+    {w:"famille", g:"f", h:"ends in -ille"},
+    {w:"voyage", g:"m", h:"ends in -age"},
+    {w:"chance", g:"f", h:"ends in -ance"},
+    {w:"page", g:"f", h:"a trap! -age but feminine"},
+    {w:"eau", g:"f", h:"a trap! -eau but feminine"},
+    {w:"musée", g:"m", h:"a trap! -ée but masculine"},
+    {w:"maison", g:"f", h:"a trap! -on but feminine"},
+    {w:"poisson", g:"m", h:"ends in -on"}
+  ];
+
+  let order=[], idx=0, right=0, total=0, locked=false;
+
+  function shuffle(){ order=[...Array(words.length).keys()].sort(()=>Math.random()-0.5); idx=0; }
+  shuffle();
+
+  function show(){
+    locked=false;
+    const cur=words[order[idx]];
+    document.getElementById('qword').textContent=cur.w;
+    document.getElementById('qhint').innerHTML='&nbsp;';
+    const fb=document.getElementById('qfeedback');
+    fb.textContent='\u00A0'; fb.className='feedback';
+  }
+
+  function answer(g){
+    if(locked) return;
+    locked=true;
+    const cur=words[order[idx]];
+    total++;
+    const fb=document.getElementById('qfeedback');
+    const correctArt = cur.g==='m' ? 'le' : 'la';
+    if(g===cur.g){
+      right++;
+      fb.className='feedback ok';
+      fb.innerHTML='✓ Correct — <span class="answer">'+correctArt+' '+cur.w+'</span>';
+    }else{
+      fb.className='feedback no';
+      fb.innerHTML='✗ It\u2019s <span class="answer">'+correctArt+' '+cur.w+'</span>';
+    }
+    document.getElementById('qhint').textContent=cur.h;
+    document.getElementById('qscore').textContent='Score: '+right+' / '+total;
+    setTimeout(()=>{
+      idx++;
+      if(idx>=order.length) shuffle();
+      show();
+    },1400);
+  }
+
+  show();
+</script>
+</body>
+</html>

@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>French Verb Conjugation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Karla:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F4EF;
+    --ink:#23262B;
+    --ink-soft:#5C636E;
+    --line:#E0DBD1;
+    --g1:#2C5C86; --g1-bg:#E6EEF6; --g1-edge:#B9D0E5;   /* -er  */
+    --g2:#A8425A; --g2-bg:#F7E6EA; --g2-edge:#E8BFC9;   /* -ir  */
+    --g3:#3E7A5E; --g3-bg:#E4F0EA; --g3-edge:#BFDCCC;   /* -re  */
+    --gold:#B68A35;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:'Karla',system-ui,sans-serif;background:var(--paper);color:var(--ink);
+    line-height:1.55;padding:clamp(20px,5vw,64px) clamp(16px,5vw,48px);-webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:980px;margin:0 auto;}
+
+  header{text-align:center;padding-bottom:36px;border-bottom:1px solid var(--line);margin-bottom:48px;}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:18px;}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(2.6rem,7vw,4.4rem);line-height:1.02;letter-spacing:-.5px;color:var(--g1);font-style:italic;}
+  .sub{margin-top:14px;color:var(--ink-soft);font-size:1.02rem;max-width:50ch;margin-left:auto;margin-right:auto;}
+
+  .sec-head{display:flex;align-items:baseline;gap:14px;margin:54px 0 22px;}
+  .sec-num{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--gold);border:1px solid var(--gold);border-radius:50%;width:30px;height:30px;display:flex;align-items:center;justify-content:center;flex:0 0 auto;}
+  .sec-head h2{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(1.6rem,4vw,2.1rem);letter-spacing:-.3px;}
+  .lead{color:var(--ink-soft);font-size:1rem;max-width:64ch;margin:-8px 0 18px;}
+
+  table.t{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;}
+  table.t th,table.t td{padding:13px 16px;text-align:left;border-bottom:1px solid var(--line);font-size:1rem;}
+  table.t thead th{font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);font-weight:500;background:var(--paper);}
+  table.t tr:last-child td{border-bottom:none;}
+  table.t td:first-child{color:var(--ink-soft);}
+  .pron{font-family:'JetBrains Mono',monospace;font-size:.92rem;}
+  .c1{color:var(--g1);font-weight:700;} .c2{color:var(--g2);font-weight:700;} .c3{color:var(--g3);font-weight:700;}
+  table.t b{color:var(--ink);} .end{color:var(--gold);font-weight:700;}
+
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;}
+  .card{border-radius:14px;padding:22px 20px 12px;border:1px solid;}
+  .card.e1{background:var(--g1-bg);border-color:var(--g1-edge);}
+  .card.e2{background:var(--g2-bg);border-color:var(--g2-edge);}
+  .card.e3{background:var(--g3-bg);border-color:var(--g3-edge);}
+  .card .tag{font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;display:inline-block;padding:5px 12px;border-radius:20px;color:#fff;}
+  .card.e1 .tag{background:var(--g1);} .card.e2 .tag{background:var(--g2);} .card.e3 .tag{background:var(--g3);}
+  .card h3{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.6rem;margin:10px 0 4px;}
+  .card.e1 h3{color:var(--g1);} .card.e2 h3{color:var(--g2);} .card.e3 h3{color:var(--g3);}
+  .card .model{font-size:.9rem;color:var(--ink-soft);margin-bottom:14px;font-style:italic;}
+  .erow{display:flex;justify-content:space-between;padding:7px 0;border-top:1px dashed rgba(0,0,0,.1);font-size:.95rem;}
+  .erow:first-of-type{border-top:none;}
+  .erow .p{color:var(--ink-soft);font-family:'JetBrains Mono',monospace;font-size:.82rem;}
+  .erow .v b{color:var(--ink);}
+  .card.e1 .erow .v u{color:var(--g1);} .card.e2 .erow .v u{color:var(--g2);} .card.e3 .erow .v u{color:var(--g3);}
+  .erow .v u{text-decoration:none;font-weight:700;}
+
+  .recipe{display:grid;grid-template-columns:1fr;gap:16px;}
+  .rcard{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px 22px;border-left:3px solid var(--gold);}
+  .rcard h4{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;margin-bottom:4px;}
+  .rcard .when{font-size:.86rem;color:var(--ink-soft);margin-bottom:12px;}
+  .formula{font-family:'JetBrains Mono',monospace;font-size:.86rem;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin-bottom:10px;color:var(--ink);}
+  .formula .hl{color:var(--gold);}
+  .rcard .ex{font-size:.96rem;} .rcard .ex em{color:var(--ink-soft);}
+  .rcard .ex .v{font-weight:700;color:var(--g1);}
+
+  .warn{background:#fff;border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:10px;padding:18px 22px;margin-top:20px;}
+  .warn h4{font-family:'JetBrains Mono',monospace;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;font-weight:500;}
+  .warn p{font-size:.95rem;margin-bottom:7px;} .warn p:last-child{margin-bottom:0;}
+  .chip{font-family:'JetBrains Mono',monospace;font-size:.82rem;padding:2px 7px;border-radius:5px;background:#EDEAE2;color:var(--ink);}
+
+  .tips{display:flex;flex-direction:column;gap:14px;}
+  .tip{display:flex;gap:16px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;}
+  .tip .n{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;color:var(--gold);line-height:1;flex:0 0 auto;width:34px;}
+  .tip h4{font-size:1.02rem;margin-bottom:3px;}
+  .tip p{font-size:.95rem;color:var(--ink-soft);}
+  .tip p b{color:var(--g1);}
+
+  /* explorer */
+  .explorer{background:#23262B;color:#F6F4EF;border-radius:16px;padding:clamp(22px,4vw,34px);}
+  .explorer .q-eyebrow{font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.26em;text-transform:uppercase;color:#9AA3AE;margin-bottom:14px;}
+  .picker{margin-bottom:16px;}
+  .picker .plabel{font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:#9AA3AE;margin-bottom:8px;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;}
+  .chips button{font-family:'Karla',sans-serif;font-weight:500;font-size:.92rem;border:1px solid #3A3F46;background:transparent;color:#D6D9DD;border-radius:8px;padding:8px 14px;cursor:pointer;transition:all .12s ease;}
+  .chips button:hover{border-color:#6b7480;}
+  .chips button.active{background:var(--gold);border-color:var(--gold);color:#23262B;font-weight:700;}
+  .chips button:focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
+  .result{margin-top:22px;background:#1B1E22;border-radius:12px;padding:18px 20px;}
+  .result .rtitle{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.7rem;margin-bottom:2px;}
+  .result .rgloss{font-size:.84rem;color:#9AA3AE;margin-bottom:14px;}
+  .ctable{width:100%;border-collapse:collapse;}
+  .ctable td{padding:9px 4px;border-bottom:1px solid #2B2F35;font-size:1.05rem;}
+  .ctable tr:last-child td{border-bottom:none;}
+  .ctable .pr{color:#8C95A0;font-family:'JetBrains Mono',monospace;font-size:.85rem;width:42%;}
+  .ctable .cf{color:#F6F4EF;font-weight:500;}
+  .ctable .cf .stem{color:#F6F4EF;} .ctable .cf .e{color:var(--gold);font-weight:700;}
+  .rrecipe{margin-top:14px;font-size:.84rem;color:#9AA3AE;}
+  .rrecipe code{font-family:'JetBrains Mono',monospace;color:#C9CDd2;}
+
+  footer{text-align:center;margin-top:56px;padding-top:24px;border-top:1px solid var(--line);font-size:.86rem;color:var(--ink-soft);}
+
+  @media(max-width:680px){.grid3{grid-template-columns:1fr;}}
+  @media(prefers-reduced-motion:reduce){*{transition:none!important;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">French Grammar · La conjugaison</div>
+    <h1>Conjuguer les verbes</h1>
+    <p class="sub">A French verb changes its ending to match who is doing the action and when. Learn the pronouns, the three regular families, and a handful of recipes — the rest follows.</p>
+  </header>
+
+  <!-- 1 PRONOUNS -->
+  <div class="sec-head"><span class="sec-num">1</span><h2>Who does the action — the pronouns</h2></div>
+  <p class="lead">Every conjugation has six "persons". The verb ending changes for each one, so these six rows repeat in every tense.</p>
+  <table class="t">
+    <thead><tr><th>Person</th><th>French</th><th>English</th></tr></thead>
+    <tbody>
+      <tr><td>1st singular</td><td class="pron">je &nbsp;<span style="color:var(--ink-soft)">(j' before a vowel)</span></td><td>I</td></tr>
+      <tr><td>2nd singular</td><td class="pron">tu</td><td>you (informal)</td></tr>
+      <tr><td>3rd singular</td><td class="pron">il / elle / on</td><td>he / she / one (we)</td></tr>
+      <tr><td>1st plural</td><td class="pron">nous</td><td>we</td></tr>
+      <tr><td>2nd plural</td><td class="pron">vous</td><td>you (formal or plural)</td></tr>
+      <tr><td>3rd plural</td><td class="pron">ils / elles</td><td>they (m / f)</td></tr>
+    </tbody>
+  </table>
+
+  <!-- 2 THREE FAMILIES -->
+  <div class="sec-head"><span class="sec-num">2</span><h2>The three regular families (present tense)</h2></div>
+  <p class="lead">Most verbs belong to one of three groups, named after the last two letters of the infinitive. Drop that ending, then add the family's endings.</p>
+  <div class="grid3">
+    <div class="card e1">
+      <span class="tag">Group 1 · -er</span>
+      <h3>parler</h3><div class="model">to speak · drop -er → parl-</div>
+      <div class="erow"><span class="p">je</span><span class="v">parl<u>e</u></span></div>
+      <div class="erow"><span class="p">tu</span><span class="v">parl<u>es</u></span></div>
+      <div class="erow"><span class="p">il/elle/on</span><span class="v">parl<u>e</u></span></div>
+      <div class="erow"><span class="p">nous</span><span class="v">parl<u>ons</u></span></div>
+      <div class="erow"><span class="p">vous</span><span class="v">parl<u>ez</u></span></div>
+      <div class="erow"><span class="p">ils/elles</span><span class="v">parl<u>ent</u></span></div>
+    </div>
+    <div class="card e2">
+      <span class="tag">Group 2 · -ir</span>
+      <h3>finir</h3><div class="model">to finish · drop -ir → fin-</div>
+      <div class="erow"><span class="p">je</span><span class="v">fin<u>is</u></span></div>
+      <div class="erow"><span class="p">tu</span><span class="v">fin<u>is</u></span></div>
+      <div class="erow"><span class="p">il/elle/on</span><span class="v">fin<u>it</u></span></div>
+      <div class="erow"><span class="p">nous</span><span class="v">fin<u>issons</u></span></div>
+      <div class="erow"><span class="p">vous</span><span class="v">fin<u>issez</u></span></div>
+      <div class="erow"><span class="p">ils/elles</span><span class="v">fin<u>issent</u></span></div>
+    </div>
+    <div class="card e3">
+      <span class="tag">Group 3 · -re</span>
+      <h3>vendre</h3><div class="model">to sell · drop -re → vend-</div>
+      <div class="erow"><span class="p">je</span><span class="v">vend<u>s</u></span></div>
+      <div class="erow"><span class="p">tu</span><span class="v">vend<u>s</u></span></div>
+      <div class="erow"><span class="p">il/elle/on</span><span class="v">vend<u>—</u></span></div>
+      <div class="erow"><span class="p">nous</span><span class="v">vend<u>ons</u></span></div>
+      <div class="erow"><span class="p">vous</span><span class="v">vend<u>ez</u></span></div>
+      <div class="erow"><span class="p">ils/elles</span><span class="v">vend<u>ent</u></span></div>
+    </div>
+  </div>
+  <div class="warn"><h4>Quick read</h4><p>The endings are the colored part. Note <b>-er</b> and <b>-re</b> share <span class="chip">-ons / -ez / -ent</span>; the big giveaway of a <b>-ir</b> verb is the <span class="chip">-iss-</span> in the plural.</p></div>
+
+  <!-- 3 MUST-KNOW IRREGULARS -->
+  <div class="sec-head"><span class="sec-num">3</span><h2>Four verbs to know cold (present)</h2></div>
+  <p class="lead">These are irregular and incredibly frequent — être and avoir are also the engines for the past tense, so memorise them first.</p>
+  <table class="t">
+    <thead><tr><th>Pronoun</th><th>être <span style="font-weight:400;text-transform:none;letter-spacing:0;">(to be)</span></th><th>avoir <span style="font-weight:400;text-transform:none;letter-spacing:0;">(to have)</span></th><th>aller <span style="font-weight:400;text-transform:none;letter-spacing:0;">(to go)</span></th><th>faire <span style="font-weight:400;text-transform:none;letter-spacing:0;">(to do)</span></th></tr></thead>
+    <tbody>
+      <tr><td class="pron">je / j'</td><td class="c1">suis</td><td class="c1">ai</td><td class="c1">vais</td><td class="c1">fais</td></tr>
+      <tr><td class="pron">tu</td><td class="c1">es</td><td class="c1">as</td><td class="c1">vas</td><td class="c1">fais</td></tr>
+      <tr><td class="pron">il/elle/on</td><td class="c1">est</td><td class="c1">a</td><td class="c1">va</td><td class="c1">fait</td></tr>
+      <tr><td class="pron">nous</td><td class="c1">sommes</td><td class="c1">avons</td><td class="c1">allons</td><td class="c1">faisons</td></tr>
+      <tr><td class="pron">vous</td><td class="c1">êtes</td><td class="c1">avez</td><td class="c1">allez</td><td class="c1">faites</td></tr>
+      <tr><td class="pron">ils/elles</td><td class="c1">sont</td><td class="c1">ont</td><td class="c1">vont</td><td class="c1">font</td></tr>
+    </tbody>
+  </table>
+
+  <!-- 4 OTHER TENSES -->
+  <div class="sec-head"><span class="sec-num">4</span><h2>Three recipes for other times</h2></div>
+  <p class="lead">Once you have the present, three formulas unlock the past, the ongoing past, and the future.</p>
+  <div class="recipe">
+    <div class="rcard">
+      <h4>Passé composé <span class="when">— a completed past action ("I spoke / I have spoken")</span></h4>
+      <div class="formula"><span class="hl">avoir</span> or <span class="hl">être</span> (present) &nbsp;+&nbsp; past participle &nbsp;&nbsp;|&nbsp;&nbsp; -er→<span class="hl">é</span> · -ir→<span class="hl">i</span> · -re→<span class="hl">u</span></div>
+      <div class="ex"><span class="v">j'ai parlé</span> · <span class="v">j'ai fini</span> · <span class="v">j'ai vendu</span> &nbsp;<em>— most verbs use avoir</em></div>
+      <div class="ex" style="margin-top:6px;"><span class="v">je suis allé(e)</span> &nbsp;<em>— verbs of movement/state use être, and the participle agrees</em></div>
+    </div>
+    <div class="rcard">
+      <h4>Imparfait <span class="when">— a background or habitual past ("I was speaking / I used to speak")</span></h4>
+      <div class="formula">take the <span class="hl">nous</span> form, drop <span class="hl">-ons</span>, add &nbsp; -ais · -ais · -ait · -ions · -iez · -aient</div>
+      <div class="ex">parlons → parl- → <span class="v">je parlais</span>, <span class="v">nous parlions</span> &nbsp;<em>(only être is irregular: j'étais)</em></div>
+    </div>
+    <div class="rcard">
+      <h4>Futur simple <span class="when">— a future action ("I will speak")</span></h4>
+      <div class="formula">whole <span class="hl">infinitive</span> (-re drops its e) &nbsp;+&nbsp; -ai · -as · -a · -ons · -ez · -ont</div>
+      <div class="ex">parler → <span class="v">je parlerai</span> · vendre → <span class="v">je vendrai</span> &nbsp;<em>(irregular stems: être→ser-, avoir→aur-, aller→ir-, faire→fer-)</em></div>
+    </div>
+  </div>
+
+  <!-- 5 EXPLORER -->
+  <div class="sec-head"><span class="sec-num">5</span><h2>Conjugation explorer</h2></div>
+  <p class="lead">Pick a verb and a tense to see all six forms. The ending is highlighted so you can see the pattern.</p>
+  <div class="explorer">
+    <div class="q-eyebrow">Choose and compare</div>
+    <div class="picker">
+      <div class="plabel">Verb</div>
+      <div class="chips" id="verbChips"></div>
+    </div>
+    <div class="picker">
+      <div class="plabel">Tense</div>
+      <div class="chips" id="tenseChips"></div>
+    </div>
+    <div class="result">
+      <div class="rtitle" id="rtitle">parler</div>
+      <div class="rgloss" id="rgloss">to speak · présent</div>
+      <table class="ctable"><tbody id="ctbody"></tbody></table>
+      <div class="rrecipe" id="rrecipe"></div>
+    </div>
+  </div>
+
+  <!-- 6 MEMORY -->
+  <div class="sec-head"><span class="sec-num">6</span><h2>How to remember it easily</h2></div>
+  <div class="tips">
+    <div class="tip"><div class="n">1</div><div><h4>Master être and avoir before anything else</h4><p>They are the two most common verbs <b>and</b> the helpers that build the past tense. Everything leans on them.</p></div></div>
+    <div class="tip"><div class="n">2</div><div><h4>Learn endings as a chant</h4><p>Say the six endings out loud in order: <b>-e, -es, -e, -ons, -ez, -ent</b>. Rhythm fixes them faster than reading.</p></div></div>
+    <div class="tip"><div class="n">3</div><div><h4>One model verb per family</h4><p>Know <b>parler, finir, vendre</b> cold. Any regular verb in that family copies the same pattern — just swap the stem.</p></div></div>
+    <div class="tip"><div class="n">4</div><div><h4>Tenses are recipes, not new lists</h4><p>Imparfait and futur reuse forms you already have (the nous-stem, the infinitive). Learn the formula once, apply everywhere.</p></div></div>
+    <div class="tip"><div class="n">5</div><div><h4>Conjugate in real sentences</h4><p>Don't drill in a vacuum — say <em>"hier j'ai mangé, demain je mangerai"</em>. Tying tense to time-words makes it stick.</p></div></div>
+  </div>
+
+  <footer>A reference for learners · conjugate a little every day. Bon courage !</footer>
+</div>
+
+<script>
+const verbs = {
+  parler:{inf:'parler',group:'-er',en:'to speak',aux:'avoir',pp:'parlé'},
+  finir:{inf:'finir',group:'-ir',en:'to finish',aux:'avoir',pp:'fini'},
+  vendre:{inf:'vendre',group:'-re',en:'to sell',aux:'avoir',pp:'vendu'},
+  etre:{inf:'être',group:'irregular',en:'to be',aux:'avoir',pp:'été',
+    present:['suis','es','est','sommes','êtes','sont'],
+    imparfait:['étais','étais','était','étions','étiez','étaient'],
+    futur:['serai','seras','sera','serons','serez','seront']},
+  avoir:{inf:'avoir',group:'irregular',en:'to have',aux:'avoir',pp:'eu',
+    present:['ai','as','a','avons','avez','ont'],
+    imparfait:['avais','avais','avait','avions','aviez','avaient'],
+    futur:['aurai','auras','aura','aurons','aurez','auront']},
+  aller:{inf:'aller',group:'irregular',en:'to go',aux:'être',pp:'allé',
+    present:['vais','vas','va','allons','allez','vont'],
+    imparfait:['allais','allais','allait','allions','alliez','allaient'],
+    futur:['irai','iras','ira','irons','irez','iront']},
+  faire:{inf:'faire',group:'irregular',en:'to do / make',aux:'avoir',pp:'fait',
+    present:['fais','fais','fait','faisons','faites','font'],
+    imparfait:['faisais','faisais','faisait','faisions','faisiez','faisaient'],
+    futur:['ferai','feras','fera','ferons','ferez','feront']}
+};
+const PRON=['je','tu','il/elle/on','nous','vous','ils/elles'];
+const isVowel=c=>'aeiouyàâäéèêëîïôöûh'.includes((c||'').toLowerCase());
+const END={'-er':['e','es','e','ons','ez','ent'],'-ir':['is','is','it','issons','issez','issent'],'-re':['s','s','','ons','ez','ent']};
+const IMP=['ais','ais','ait','ions','iez','aient'];
+const FUT=['ai','as','a','ons','ez','ont'];
+const root=v=>v.inf.slice(0,-2);
+
+// returns array of {pron, stem, end} so we can colour the ending
+function conjugate(v,tense){
+  if(tense==='PRÉSENT'){
+    if(v.group==='irregular') return v.present.map((f,i)=>({pron:PRON[i],full:f}));
+    const r=root(v); return END[v.group].map((e,i)=>({pron:PRON[i],stem:r,end:e}));
+  }
+  if(tense==='IMPARFAIT'){
+    if(v.group==='irregular') return v.imparfait.map((f,i)=>({pron:PRON[i],full:f}));
+    const r=root(v); const stem=v.group==='-ir'?r+'iss':r;
+    return IMP.map((e,i)=>({pron:PRON[i],stem:stem,end:e}));
+  }
+  if(tense==='FUTUR'){
+    if(v.group==='irregular') return v.futur.map((f,i)=>({pron:PRON[i],full:f}));
+    const stem=v.group==='-re'?v.inf.slice(0,-1):v.inf;
+    return FUT.map((e,i)=>({pron:PRON[i],stem:stem,end:e}));
+  }
+  if(tense==='PASSÉ COMPOSÉ'){
+    if(v.aux==='être'){
+      const aux=['suis','es','est','sommes','êtes','sont'];
+      const agr=['(e)','(e)','(e)','(e)s','(e)(s)','(e)s'];
+      return aux.map((a,i)=>({pron:(i===0?'je':PRON[i]),full:a+' ',pp:v.pp+agr[i]}));
+    } else {
+      const aux=['ai','as','a','avons','avez','ont'];
+      return aux.map((a,i)=>({pron:PRON[i],full:a+' ',pp:v.pp,elide:i===0}));
+    }
+  }
+}
+
+const TENSES=['PRÉSENT','PASSÉ COMPOSÉ','IMPARFAIT','FUTUR'];
+const RECIPE={
+  'PRÉSENT':'Drop the infinitive ending and add the family endings (irregulars are memorised).',
+  'PASSÉ COMPOSÉ':'avoir/être (present) + past participle.',
+  'IMPARFAIT':'nous-stem (drop -ons) + -ais, -ais, -ait, -ions, -iez, -aient.',
+  'FUTUR':'infinitive + -ai, -as, -a, -ons, -ez, -ont.'
+};
+let curVerb='parler', curTense='PRÉSENT';
+
+function fmtPron(pron, firstForm){
+  // elide je -> j' if the following starts with a vowel
+  if(pron==='je' && isVowel((firstForm||'')[0])) return "j'";
+  return pron;
+}
+function render(){
+  const v=verbs[curVerb];
+  document.getElementById('rtitle').textContent=v.inf;
+  document.getElementById('rgloss').textContent=v.en+' · '+curTense.toLowerCase();
+  const rows=conjugate(v,curTense);
+  const tb=document.getElementById('ctbody'); tb.innerHTML='';
+  rows.forEach(r=>{
+    let pronText, formHtml;
+    if(r.pp!==undefined){
+      pronText=(r.elide?"j'":r.pron);
+      const auxSep=(pronText.endsWith("'"))?'':' ';
+      formHtml='<span class="stem">'+pronText+auxSep+r.full.trim()+' </span><span class="e">'+r.pp+'</span>';
+    } else if(r.full!==undefined){
+      pronText=fmtPron(r.pron,r.full);
+      const s=(pronText.endsWith("'"))?'':' ';
+      formHtml='<span class="stem">'+pronText+s+'</span><span class="e">'+r.full+'</span>';
+    } else {
+      pronText=fmtPron(r.pron,r.stem);
+      const s=(pronText.endsWith("'"))?'':' ';
+      formHtml='<span class="stem">'+pronText+s+r.stem+'</span><span class="e">'+r.end+'</span>';
+    }
+    tb.insertAdjacentHTML('beforeend','<tr><td class="pr">'+r.pron+'</td><td class="cf">'+formHtml+'</td></tr>');
+  });
+  document.getElementById('rrecipe').innerHTML='<b>Recipe:</b> '+RECIPE[curTense];
+}
+
+function buildChips(){
+  const vc=document.getElementById('verbChips');
+  Object.keys(verbs).forEach(k=>{
+    const b=document.createElement('button');
+    b.textContent=verbs[k].inf+(verbs[k].group!=='irregular'?' ('+verbs[k].group+')':' ·irr');
+    b.onclick=()=>{curVerb=k;updateActive();render();};
+    b.dataset.k=k; vc.appendChild(b);
+  });
+  const tc=document.getElementById('tenseChips');
+  TENSES.forEach(t=>{
+    const b=document.createElement('button');
+    b.textContent=t.charAt(0)+t.slice(1).toLowerCase();
+    b.onclick=()=>{curTense=t;updateActive();render();};
+    b.dataset.t=t; tc.appendChild(b);
+  });
+}
+function updateActive(){
+  document.querySelectorAll('#verbChips button').forEach(b=>b.classList.toggle('active',b.dataset.k===curVerb));
+  document.querySelectorAll('#tenseChips button').forEach(b=>b.classList.toggle('active',b.dataset.t===curTense));
+}
+buildChips(); updateActive(); render();
+</script>
+</body>
+</html>

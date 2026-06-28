@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>French Calendar — Days, Months, Dates, Seasons</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Karla:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F4EF; --ink:#23262B; --ink-soft:#5C636E; --line:#E0DBD1;
+    --blue:#2C5C86; --blue-bg:#E6EEF6; --blue-edge:#B9D0E5;
+    --rose:#A8425A; --rose-bg:#F7E6EA;
+    --gold:#B68A35;
+    /* seasons */
+    --spring:#3E7A5E; --spring-bg:#E4F0EA; --spring-edge:#BFDCCC;
+    --summer:#C58A2E; --summer-bg:#F7EEDD; --summer-edge:#E7D2A6;
+    --autumn:#B5562B; --autumn-bg:#F6E5DA; --autumn-edge:#E6C3AC;
+    --winter:#3E6E94; --winter-bg:#E4EDF4; --winter-edge:#BBD3E6;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Karla',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.55;padding:clamp(20px,5vw,64px) clamp(16px,5vw,48px);-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:980px;margin:0 auto;}
+
+  header{text-align:center;padding-bottom:36px;border-bottom:1px solid var(--line);margin-bottom:48px;}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:18px;}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(2.4rem,6.5vw,4.2rem);line-height:1.04;letter-spacing:-.5px;color:var(--blue);font-style:italic;}
+  .sub{margin-top:14px;color:var(--ink-soft);font-size:1.02rem;max-width:52ch;margin-left:auto;margin-right:auto;}
+
+  .sec-head{display:flex;align-items:baseline;gap:14px;margin:54px 0 22px;}
+  .sec-num{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--gold);border:1px solid var(--gold);border-radius:50%;width:30px;height:30px;display:flex;align-items:center;justify-content:center;flex:0 0 auto;}
+  .sec-head h2{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(1.6rem,4vw,2.1rem);letter-spacing:-.3px;}
+  .lead{color:var(--ink-soft);font-size:1rem;max-width:64ch;margin:-8px 0 18px;}
+
+  table.t{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;}
+  table.t th,table.t td{padding:12px 16px;text-align:left;border-bottom:1px solid var(--line);font-size:1rem;}
+  table.t thead th{font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);font-weight:500;background:var(--paper);}
+  table.t tr:last-child td{border-bottom:none;}
+  .fr{color:var(--blue);font-weight:700;font-size:1.05rem;}
+  .en{color:var(--ink);}
+  .why{color:var(--ink-soft);font-size:.9rem;}
+  .pron{font-family:'JetBrains Mono',monospace;font-size:.86rem;color:var(--ink-soft);}
+
+  /* months grid */
+  .mgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+  .mcell{background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px 14px;}
+  .mcell .num{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--gold);}
+  .mcell .mfr{color:var(--blue);font-weight:700;font-size:1.1rem;}
+  .mcell .men{color:var(--ink-soft);font-size:.85rem;}
+
+  /* seasons */
+  .sgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+  .scard{border-radius:14px;padding:20px 18px;border:1px solid;}
+  .scard.sp{background:var(--spring-bg);border-color:var(--spring-edge);}
+  .scard.su{background:var(--summer-bg);border-color:var(--summer-edge);}
+  .scard.au{background:var(--autumn-bg);border-color:var(--autumn-edge);}
+  .scard.wi{background:var(--winter-bg);border-color:var(--winter-edge);}
+  .scard h3{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.55rem;}
+  .scard.sp h3{color:var(--spring);} .scard.su h3{color:var(--summer);} .scard.au h3{color:var(--autumn);} .scard.wi h3{color:var(--winter);}
+  .scard .seng{color:var(--ink-soft);font-size:.9rem;margin:2px 0 12px;}
+  .scard .prep{font-family:'JetBrains Mono',monospace;font-size:.84rem;background:rgba(255,255,255,.7);border-radius:7px;padding:7px 10px;display:inline-block;}
+  .scard .prep b{color:var(--ink);}
+
+  /* numbers grid */
+  .ngrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+  .ncell{background:#fff;border:1px solid var(--line);border-radius:8px;padding:9px 11px;display:flex;align-items:baseline;gap:9px;}
+  .ncell .nn{font-family:'JetBrains Mono',monospace;color:var(--gold);font-size:.82rem;flex:0 0 22px;}
+  .ncell .nw{font-size:.92rem;}
+  .ncell.first{border-color:var(--rose);background:var(--rose-bg);}
+  .ncell.first .nw{color:var(--rose);font-weight:700;}
+
+  .warn{background:#fff;border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:10px;padding:18px 22px;margin-top:20px;}
+  .warn h4{font-family:'JetBrains Mono',monospace;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;font-weight:500;}
+  .warn p{font-size:.95rem;margin-bottom:7px;} .warn p:last-child{margin-bottom:0;}
+  .chip{font-family:'JetBrains Mono',monospace;font-size:.82rem;padding:2px 7px;border-radius:5px;background:#EDEAE2;color:var(--ink);}
+  .chip.b{background:var(--blue-bg);color:var(--blue);} .chip.r{background:var(--rose-bg);color:var(--rose);}
+
+  .tips{display:flex;flex-direction:column;gap:14px;}
+  .tip{display:flex;gap:16px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;}
+  .tip .n{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;color:var(--gold);line-height:1;flex:0 0 auto;width:34px;}
+  .tip h4{font-size:1.02rem;margin-bottom:3px;}
+  .tip p{font-size:.95rem;color:var(--ink-soft);} .tip p b{color:var(--blue);}
+
+  /* interactive: today + builder */
+  .panel{background:#23262B;color:#F6F4EF;border-radius:16px;padding:clamp(22px,4vw,34px);}
+  .today{text-align:center;border-bottom:1px solid #33373E;padding-bottom:26px;margin-bottom:26px;}
+  .today .lbl{font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.26em;text-transform:uppercase;color:#9AA3AE;margin-bottom:10px;}
+  .today .big{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(1.9rem,6vw,3rem);line-height:1.1;}
+  .today .big .accent{color:var(--gold);}
+  .today .say{font-size:.92rem;color:#9AA3AE;margin-top:10px;}
+
+  .builder .blbl{font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:#9AA3AE;margin:0 0 8px;}
+  .row{margin-bottom:16px;}
+  .chips{display:flex;flex-wrap:wrap;gap:7px;}
+  .chips button{font-family:'Karla',sans-serif;font-weight:500;font-size:.86rem;border:1px solid #3A3F46;background:transparent;color:#D6D9DD;border-radius:8px;padding:7px 12px;cursor:pointer;transition:all .12s ease;}
+  .chips button:hover{border-color:#6b7480;}
+  .chips button.active{background:var(--gold);border-color:var(--gold);color:#23262B;font-weight:700;}
+  .chips button:focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
+  .daypick{display:flex;align-items:center;gap:14px;}
+  .daypick input[type=range]{flex:1;accent-color:var(--gold);}
+  .daypick .dval{font-family:'JetBrains Mono',monospace;font-size:1.1rem;color:var(--gold);width:34px;text-align:right;}
+  .out{margin-top:22px;background:#1B1E22;border-radius:12px;padding:20px 22px;}
+  .out .ofr{font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,5vw,2.2rem);font-style:italic;}
+  .out .ofr .accent{color:var(--gold);}
+  .out .osay{font-size:.9rem;color:#9AA3AE;margin-top:8px;}
+  .out .osent{font-size:.95rem;color:#D6D9DD;margin-top:12px;border-top:1px solid #2B2F35;padding-top:12px;}
+  .out .osent em{color:#9AA3AE;font-style:italic;}
+
+  footer{text-align:center;margin-top:56px;padding-top:24px;border-top:1px solid var(--line);font-size:.86rem;color:var(--ink-soft);}
+
+  @media(max-width:680px){.mgrid,.sgrid{grid-template-columns:repeat(2,1fr);}.ngrid{grid-template-columns:repeat(2,1fr);}}
+  @media(prefers-reduced-motion:reduce){*{transition:none!important;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">French Grammar · Le calendrier</div>
+    <h1>Jours, mois, dates &amp; saisons</h1>
+    <p class="sub">Everything you need to talk about time in French — the days, the months, how to write a date, and the four seasons. Note: French never capitalizes days or months.</p>
+  </header>
+
+  <!-- 1 DAYS -->
+  <div class="sec-head"><span class="sec-num">1</span><h2>The days of the week — les jours</h2></div>
+  <p class="lead">The French week starts on Monday. All days are masculine. Use <span class="chip b">le lundi</span> to mean "on Mondays" (every Monday), and just <span class="chip">lundi</span> for "on Monday" (this one).</p>
+  <table class="t">
+    <thead><tr><th>French</th><th>Sounds like</th><th>English</th></tr></thead>
+    <tbody>
+      <tr><td class="fr">lundi</td><td class="pron">lun-DEE</td><td class="en">Monday</td></tr>
+      <tr><td class="fr">mardi</td><td class="pron">mar-DEE</td><td class="en">Tuesday</td></tr>
+      <tr><td class="fr">mercredi</td><td class="pron">mair-kruh-DEE</td><td class="en">Wednesday</td></tr>
+      <tr><td class="fr">jeudi</td><td class="pron">zhuh-DEE</td><td class="en">Thursday</td></tr>
+      <tr><td class="fr">vendredi</td><td class="pron">vahn-druh-DEE</td><td class="en">Friday</td></tr>
+      <tr><td class="fr">samedi</td><td class="pron">sahm-DEE</td><td class="en">Saturday</td></tr>
+      <tr><td class="fr">dimanche</td><td class="pron">dee-MAHNSH</td><td class="en">Sunday</td></tr>
+    </tbody>
+  </table>
+  <div class="warn"><h4>Memory hook</h4><p>Five days end in <b>-di</b> (from Latin <em>dies</em>, "day") and hide a planet: <b>mar</b>di = Mars, <b>mercre</b>di = Mercury, <b>jeu</b>di = Jupiter, <b>vendre</b>di = Venus. <b>Dimanche</b> ("Lord's day") is the odd one out.</p></div>
+
+  <!-- 2 MONTHS -->
+  <div class="sec-head"><span class="sec-num">2</span><h2>The months of the year — les mois</h2></div>
+  <p class="lead">Almost all look like their English cousins, so these come quickly. To say "in [month]", use <span class="chip b">en</span>: <em>en janvier, en août</em>.</p>
+  <div class="mgrid">
+    <div class="mcell"><div class="num">01</div><div class="mfr">janvier</div><div class="men">January</div></div>
+    <div class="mcell"><div class="num">02</div><div class="mfr">février</div><div class="men">February</div></div>
+    <div class="mcell"><div class="num">03</div><div class="mfr">mars</div><div class="men">March</div></div>
+    <div class="mcell"><div class="num">04</div><div class="mfr">avril</div><div class="men">April</div></div>
+    <div class="mcell"><div class="num">05</div><div class="mfr">mai</div><div class="men">May</div></div>
+    <div class="mcell"><div class="num">06</div><div class="mfr">juin</div><div class="men">June</div></div>
+    <div class="mcell"><div class="num">07</div><div class="mfr">juillet</div><div class="men">July</div></div>
+    <div class="mcell"><div class="num">08</div><div class="mfr">août</div><div class="men">August</div></div>
+    <div class="mcell"><div class="num">09</div><div class="mfr">septembre</div><div class="men">September</div></div>
+    <div class="mcell"><div class="num">10</div><div class="mfr">octobre</div><div class="men">October</div></div>
+    <div class="mcell"><div class="num">11</div><div class="mfr">novembre</div><div class="men">November</div></div>
+    <div class="mcell"><div class="num">12</div><div class="mfr">décembre</div><div class="men">December</div></div>
+  </div>
+  <div class="warn"><h4>Watch these</h4><p><b>juin</b> (June, "zhwan") vs <b>juillet</b> (July, "zhwee-yay") are easy to mix up. <b>août</b> is pronounced "oot" (the first letters are nearly silent). Don't forget the accents: f<b>é</b>vrier, d<b>é</b>cembre.</p></div>
+
+  <!-- 3 SEASONS -->
+  <div class="sec-head"><span class="sec-num">3</span><h2>The four seasons — les saisons</h2></div>
+  <p class="lead">All four seasons are masculine. The preposition for "in" is <span class="chip b">en</span> — except spring, which uniquely takes <span class="chip r">au</span>.</p>
+  <div class="sgrid">
+    <div class="scard sp"><h3>le printemps</h3><div class="seng">spring</div><div class="prep"><b>au</b> printemps</div></div>
+    <div class="scard su"><h3>l'été</h3><div class="seng">summer</div><div class="prep"><b>en</b> été</div></div>
+    <div class="scard au"><h3>l'automne</h3><div class="seng">autumn / fall</div><div class="prep"><b>en</b> automne</div></div>
+    <div class="scard wi"><h3>l'hiver</h3><div class="seng">winter</div><div class="prep"><b>en</b> hiver</div></div>
+  </div>
+  <div class="warn"><h4>The one trap</h4><p>Three seasons use <b>en</b>, but spring is the exception: <span class="chip r">au printemps</span>, never "en printemps". Remember: spring stands alone.</p></div>
+
+  <!-- 4 NUMBERS -->
+  <div class="sec-head"><span class="sec-num">4</span><h2>Numbers for dates — 1 to 31</h2></div>
+  <p class="lead">You need these to say a date. For dates, only the <b>1st</b> uses a special word — <span class="chip r">le premier</span>. Every other day is just the plain number.</p>
+  <div class="ngrid" id="ngrid"></div>
+
+  <!-- 5 WRITING THE DATE -->
+  <div class="sec-head"><span class="sec-num">5</span><h2>Writing &amp; saying the date</h2></div>
+  <p class="lead">The pattern is <b>le + number + month (+ year)</b> — day number first, then the month, the opposite habit can trip up English speakers writing 14 juillet, not "juillet 14".</p>
+  <div class="panel">
+    <div class="today">
+      <div class="lbl">Aujourd'hui — today</div>
+      <div class="big" id="todayBig">…</div>
+      <div class="say" id="todaySay">&nbsp;</div>
+    </div>
+    <div class="builder">
+      <div class="row">
+        <div class="blbl">Weekday (optional)</div>
+        <div class="chips" id="wdChips"></div>
+      </div>
+      <div class="row">
+        <div class="blbl">Month</div>
+        <div class="chips" id="moChips"></div>
+      </div>
+      <div class="row">
+        <div class="blbl">Day of month</div>
+        <div class="daypick"><input type="range" id="dayRange" min="1" max="31" value="14"><span class="dval" id="dayVal">14</span></div>
+      </div>
+      <div class="out">
+        <div class="ofr" id="outFr">le 14 juillet</div>
+        <div class="osay" id="outSay"></div>
+        <div class="osent" id="outSent"></div>
+      </div>
+    </div>
+  </div>
+  <div class="warn"><h4>Key rules</h4>
+    <p>Ask the date: <em>Quelle est la date ?</em> &nbsp;Answer: <em>C'est le 3 mars.</em> / <em>On est le 3 mars.</em></p>
+    <p>The <b>1st</b> only: <span class="chip r">le 1<sup>er</sup> mai</span> (premier). All others are cardinal: <span class="chip b">le 2 mai</span>, <span class="chip b">le 14 juillet</span>.</p>
+    <p>Years are read in full: 2026 = <em>deux mille vingt-six</em>; "in 2026" = <span class="chip b">en 2026</span>.</p>
+  </div>
+
+  <!-- 6 PHRASES -->
+  <div class="sec-head"><span class="sec-num">6</span><h2>Handy time words</h2></div>
+  <table class="t">
+    <thead><tr><th>French</th><th>English</th></tr></thead>
+    <tbody>
+      <tr><td class="fr">hier · aujourd'hui · demain</td><td class="en">yesterday · today · tomorrow</td></tr>
+      <tr><td class="fr">le jour · la semaine</td><td class="en">the day · the week</td></tr>
+      <tr><td class="fr">le mois · l'année</td><td class="en">the month · the year</td></tr>
+      <tr><td class="fr">le week-end</td><td class="en">the weekend</td></tr>
+      <tr><td class="fr">la veille · le lendemain</td><td class="en">the day before · the day after</td></tr>
+      <tr><td class="fr">Quel jour sommes-nous ?</td><td class="en">What day is it?</td></tr>
+      <tr><td class="fr">Mon anniversaire est le…</td><td class="en">My birthday is the…</td></tr>
+    </tbody>
+  </table>
+
+  <!-- 7 MEMORY -->
+  <div class="sec-head"><span class="sec-num">7</span><h2>How to remember it easily</h2></div>
+  <div class="tips">
+    <div class="tip"><div class="n">1</div><div><h4>Never capitalize days or months</h4><p>Unlike English, French writes <b>lundi</b> and <b>janvier</b> in lowercase (unless they start a sentence). This alone fixes a very common mistake.</p></div></div>
+    <div class="tip"><div class="n">2</div><div><h4>Days hide planets</h4><p>mardi–vendredi map to Mars, Mercury, Jupiter, Venus. Linking each day to its planet makes the middle of the week effortless.</p></div></div>
+    <div class="tip"><div class="n">3</div><div><h4>Months are almost free</h4><p>Ten of the twelve are near-identical to English. Just drill the spelling and accents, and the tricky pair <b>juin / juillet</b>.</p></div></div>
+    <div class="tip"><div class="n">4</div><div><h4>"Spring stands alone"</h4><p>For seasons, the rule is <b>en</b> for three and <b>au printemps</b> for one. One exception is easy to hold onto.</p></div></div>
+    <div class="tip"><div class="n">5</div><div><h4>Only the 1st is special</h4><p>For dates, memorise just <b>le premier</b>. Everything else is the plain counting number — no ordinals needed.</p></div></div>
+  </div>
+
+  <footer>A reference for learners · the date builder above updates live. Bonne pratique !</footer>
+</div>
+
+<script>
+const DAYS=['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'];      // JS getDay 0..6
+const MONTHS=['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+const NUM={1:'un',2:'deux',3:'trois',4:'quatre',5:'cinq',6:'six',7:'sept',8:'huit',9:'neuf',10:'dix',11:'onze',12:'douze',13:'treize',14:'quatorze',15:'quinze',16:'seize',17:'dix-sept',18:'dix-huit',19:'dix-neuf',20:'vingt',21:'vingt et un',22:'vingt-deux',23:'vingt-trois',24:'vingt-quatre',25:'vingt-cinq',26:'vingt-six',27:'vingt-sept',28:'vingt-huit',29:'vingt-neuf',30:'trente',31:'trente et un'};
+
+// numbers grid
+const ng=document.getElementById('ngrid');
+for(let i=1;i<=31;i++){
+  const d=document.createElement('div');
+  d.className='ncell'+(i===1?' first':'');
+  d.innerHTML='<span class="nn">'+i+'</span><span class="nw">'+(i===1?'premier (1<sup>er</sup>)':NUM[i])+'</span>';
+  ng.appendChild(d);
+}
+
+// today
+function todayPhrase(){
+  const t=new Date();
+  const wd=DAYS[t.getDay()], d=t.getDate(), m=MONTHS[t.getMonth()], y=t.getFullYear();
+  const num=(d===1)?'1<sup>er</sup>':d;
+  document.getElementById('todayBig').innerHTML=wd+' <span class="accent">'+num+'</span> '+m+' '+y;
+  document.getElementById('todaySay').textContent="C'est "+wd+" — on est le "+(d===1?'premier':NUM[d])+' '+m+'.';
+}
+todayPhrase();
+
+// builder state
+let bWeekday=null, bMonth=6 /*juillet*/, bDay=14;
+
+function buildOut(){
+  const num=(bDay===1)?'1<sup>er</sup>':bDay;
+  const wd = bWeekday!=null ? DAYS[bWeekday]+' ' : '';
+  document.getElementById('outFr').innerHTML='le '+wd+'<span class="accent">'+num+'</span> '+MONTHS[bMonth];
+  const spoken=(bDay===1?'premier':NUM[bDay]);
+  document.getElementById('outSay').textContent='spoken: « le '+(bWeekday!=null?DAYS[bWeekday]+' ':'')+spoken+' '+MONTHS[bMonth]+' »';
+  document.getElementById('outSent').innerHTML='<em>Mon rendez-vous est le '+(bWeekday!=null?DAYS[bWeekday]+' ':'')+num+' '+MONTHS[bMonth]+'.</em>';
+}
+
+// weekday chips
+const wdc=document.getElementById('wdChips');
+const wdNone=document.createElement('button'); wdNone.textContent='— none —'; wdNone.classList.add('active');
+wdNone.onclick=()=>{bWeekday=null;markWd();buildOut();}; wdc.appendChild(wdNone);
+['lundi','mardi','mercredi','jeudi','vendredi','samedi','dimanche'].forEach(name=>{
+  const idx=DAYS.indexOf(name);
+  const b=document.createElement('button'); b.textContent=name; b.dataset.i=idx;
+  b.onclick=()=>{bWeekday=idx;markWd();buildOut();}; wdc.appendChild(b);
+});
+function markWd(){
+  [...wdc.children].forEach(b=>b.classList.remove('active'));
+  if(bWeekday==null) wdNone.classList.add('active');
+  else [...wdc.children].find(b=>b.dataset.i==bWeekday).classList.add('active');
+}
+
+// month chips
+const moc=document.getElementById('moChips');
+MONTHS.forEach((m,i)=>{
+  const b=document.createElement('button'); b.textContent=m; b.dataset.i=i;
+  if(i===bMonth)b.classList.add('active');
+  b.onclick=()=>{bMonth=i;[...moc.children].forEach(x=>x.classList.remove('active'));b.classList.add('active');buildOut();};
+  moc.appendChild(b);
+});
+
+// day range
+const range=document.getElementById('dayRange'), dval=document.getElementById('dayVal');
+range.addEventListener('input',()=>{bDay=+range.value;dval.textContent=bDay;buildOut();});
+
+buildOut();
+</script>
+</body>
+</html>

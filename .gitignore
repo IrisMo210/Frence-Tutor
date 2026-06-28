@@ -1,0 +1,7 @@
+# Keep the tutor repo small & portable — exclude big/binary source materials
+*.pdf
+*.docx
+*.zip
+files/
+phone-app/
+.preview-server.ps1

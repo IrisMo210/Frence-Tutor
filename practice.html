@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Ma Pratique de Français</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Ma Pratique">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#0055A4">
+<style>
+  :root{--blue:#0055A4;--red:#EF4135;--ink:#1c2330;--soft:#f4f6fb;--line:#e4e8f0;--good:#1a9e54;--bad:#e0413a;--m:#1565c0;--f:#c2185b;}
+  *{box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+  body{margin:0;background:linear-gradient(160deg,#eef3fb,#f8f5f2);color:var(--ink);min-height:100vh;}
+  header{text-align:center;padding:26px 16px 8px;}
+  header h1{margin:0;font-size:28px;}
+  header h1 .b{color:var(--blue);}header h1 .r{color:var(--red);}
+  header p{margin:6px 0 0;color:#5a6473;font-size:14px;}
+  .stats{display:flex;gap:10px;justify-content:center;margin:14px 0;flex-wrap:wrap;}
+  .stat{background:#fff;border:1px solid var(--line);border-radius:12px;padding:8px 16px;min-width:88px;text-align:center;box-shadow:0 1px 3px rgba(20,40,80,.05);}
+  .stat b{display:block;font-size:22px;color:var(--blue);}
+  .stat span{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:#8a93a3;}
+  .bar{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;align-items:center;margin:-2px 0 4px;}
+  .tabs{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:10px 16px 18px;}
+  .tabs button{border:1px solid var(--line);background:#fff;padding:9px 16px;border-radius:999px;cursor:pointer;font-size:14px;font-weight:600;color:#46505f;}
+  .tabs button.active{background:var(--blue);color:#fff;border-color:var(--blue);}
+  .wrap{max-width:620px;margin:0 auto 50px;padding:0 16px;}
+  .card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px;box-shadow:0 6px 24px rgba(20,40,80,.07);}
+  .panel{display:none;}.panel.active{display:block;}
+  .hint{text-align:center;color:#9aa3b2;font-size:12px;margin:10px 0 0;}
+  .row{display:flex;gap:10px;margin-top:18px;}
+  .row button{flex:1;}
+  button.act{border:none;background:var(--blue);color:#fff;padding:13px;border-radius:12px;font-size:15px;font-weight:600;cursor:pointer;}
+  button.act:hover{filter:brightness(1.07);}
+  button.ghost{background:#fff;color:var(--blue);border:1px solid var(--blue);}
+  button.link{border:none;background:none;color:#8a93a3;font-size:12px;text-decoration:underline;cursor:pointer;padding:4px;}
+  .newword{display:block;width:100%;margin-top:14px;background:#fff7ed;color:#b45309;border:1px dashed #f0b66b;padding:11px;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;}
+  .q{font-size:14px;color:#8a93a3;text-transform:uppercase;letter-spacing:.5px;}
+  .prompt{font-size:24px;font-weight:700;margin:6px 0 18px;line-height:1.3;}
+  .theme{font-size:12px;color:#aab2c0;margin-bottom:4px;}
+  .opts{display:grid;gap:10px;}
+  .opt{border:1px solid var(--line);background:#fff;padding:14px;border-radius:12px;cursor:pointer;font-size:16px;text-align:left;}
+  .opt:hover{border-color:var(--blue);}
+  .opt.good{background:#e7f7ee;border-color:var(--good);color:var(--good);font-weight:600;}
+  .opt.bad{background:#fdeceb;border-color:var(--bad);color:var(--bad);}
+  .genrebtns{display:flex;gap:14px;}
+  .genrebtns button{flex:1;font-size:20px;padding:18px;border-radius:14px;border:2px solid var(--line);background:#fff;cursor:pointer;font-weight:700;}
+  .genrebtns button.un{color:var(--m);} .genrebtns button.une{color:var(--f);}
+  .genrebtns button:hover{border-color:var(--blue);}
+  .feedback{margin-top:16px;text-align:center;font-weight:600;min-height:22px;}
+  .explain{margin-top:16px;text-align:left;background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:14px 16px;font-weight:400;}
+  .explain .ew{font-size:22px;font-weight:700;}
+  .explain .ew .gm{color:var(--m);font-size:15px;} .explain .ew .gf{color:var(--f);font-size:15px;}
+  .explain .ep{color:#7b8492;font-size:14px;margin:2px 0 10px;}
+  .explain .ex{font-size:15px;line-height:1.5;border-top:1px dashed var(--line);padding-top:10px;}
+  .explain .ex i{color:var(--blue);}
+  .pron{margin-top:12px;line-height:1.6;}
+  .pron .pw{font-weight:700;font-size:18px;}
+  .ipa{color:var(--blue);font-weight:600;letter-spacing:.3px;}
+  .pron .phint{color:#8a93a3;font-size:13px;}
+  .num-display{font-size:46px;font-weight:800;text-align:center;color:var(--blue);margin:6px 0 16px;}
+  input.txt{width:100%;padding:13px;border:1px solid var(--line);border-radius:12px;font-size:18px;text-align:center;}
+  .conj-tip{background:var(--soft);border-radius:10px;padding:12px 14px;font-size:14px;color:#46505f;margin-bottom:16px;line-height:1.5;}
+  .done{text-align:center;padding:14px;}.done .big{font-size:40px;}
+  footer{text-align:center;color:#9aa3b2;font-size:12px;padding:0 16px 30px;}
+</style>
+</head>
+<body>
+<header>
+  <h1><span class="b">Ma Pratique</span> de <span class="r">Français</span></h1>
+  <p>Don't know a word? Tap "explain it" for the meaning + an example sentence</p>
+</header>
+
+<div class="stats">
+  <div class="stat"><b id="sStreak">0</b><span>Day streak</span></div>
+  <div class="stat"><b id="sCorrect">0</b><span>Correct</span></div>
+  <div class="stat"><b id="sMaster">0</b><span>Mastered</span></div>
+  <div class="stat"><b id="sDue">0</b><span>Due today</span></div>
+</div>
+
+<div class="bar">
+  <button class="act" style="background:var(--red);max-width:300px;padding:9px 18px;" onclick="exportProgress()">&#8595; Export my progress for the tutor</button>
+  <button class="link" onclick="reviewAllNow()">Review everything again now</button>
+</div>
+<p class="hint">Export &#8594; Copy &#8594; paste it to your tutor in chat (or Download), then say "sync my practice"</p>
+
+<div class="tabs">
+  <button data-p="quiz" class="active">Quiz</button>
+  <button data-p="genre">Genre (un/une)</button>
+  <button data-p="sent">Sentences</button>
+  <button data-p="num">Numbers</button>
+  <button data-p="conj">Conjugation</button>
+</div>
+
+<div class="wrap">
+  <div class="panel active" id="quiz">
+    <div class="card" id="quizCard">
+      <div class="theme" id="qTheme"></div>
+      <div class="q">Type the French (with its article):</div>
+      <div class="prompt" id="qPrompt">&mdash;</div>
+      <input class="txt" id="qIn" placeholder="type the French, e.g. un livre..." autocomplete="off">
+      <button class="newword" id="qNew" onclick="explainQuiz()">&#129300; I don't know this word &mdash; show the answer</button>
+      <div class="feedback" id="qFb"></div>
+      <div class="row">
+        <button class="act" id="qCheck" onclick="checkQuiz()">Check</button>
+        <button class="act ghost" id="qSkip" onclick="newQuiz()">Skip</button>
+      </div>
+      <div class="row"><button class="act" id="qNext" onclick="newQuiz()" style="display:none">Next &#8594;</button></div>
+      <p class="hint">Article + word (e.g. une table). Accents optional; article optional too.</p>
+    </div>
+  </div>
+
+  <div class="panel" id="genre">
+    <div class="card" id="genreCard">
+      <div class="theme" id="gTheme"></div>
+      <div class="q">Masculine or feminine? Choose the article:</div>
+      <div class="prompt" id="gPrompt">&mdash;</div>
+      <div class="genrebtns">
+        <button class="un" onclick="answerGenre('m')">un</button>
+        <button class="une" onclick="answerGenre('f')">une</button>
+      </div>
+      <button class="newword" id="gNew" onclick="explainGenre()">&#129300; I don't know this word &mdash; explain it</button>
+      <div class="feedback" id="gFb"></div>
+      <div class="row"><button class="act" id="gNext" onclick="newGenre()" style="display:none">Next &#8594;</button></div>
+    </div>
+  </div>
+
+  <div class="panel" id="sent">
+    <div class="card" id="sentCard">
+      <div class="q">Translate into French:</div>
+      <div class="prompt" id="sPrompt">&mdash;</div>
+      <input class="txt" id="sIn" placeholder="type the French sentence..." autocomplete="off">
+      <button class="newword" id="sNew" onclick="explainSent()">&#129300; I don't know this &mdash; show the answer</button>
+      <div class="feedback" id="sFb"></div>
+      <div class="row">
+        <button class="act" id="sCheck" onclick="checkSent()">Check</button>
+        <button class="act ghost" id="sSkip" onclick="newSent(true)">Skip</button>
+      </div>
+      <div class="row"><button class="act" id="sNext" onclick="newSent()" style="display:none">Next &#8594;</button></div>
+      <p class="hint">Accents and apostrophes optional &mdash; take your time, then press Next.</p>
+    </div>
+  </div>
+
+  <div class="panel" id="num">
+    <div class="card">
+      <div class="q">Write this number in French (0-1000):</div>
+      <div class="num-display" id="numVal">0</div>
+      <input class="txt" id="numIn" placeholder="e.g. vingt-trois" autocomplete="off">
+      <div class="feedback" id="numFb"></div>
+      <div class="row">
+        <button class="act" onclick="checkNum()">Check</button>
+        <button class="act ghost" onclick="newNum()">New number</button>
+      </div>
+      <p class="hint">71=soixante et onze, 80=quatre-vingts, 90=quatre-vingt-dix, 100=cent, 200=deux cents, 201=deux cent un, 1000=mille</p>
+    </div>
+  </div>
+
+  <div class="panel" id="conj">
+    <div class="card">
+      <div class="conj-tip" id="conjTip"></div>
+      <div class="q">Conjugate:</div>
+      <div class="prompt" id="conjPrompt">&mdash;</div>
+      <input class="txt" id="conjIn" placeholder="type the verb form..." autocomplete="off">
+      <div class="feedback" id="conjFb"></div>
+      <div class="row">
+        <button class="act" onclick="checkConj()">Check</button>
+        <button class="act ghost" onclick="newConj()">Next</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>Progress saved on this device. Mastered items return for review on a spaced schedule. Bonne chance !</footer>
+
+<script>
+/* === VOCAB_START : tutor regenerates on "sync my practice". Row = ["English","francais","pronunciation","Theme","gender(m/f/empty)","exemple FR","example EN"] === */
+const VOCAB=[
+  ["book","livre","LEEVR","Classroom","m","J'ai un livre.","I have a book."],
+  ["notebook","cahier","ka-YAY","Classroom","m","Mon cahier est sur la table.","My notebook is on the table."],
+  ["pen","stylo","stee-LOH","Classroom","m","C'est un stylo bleu.","It's a blue pen."],
+  ["pencil","crayon","kray-ON","Classroom","m","Je dessine avec un crayon.","I draw with a pencil."],
+  ["eraser","gomme","GOM","Classroom","f","Ou est la gomme ?","Where is the eraser?"],
+  ["pencil case","trousse","TROOSS","Classroom","f","Ma trousse est rouge.","My pencil case is red."],
+  ["bag","sac","SAK","Classroom","m","Le sac est lourd.","The bag is heavy."],
+  ["table","table","TAH-bluh","Classroom","f","Le livre est sur la table.","The book is on the table."],
+  ["chair","chaise","SHEZ","Classroom","f","Je suis assise sur une chaise.","I am sitting on a chair."],
+  ["board","tableau","tah-BLOH","Classroom","m","Le professeur ecrit au tableau.","The teacher writes on the board."],
+  ["window","fenetre","fuh-NEH-truh","Classroom","f","Ouvre la fenetre, s'il te plait.","Open the window, please."],
+  ["door","porte","PORT","Classroom","f","Ferme la porte.","Close the door."],
+  ["computer","ordinateur","or-dee-na-TUR","Classroom","m","Je travaille sur mon ordinateur.","I work on my computer."],
+  ["dictionary","dictionnaire","deek-see-oh-NAIR","Classroom","m","Je cherche le mot dans le dictionnaire.","I look up the word in the dictionary."],
+  ["first name","prenom","pray-NOM","Introductions","m","Mon prenom est Iris.","My first name is Iris."],
+  ["surname","nom","NOM","Introductions","m","Quel est votre nom ?","What is your surname?"],
+  ["age","age","AHZH","Introductions","m","Quel age as-tu ?","How old are you?"],
+  ["question","question","kes-tee-ON","Introductions","f","J'ai une question.","I have a question."],
+  ["teacher","professeur","proh-feh-SUR","Jobs","m","Elle est professeur de francais.","She is a French teacher."],
+  ["doctor","medecin","mayd-SAN","Jobs","m","Mon pere est medecin.","My father is a doctor."],
+  ["hairdresser","coiffeur","kwah-FUR","Jobs","m","Le coiffeur coupe les cheveux.","The hairdresser cuts hair."],
+  ["student","etudiant","ay-too-dee-AHN","Jobs","m","Je suis etudiant a Paris.","I am a student in Paris."],
+  ["engineer","ingenieur","an-zhay-nee-UR","Jobs","m","Il est ingenieur.","He is an engineer."],
+  ["waiter","serveur","sair-VUR","Jobs","m","Le serveur apporte le cafe.","The waiter brings the coffee."],
+  ["lawyer","avocat","ah-voh-KAH","Jobs","m","Il est avocat.","He is a lawyer."],
+  ["cook","cuisinier","kwee-zee-nee-AY","Jobs","m","Le cuisinier prepare le repas.","The cook prepares the meal."],
+  ["football","football","foot-BOL","Hobbies","m","Je joue au football.","I play football."],
+  ["guitar","guitare","ghee-TAR","Hobbies","f","Je joue de la guitare.","I play the guitar."],
+  ["music","musique","moo-ZEEK","Hobbies","f","J'aime la musique.","I like music."],
+  ["cinema","cinema","see-nay-MAH","Hobbies","m","Nous allons au cinema.","We are going to the cinema."],
+  ["dance","danse","DAHNSS","Hobbies","f","La danse est mon loisir prefere.","Dance is my favorite hobby."],
+  ["sport","sport","SPOR","Hobbies","m","Le sport est bon pour la sante.","Sport is good for your health."],
+  ["reading","lecture","lek-TOOR","Hobbies","f","La lecture est ma passion.","Reading is my passion."],
+  ["television","television","tay-lay-vee-zee-ON","Hobbies","f","Je regarde la television le soir.","I watch television in the evening."],
+  ["father","pere","PAIR","Family","m","Mon pere travaille beaucoup.","My father works a lot."],
+  ["mother","mere","MAIR","Family","f","Ma mere cuisine bien.","My mother cooks well."],
+  ["brother","frere","FRAIR","Family","m","J'ai un grand frere.","I have an older brother."],
+  ["sister","soeur","SUR","Family","f","Ma soeur est jeune.","My sister is young."],
+  ["son","fils","FEESS","Family","m","Leur fils a dix ans.","Their son is ten years old."],
+  ["daughter/girl","fille","FEEY","Family","f","Sa fille est etudiante.","Her daughter is a student."],
+  ["grandfather","grand-pere","grahn-PAIR","Family","m","Mon grand-pere a quatre-vingts ans.","My grandfather is eighty."],
+  ["grandmother","grand-mere","grahn-MAIR","Family","f","Ma grand-mere habite a Lyon.","My grandmother lives in Lyon."],
+  ["uncle","oncle","ON-kluh","Family","m","Mon oncle est sympathique.","My uncle is nice."],
+  ["aunt","tante","TAHNT","Family","f","Ma tante habite a Paris.","My aunt lives in Paris."],
+  ["male cousin","cousin","koo-ZAN","Family","m","Mon cousin joue au football.","My cousin plays football."],
+  ["female cousin","cousine","koo-ZEEN","Family","f","Ma cousine aime la danse.","My cousin likes dancing."],
+  ["husband","mari","ma-REE","Family","m","Son mari est medecin.","Her husband is a doctor."],
+  ["wife/woman","femme","FAM","Family","f","Sa femme est professeure.","His wife is a teacher."],
+  ["coffee","cafe","ka-FAY","Cafe","m","Je voudrais un cafe, s'il vous plait.","I would like a coffee, please."],
+  ["tea","the","TAY","Cafe","m","Elle boit un the.","She drinks a tea."],
+  ["beer","biere","bee-AIR","Cafe","f","Une biere, s'il vous plait.","A beer, please."],
+  ["orange juice","jus d'orange","zhoo do-RAHNZH","Cafe","m","Je prends un jus d'orange.","I'll have an orange juice."],
+  ["glass","verre","VAIR","Cafe","m","Un verre d'eau, s'il vous plait.","A glass of water, please."],
+  ["cup","tasse","TAHSS","Cafe","f","Une tasse de the.","A cup of tea."],
+  ["croissant","croissant","krwah-SAHN","Cafe","m","Le matin, je mange un croissant.","In the morning, I eat a croissant."],
+  ["the bill","addition","ah-dee-see-ON","Cafe","f","L'addition, s'il vous plait.","The bill, please."],
+  ["water","eau","OH","Cafe","f","Je bois de l'eau.","I drink water."],
+  ["bread","pain","PAN","Food","m","J'achete du pain a la boulangerie.","I buy bread at the bakery."],
+  ["cheese","fromage","froh-MAHZH","Food","m","J'aime le fromage francais.","I like French cheese."],
+  ["meat","viande","vee-AHND","Food","f","Je ne mange pas de viande.","I don't eat meat."],
+  ["fish","poisson","pwah-SON","Food","m","Le poisson est frais.","The fish is fresh."],
+  ["apple","pomme","POM","Food","f","Je mange une pomme.","I eat an apple."],
+  ["rice","riz","REE","Food","m","Je mange du riz.","I eat rice."],
+  ["chicken","poulet","poo-LEH","Food","m","Le poulet est delicieux.","The chicken is delicious."],
+  ["salad","salade","sa-LAHD","Food","f","Je voudrais une salade.","I would like a salad."],
+  ["cake","gateau","gah-TOH","Food","m","C'est un gateau au chocolat.","It's a chocolate cake."],
+  ["sugar","sucre","SOO-kruh","Food","m","Pas de sucre dans mon cafe.","No sugar in my coffee."],
+  ["market","marche","mar-SHAY","Shopping","m","Je vais au marche le samedi.","I go to the market on Saturdays."],
+  ["supermarket","supermarche","soo-pair-mar-SHAY","Shopping","m","Le supermarche est ouvert.","The supermarket is open."],
+  ["bakery","boulangerie","boo-lahn-zhuh-REE","Shopping","f","La boulangerie vend du pain.","The bakery sells bread."],
+  ["shop","magasin","ma-ga-ZAN","Shopping","m","Le magasin est ferme.","The shop is closed."],
+  ["money","argent","ar-ZHAHN","Money","m","Je n'ai pas d'argent.","I don't have money."],
+  ["change (coins)","monnaie","moh-NEH","Money","f","Voici votre monnaie.","Here is your change."],
+  ["card","carte","KART","Money","f","Je paie avec ma carte.","I pay with my card."],
+  ["bus","bus","BOOSS","Transport","m","Je prends le bus.","I take the bus."],
+  ["underground","metro","may-TROH","Transport","m","Le metro est rapide.","The underground is fast."],
+  ["train","train","TRAN","Transport","m","Le train part a midi.","The train leaves at noon."],
+  ["bike","velo","vay-LOH","Transport","m","Je vais a l'ecole a velo.","I go to school by bike."],
+  ["car","voiture","vwah-TOOR","Transport","f","Sa voiture est rouge.","Her car is red."],
+  ["plane","avion","ah-vee-ON","Transport","m","L'avion est rapide.","The plane is fast."],
+  ["station","gare","GAR","Transport","f","La gare est pres d'ici.","The station is near here."],
+  ["stop","arret","ah-REH","Transport","m","L'arret de bus est la-bas.","The bus stop is over there."],
+  ["street","rue","ROO","Directions","f","J'habite dans cette rue.","I live on this street."],
+  ["head","tete","TET","Body","f","J'ai mal a la tete.","I have a headache."],
+  ["stomach","ventre","VAHN-truh","Body","m","J'ai mal au ventre.","I have a stomach ache."],
+  ["hand","main","MAN","Body","f","Leve la main.","Raise your hand."],
+  ["foot","pied","pee-AY","Body","m","J'ai mal au pied.","My foot hurts."],
+  ["arm","bras","BRAH","Body","m","Il a un bras casse.","He has a broken arm."],
+  ["leg","jambe","ZHAHMB","Body","f","Ma jambe est fatiguee.","My leg is tired."],
+  ["back","dos","DOH","Body","m","J'ai mal au dos.","I have a backache."],
+  ["throat","gorge","GORZH","Body","f","J'ai mal a la gorge.","I have a sore throat."],
+  ["tall/big","grand","GRAHN","Adjectives","","Il est tres grand.","He is very tall."],
+  ["small","petit","puh-TEE","Adjectives","","C'est un petit chat.","It's a small cat."],
+  ["young","jeune","ZHUN","Adjectives","","Elle est jeune.","She is young."],
+  ["beautiful","beau","BOH","Adjectives","","C'est un beau jardin.","It's a beautiful garden."],
+  ["tired","fatigue","fah-tee-GAY","Adjectives","","Je suis fatiguee aujourd'hui.","I am tired today."],
+  ["ill","malade","ma-LAHD","Adjectives","","Mon frere est malade.","My brother is ill."],
+  ["expensive","cher","SHAIR","Adjectives","","Ce restaurant est cher.","This restaurant is expensive."],
+  ["black","noir","NWAR","Adjectives","","J'ai un chat noir.","I have a black cat."],
+  ["vegetables","legumes","lay-GOOM","Food","m","Je mange des legumes.","I eat vegetables."],
+  ["ticket","billet","bee-YEH","Transport","m","Je n'ai pas de billet.","I don't have a ticket."],
+  ["France","France","FRAHNSS","Countries","","J'habite en France.","I live in France."],
+  ["United Kingdom","Royaume-Uni","rwah-yohm-oo-NEE","Countries","","Londres est au Royaume-Uni.","London is in the UK."],
+  ["United States","Etats-Unis","ay-tah-zoo-NEE","Countries","","Je vais aux Etats-Unis.","I am going to the United States."],
+  ["Germany","Allemagne","ahl-MAHN-yuh","Countries","","L'Allemagne est en Europe.","Germany is in Europe."],
+  ["Spain","Espagne","es-PAHN-yuh","Countries","","Je voyage en Espagne.","I am traveling to Spain."],
+  ["Italy","Italie","ee-tah-LEE","Countries","","L'Italie est belle.","Italy is beautiful."],
+  ["Japan","Japon","zhah-PON","Countries","","Il habite au Japon.","He lives in Japan."],
+  ["China","Chine","SHEEN","Countries","","La Chine est grande.","China is big."],
+  ["Canada","Canada","kah-nah-DAH","Countries","","Je vais au Canada.","I am going to Canada."],
+  ["French","francais","frahn-SEH","Nationalities","","Il est francais, elle est francaise.","He is French, she is French."],
+  ["English","anglais","ahn-GLEH","Nationalities","","Mon ami est anglais.","My friend is English."],
+  ["American","americain","ah-may-ree-KAN","Nationalities","","Elle est americaine.","She is American."],
+  ["German","allemand","ahl-MAHN","Nationalities","","Il est allemand.","He is German."],
+  ["Spanish","espagnol","es-pah-NYOL","Nationalities","","Le serveur est espagnol.","The waiter is Spanish."],
+  ["Italian","italien","ee-tah-lee-AN","Nationalities","","Il est italien, elle est italienne.","He is Italian, she is Italian."],
+  ["Japanese","japonais","zhah-poh-NEH","Nationalities","","Elle est japonaise.","She is Japanese."],
+  ["Chinese","chinois","shee-NWAH","Nationalities","","Mon collegue est chinois.","My colleague is Chinese."],
+  ["Canadian","canadien","kah-nah-dee-AN","Nationalities","","Il est canadien, elle est canadienne.","He is Canadian, she is Canadian."],
+  ["pleased to meet you","enchante","ahn-shahn-TAY","Introductions","","Enchante de faire votre connaissance.","Pleased to meet you."],
+  ["Monday","lundi","luhn-DEE","Days","","Lundi, je travaille.","On Monday, I work."],
+  ["Tuesday","mardi","mar-DEE","Days","","On est mardi.","It is Tuesday."],
+  ["Wednesday","mercredi","mair-kruh-DEE","Days","","Le mercredi, je fais du sport.","On Wednesdays, I do sport."],
+  ["Thursday","jeudi","zhuh-DEE","Days","","Jeudi prochain.","Next Thursday."],
+  ["Friday","vendredi","vahn-druh-DEE","Days","","Vendredi soir.","Friday evening."],
+  ["Saturday","samedi","sam-DEE","Days","","Samedi, je me repose.","On Saturday, I rest."],
+  ["Sunday","dimanche","dee-MAHNSH","Days","","Le dimanche, je dors.","On Sundays, I sleep."],
+  ["January","janvier","zhahn-vee-AY","Months","","Mon anniversaire est en janvier.","My birthday is in January."],
+  ["February","fevrier","fay-vree-AY","Months","","Il neige en fevrier.","It snows in February."],
+  ["March","mars","MARSS","Months","","Le printemps commence en mars.","Spring begins in March."],
+  ["April","avril","ah-VREEL","Months","","En avril, il pleut.","In April, it rains."],
+  ["May","mai","MEH","Months","","Le premier mai.","The first of May."],
+  ["June","juin","zhwAN","Months","","Les vacances en juin.","Holidays in June."],
+  ["July","juillet","zhwee-YEH","Months","","Le quatorze juillet.","The 14th of July."],
+  ["August","aout","OOT","Months","","En aout, il fait chaud.","In August, it is hot."],
+  ["September","septembre","sep-TAHM-bruh","Months","","L'ecole commence en septembre.","School starts in September."],
+  ["October","octobre","ok-TOH-bruh","Months","","En octobre, les feuilles tombent.","In October, the leaves fall."],
+  ["November","novembre","noh-VAHM-bruh","Months","","Il fait froid en novembre.","It is cold in November."],
+  ["December","decembre","day-SAHM-bruh","Months","","Noel est en decembre.","Christmas is in December."],
+  ["spring","printemps","pran-TAHN","Seasons","","Au printemps, il fait doux.","In spring, it is mild."],
+  ["summer","ete","ay-TAY","Seasons","","En ete, je vais a la plage.","In summer, I go to the beach."],
+  ["autumn","automne","oh-TONN","Seasons","","En automne, il fait frais.","In autumn, it is cool."],
+  ["winter","hiver","ee-VAIR","Seasons","","En hiver, il neige.","In winter, it snows."],
+  ["day","jour","ZHOOR","Time","m","Quel jour sommes-nous ?","What day is it?"],
+  ["week","semaine","suh-MEN","Time","f","Cette semaine, je suis occupee.","This week, I am busy."],
+  ["month","mois","MWAH","Time","m","Le mois prochain.","Next month."],
+  ["year","annee","ah-NAY","Time","f","Bonne annee !","Happy New Year!"],
+  ["weekend","week-end","week-END","Time","m","Bon week-end !","Have a good weekend!"],
+  ["first","premier","pruh-mee-AY","Numbers","","C'est le premier jour.","It is the first day."],
+  ["second (2nd)","deuxieme","duh-zee-EM","Numbers","","Le deuxieme etage.","The second floor."],
+  ["third","troisieme","trwah-zee-EM","Numbers","","La troisieme fois.","The third time."],
+  ["hour / o'clock","heure","UR","Time","f","Il est une heure.","It is one o'clock."],
+  ["minute","minute","mee-NOOT","Time","f","Attends une minute.","Wait a minute."],
+  ["noon","midi","mee-DEE","Time","","Il est midi.","It is noon."],
+  ["midnight","minuit","mee-NWEE","Time","","Il est minuit.","It is midnight."],
+  ["watch","montre","MOHNTR","Time","f","Ma montre est nouvelle.","My watch is new."],
+  ["clock","horloge","or-LOZH","Time","f","L'horloge est au mur.","The clock is on the wall."],
+  ["alarm clock","reveil","ray-VAY","Time","m","Mon reveil sonne a sept heures.","My alarm rings at seven."],
+  ["quarter","quart","KAR","Time","m","Il est trois heures et quart.","It is a quarter past three."],
+  ["half (time)","demie","duh-MEE","Time","f","Il est quatre heures et demie.","It is half past four."]
+];
+/* === VOCAB_END === */
+
+/* === IPA_START : pronunciation in IPA, keyed by the French word (VOCAB column 2, exactly as written there). Tutor adds an entry for each new word on "sync my practice". === */
+const IPA={
+  "livre":"/livʁ/","cahier":"/ka.je/","stylo":"/sti.lo/","crayon":"/kʁɛ.jɔ̃/","gomme":"/ɡɔm/",
+  "trousse":"/tʁus/","sac":"/sak/","table":"/tabl/","chaise":"/ʃɛz/","tableau":"/ta.blo/",
+  "fenetre":"/fə.nɛtʁ/","porte":"/pɔʁt/","ordinateur":"/ɔʁ.di.na.tœʁ/","dictionnaire":"/dik.sjɔ.nɛʁ/",
+  "prenom":"/pʁe.nɔ̃/","nom":"/nɔ̃/","age":"/ɑʒ/","question":"/kɛs.tjɔ̃/",
+  "professeur":"/pʁɔ.fe.sœʁ/","medecin":"/med.sɛ̃/","coiffeur":"/kwa.fœʁ/","etudiant":"/e.ty.djɑ̃/",
+  "ingenieur":"/ɛ̃.ʒe.njœʁ/","serveur":"/sɛʁ.vœʁ/","avocat":"/a.vɔ.ka/","cuisinier":"/kɥi.zi.nje/",
+  "football":"/fut.bol/","guitare":"/ɡi.taʁ/","musique":"/my.zik/","cinema":"/si.ne.ma/",
+  "danse":"/dɑ̃s/","sport":"/spɔʁ/","lecture":"/lɛk.tyʁ/","television":"/te.le.vi.zjɔ̃/",
+  "pere":"/pɛʁ/","mere":"/mɛʁ/","frere":"/fʁɛʁ/","soeur":"/sœʁ/","fils":"/fis/","fille":"/fij/",
+  "grand-pere":"/ɡʁɑ̃.pɛʁ/","grand-mere":"/ɡʁɑ̃.mɛʁ/","oncle":"/ɔ̃kl/","tante":"/tɑ̃t/",
+  "cousin":"/ku.zɛ̃/","cousine":"/ku.zin/","mari":"/ma.ʁi/","femme":"/fam/",
+  "cafe":"/ka.fe/","the":"/te/","biere":"/bjɛʁ/","jus d'orange":"/ʒy dɔ.ʁɑ̃ʒ/","verre":"/vɛʁ/",
+  "tasse":"/tas/","croissant":"/kʁwa.sɑ̃/","addition":"/a.di.sjɔ̃/","eau":"/o/",
+  "pain":"/pɛ̃/","fromage":"/fʁɔ.maʒ/","viande":"/vjɑ̃d/","poisson":"/pwa.sɔ̃/","pomme":"/pɔm/",
+  "riz":"/ʁi/","poulet":"/pu.lɛ/","salade":"/sa.lad/","gateau":"/ɡɑ.to/","sucre":"/sykʁ/","legumes":"/le.ɡym/",
+  "marche":"/maʁ.ʃe/","supermarche":"/sy.pɛʁ.maʁ.ʃe/","boulangerie":"/bu.lɑ̃ʒ.ʁi/","magasin":"/ma.ɡa.zɛ̃/",
+  "argent":"/aʁ.ʒɑ̃/","monnaie":"/mɔ.nɛ/","carte":"/kaʁt/",
+  "bus":"/bys/","metro":"/me.tʁo/","train":"/tʁɛ̃/","velo":"/ve.lo/","voiture":"/vwa.tyʁ/",
+  "avion":"/a.vjɔ̃/","gare":"/ɡaʁ/","arret":"/a.ʁɛ/","billet":"/bi.jɛ/","rue":"/ʁy/",
+  "tete":"/tɛt/","ventre":"/vɑ̃tʁ/","main":"/mɛ̃/","pied":"/pje/","bras":"/bʁɑ/","jambe":"/ʒɑ̃b/",
+  "dos":"/do/","gorge":"/ɡɔʁʒ/",
+  "grand":"/ɡʁɑ̃/","petit":"/pə.ti/","jeune":"/ʒœn/","beau":"/bo/","fatigue":"/fa.ti.ɡe/",
+  "malade":"/ma.lad/","cher":"/ʃɛʁ/","noir":"/nwaʁ/",
+  "France":"/fʁɑ̃s/","Royaume-Uni":"/ʁwa.jom.y.ni/","Etats-Unis":"/e.ta.zy.ni/","Allemagne":"/al.maɲ/",
+  "Espagne":"/ɛs.paɲ/","Italie":"/i.ta.li/","Japon":"/ʒa.pɔ̃/","Chine":"/ʃin/","Canada":"/ka.na.da/",
+  "francais":"/fʁɑ̃.sɛ/","anglais":"/ɑ̃.ɡlɛ/","americain":"/a.me.ʁi.kɛ̃/","allemand":"/al.mɑ̃/",
+  "espagnol":"/ɛs.pa.ɲɔl/","italien":"/i.ta.ljɛ̃/","japonais":"/ʒa.pɔ.nɛ/","chinois":"/ʃi.nwa/","canadien":"/ka.na.djɛ̃/",
+  "enchante":"/ɑ̃.ʃɑ̃.te/",
+  "lundi":"/lœ̃.di/","mardi":"/maʁ.di/","mercredi":"/mɛʁ.kʁə.di/","jeudi":"/ʒø.di/","vendredi":"/vɑ̃.dʁə.di/","samedi":"/sam.di/","dimanche":"/di.mɑ̃ʃ/",
+  "janvier":"/ʒɑ̃.vje/","fevrier":"/fe.vʁi.je/","mars":"/maʁs/","avril":"/a.vʁil/","mai":"/mɛ/","juin":"/ʒɥɛ̃/","juillet":"/ʒɥi.jɛ/","aout":"/ut/","septembre":"/sɛp.tɑ̃bʁ/","octobre":"/ɔk.tɔbʁ/","novembre":"/nɔ.vɑ̃bʁ/","decembre":"/de.sɑ̃bʁ/",
+  "printemps":"/pʁɛ̃.tɑ̃/","ete":"/e.te/","automne":"/o.tɔn/","hiver":"/i.vɛʁ/",
+  "jour":"/ʒuʁ/","semaine":"/sə.mɛn/","mois":"/mwa/","annee":"/a.ne/","week-end":"/wi.kɛnd/",
+  "premier":"/pʁə.mje/","deuxieme":"/dø.zjɛm/","troisieme":"/tʁwa.zjɛm/",
+  "heure":"/œʁ/","minute":"/mi.nyt/","midi":"/mi.di/","minuit":"/mi.nɥi/","montre":"/mɔ̃tʁ/","horloge":"/ɔʁ.lɔʒ/","reveil":"/ʁe.vɛj/","quart":"/kaʁ/","demie":"/də.mi/"
+};
+/* === IPA_END === */
+
+/* === SENTENCES_START : English prompt + accepted French answers. Tutor extends on "sync my practice" === */
+const SENTENCES=[
+  ["My name is Iris.",["je m'appelle iris"]],
+  ["I am 30 years old.",["j'ai trente ans"]],
+  ["I am a teacher.",["je suis professeur","je suis professeure"]],
+  ["He is a doctor.",["il est medecin"]],
+  ["I am French.",["je suis francais","je suis francaise"]],
+  ["I have a brother.",["j'ai un frere"]],
+  ["She has a sister.",["elle a une soeur"]],
+  ["My father is tall.",["mon pere est grand"]],
+  ["My mother is small.",["ma mere est petite"]],
+  ["This is my computer.",["c'est mon ordinateur","voici mon ordinateur"]],
+  ["I would like a coffee.",["je voudrais un cafe"]],
+  ["A glass of water, please.",["un verre d'eau s'il vous plait"]],
+  ["The bill, please.",["l'addition s'il vous plait"]],
+  ["I eat bread.",["je mange du pain"]],
+  ["I eat meat.",["je mange de la viande"]],
+  ["I eat vegetables.",["je mange des legumes"]],
+  ["I don't eat fish.",["je ne mange pas de poisson"]],
+  ["I drink water.",["je bois de l'eau"]],
+  ["I want some cheese.",["je veux du fromage"]],
+  ["A kilo of apples.",["un kilo de pommes"]],
+  ["How much is it?",["combien ca coute","c'est combien","combien"]],
+  ["Can I pay by card?",["je peux payer par carte","est-ce que je peux payer par carte"]],
+  ["I take the bus.",["je prends le bus"]],
+  ["I go by car.",["je vais en voiture","j'y vais en voiture"]],
+  ["Where is the station?",["ou est la gare"]],
+  ["Turn right.",["tournez a droite","tourne a droite"]],
+  ["It is on the left.",["c'est a gauche"]],
+  ["Go straight ahead.",["allez tout droit","va tout droit"]],
+  ["I have a headache.",["j'ai mal a la tete"]],
+  ["I have a stomach ache.",["j'ai mal au ventre"]],
+  ["I am tired.",["je suis fatigue","je suis fatiguee"]],
+  ["She is ill.",["elle est malade"]],
+  ["I like football.",["j'aime le football"]],
+  ["I play the guitar.",["je joue de la guitare"]],
+  ["I like to read.",["j'aime lire","j'aime la lecture"]],
+  ["The car is red.",["la voiture est rouge"]],
+  ["He has blond hair.",["il a les cheveux blonds"]],
+  ["It is expensive.",["c'est cher"]],
+  ["I would like a cup of tea.",["je voudrais une tasse de the"]],
+  ["My sister is a student.",["ma soeur est etudiante"]],
+  ["Good morning.",["bonjour"]],
+  ["See you later.",["a tout a l'heure"]],
+  ["Thank you very much.",["merci beaucoup"]],
+  ["I must work tomorrow.",["je dois travailler demain"]],
+  ["I don't want tea.",["je ne veux pas de the"]],
+  ["You are nice.",["tu es gentil","tu es gentille"]],
+  ["What time is it?",["quelle heure est-il","il est quelle heure"]],
+  ["I don't have a ticket.",["je n'ai pas de billet"]],
+  ["I live in France.",["j'habite en France","je vis en France"]],
+  ["He lives in Japan.",["il habite au Japon","il vit au Japon"]],
+  ["I am going to Spain.",["je vais en Espagne"]],
+  ["She is Japanese.",["elle est japonaise"]],
+  ["He is German.",["il est allemand"]],
+  ["She is Italian.",["elle est italienne"]],
+  ["My friend is English.",["mon ami est anglais","mon amie est anglaise"]],
+  ["Are you American?",["es-tu americain","etes-vous americain","es-tu americaine","etes-vous americaine"]],
+  ["What is your name? (formal)",["comment vous appelez-vous","vous vous appelez comment"]],
+  ["What is your name? (informal)",["comment tu t'appelles","tu t'appelles comment"]],
+  ["Nice to meet you.",["enchante","enchantee"]],
+  ["How are you? (formal)",["comment allez-vous"]],
+  ["How are you? (informal)",["comment ca va","ca va"]],
+  ["How old are you?",["quel age as-tu","quel age avez-vous","tu as quel age"]],
+  ["Let me introduce myself.",["je me presente"]],
+  ["It costs ten euros.",["ca coute dix euros","ca fait dix euros","il coute dix euros"]],
+  ["I have two hundred euros.",["j'ai deux cents euros"]],
+  ["It is the first time.",["c'est la premiere fois"]],
+  ["The second floor.",["le deuxieme etage"]],
+  ["What day is it today?",["quel jour sommes-nous","on est quel jour"]],
+  ["My birthday is in January.",["mon anniversaire est en janvier"]],
+  ["What is the date today?",["quelle est la date aujourd'hui","on est le combien"]],
+  ["In summer it is hot.",["en ete il fait chaud"]],
+  ["See you Monday!",["a lundi"]],
+  ["Next week.",["la semaine prochaine"]],
+  ["What time is it?",["quelle heure est-il","il est quelle heure"]],
+  ["It is one o'clock.",["il est une heure"]],
+  ["It is half past four.",["il est quatre heures et demie"]],
+  ["It is a quarter past three.",["il est trois heures et quart"]],
+  ["It is a quarter to five.",["il est cinq heures moins le quart"]],
+  ["It is noon.",["il est midi"]],
+  ["It is ten past two.",["il est deux heures dix"]],
+  ["At what time?",["a quelle heure"]],
+  ["The film is at 8 pm.",["le film est a vingt heures","le film est a huit heures du soir"]],
+  ["I get up at seven.",["je me leve a sept heures"]]
+];
+/* === SENTENCES_END === */
+
+const ONES=["zero","un","deux","trois","quatre","cinq","six","sept","huit","neuf","dix","onze","douze","treize","quatorze","quinze","seize","dix-sept","dix-huit","dix-neuf"];
+function numToFr100(n){
+  if(n===100) return "cent";
+  if(n<20) return ONES[n];
+  const t=Math.floor(n/10)*10, o=n%10;
+  const base={20:"vingt",30:"trente",40:"quarante",50:"cinquante",60:"soixante"};
+  if(n<70){ if(o===0)return base[t]; if(o===1)return base[t]+" et un"; return base[t]+"-"+ONES[o]; }
+  if(n<80){ const r=n-60; if(r===11)return "soixante et onze"; return "soixante-"+ONES[r]; }
+  if(n===80) return "quatre-vingts";
+  const r=n-80; if(r===1)return "quatre-vingt-un"; return "quatre-vingt-"+ONES[r];
+}
+function numToFr(n){
+  if(n===1000) return "mille";
+  if(n<=100) return numToFr100(n);
+  const h=Math.floor(n/100), rem=n%100;
+  let head=(h===1?"cent":ONES[h]+" cent");
+  if(h>1 && rem===0) head+="s";          // deux cents, but deux cent un
+  return rem===0 ? head : head+" "+numToFr100(rem);
+}
+
+const CONJ=[
+  {v:"etre (to be)",tip:"<b>etre</b>: je suis - tu es - il/elle est - nous sommes - vous etes - ils/elles sont",rows:[["je","suis"],["tu","es"],["il/elle","est"],["nous","sommes"],["vous","etes"],["ils/elles","sont"]]},
+  {v:"avoir (to have)",tip:"<b>avoir</b>: j'ai - tu as - il/elle a - nous avons - vous avez - ils/elles ont",rows:[["je (j')","ai"],["tu","as"],["il/elle","a"],["nous","avons"],["vous","avez"],["ils/elles","ont"]]},
+  {v:"aller (to go)",tip:"<b>aller</b>: je vais - tu vas - il/elle va - nous allons - vous allez - ils/elles vont",rows:[["je","vais"],["tu","vas"],["il/elle","va"],["nous","allons"],["vous","allez"],["ils/elles","vont"]]},
+  {v:"faire (to do/make)",tip:"<b>faire</b>: je fais - tu fais - il/elle fait - nous faisons - vous faites - ils/elles font",rows:[["je","fais"],["tu","fais"],["il/elle","fait"],["nous","faisons"],["vous","faites"],["ils/elles","font"]]},
+  {v:"s'appeler (to be called)",tip:"<b>s'appeler</b>: je m'appelle - tu t'appelles - il/elle s'appelle - nous nous appelons - vous vous appelez - ils/elles s'appellent",rows:[["je","m'appelle"],["tu","t'appelles"],["il/elle","s'appelle"],["nous","nous appelons"],["vous","vous appelez"],["ils/elles","s'appellent"]]}
+];
+
+const LS=window.localStorage;
+const MASTER_AT=2;
+const INTERVALS=[3,7,14,30];
+function today(){return new Date().toISOString().slice(0,10);}
+function addDays(d,n){const x=new Date(d+'T00:00:00');x.setDate(x.getDate()+n);return x.toISOString().slice(0,10);}
+let stats={streak:+(LS.getItem('fr_streak')||0),correct:+(LS.getItem('fr_correct')||0),last:LS.getItem('fr_last')||""};
+let mastery=JSON.parse(LS.getItem('fr_mastery')||'{}');
+for(const k in mastery){ if(typeof mastery[k]==='number'){ const n=mastery[k]; mastery[k]={n:n,due:(n>=MASTER_AT?today():null)}; } }
+LS.setItem('fr_mastery',JSON.stringify(mastery));
+(function streakInit(){
+  const t=today();
+  if(stats.last!==t){ const y=new Date(Date.now()-864e5).toISOString().slice(0,10); stats.streak=(stats.last===y)?stats.streak+1:1; stats.last=t; saveStats(); }
+})();
+function saveStats(){LS.setItem('fr_streak',stats.streak);LS.setItem('fr_correct',stats.correct);LS.setItem('fr_last',stats.last);render();}
+function saveMastery(){LS.setItem('fr_mastery',JSON.stringify(mastery));render();}
+function isActive(key){const m=mastery[key];if(!m)return true;if(m.n<MASTER_AT)return true;if(m.due&&today()>=m.due)return true;return false;}
+function masteredCount(){return Object.values(mastery).filter(m=>m&&m.n>=MASTER_AT).length;}
+const NOUNS=()=>VOCAB.filter(v=>v[4]==="m"||v[4]==="f");
+function dueCount(){
+  let c=0;
+  VOCAB.forEach(v=>{if(isActive("q_"+v[1]))c++;});
+  NOUNS().forEach(v=>{if(isActive("g_"+v[1]))c++;});
+  SENTENCES.forEach(s=>{if(isActive(s[0]))c++;});
+  return c;
+}
+function render(){sStreak.textContent=stats.streak;sCorrect.textContent=stats.correct;sMaster.textContent=masteredCount();sDue.textContent=dueCount();}
+function bump(key,ok){
+  let m=mastery[key]||{n:0,due:null};
+  if(ok){ m.n++; if(m.n>=MASTER_AT){ const r=m.n-MASTER_AT; m.due=addDays(today(),INTERVALS[Math.min(r,INTERVALS.length-1)]); } stats.correct++; }
+  else { m.n=0; m.due=null; }
+  mastery[key]=m; saveMastery(); saveStats();
+}
+function reviewAllNow(){ for(const k in mastery){ if(mastery[k]) mastery[k].due=today(); } saveMastery(); newQuiz(); newGenre(); newSent(); alert("All mastered items are open for review again. Allez-y !"); }
+function recordMiss(t){const m=JSON.parse(LS.getItem('fr_missed')||'{}');m[t]=(m[t]||0)+1;LS.setItem('fr_missed',JSON.stringify(m));}
+function recordNew(t){const m=JSON.parse(LS.getItem('fr_new')||'{}');m[t]=true;LS.setItem('fr_new',JSON.stringify(m));}
+const norm=s=>s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[’']/g,"'").replace(/[.!?]+$/,"").replace(/\s+/g," ").trim();
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+function withArt(v){ return v[4]==="m"?("un "+v[1]) : v[4]==="f"?("une "+v[1]) : v[1]; }
+function ipaOf(v){ return IPA[v[1]]||""; }
+function ipaBadge(v){ const i=ipaOf(v); return i?'<span class="ipa">'+i+'</span> &middot; ':''; }
+function pronHTML(v){
+  return '<div class="pron"><span class="pw">'+v[1]+'</span> '+(ipaOf(v)?'<span class="ipa">'+ipaOf(v)+'</span> ':'')+'<span class="phint">'+v[2]+'</span></div>';
+}
+function wordCard(v){
+  const art=withArt(v);
+  const g=v[4]==="m"?' <span class="gm">(m)</span>':v[4]==="f"?' <span class="gf">(f)</span>':'';
+  return '<div class="explain"><div class="ew">'+art+g+'</div><div class="ep">'+ipaBadge(v)+'"'+v[2]+'" &middot; '+v[0]+'</div><div class="ex"><i>'+v[5]+'</i><br>'+v[6]+'</div></div>';
+}
+
+function exportProgress(){
+  const missed=JSON.parse(LS.getItem('fr_missed')||'{}');
+  const news=JSON.parse(LS.getItem('fr_new')||'{}');
+  const lines=Object.entries(missed).sort((a,b)=>b[1]-a[1]).map(([w,n])=>'- '+w+' - missed '+n+'x');
+  const nl=Object.keys(news).map(w=>'- '+w);
+  const md='# Practice log - '+today()+'\n\n- Day streak: '+stats.streak+'\n- Total correct: '+stats.correct+'\n- Items mastered: '+masteredCount()+'\n\n## Words/sentences I struggled with (add to my review queue)\n'+(lines.length?lines.join('\n'):'- none this round')+'\n\n## New words I flagged (please reinforce)\n'+(nl.length?nl.join('\n'):'- none')+'\n';
+  showExport(md);
+}
+function clearExportData(){ LS.removeItem('fr_missed'); LS.removeItem('fr_new'); }
+function showExport(md){
+  const old=document.getElementById('exportOverlay'); if(old) old.remove();
+  const ov=document.createElement('div'); ov.id='exportOverlay';
+  ov.style.cssText='position:fixed;inset:0;background:rgba(20,30,50,.55);display:flex;align-items:center;justify-content:center;z-index:9999;padding:16px;';
+  const box=document.createElement('div');
+  box.style.cssText='background:#fff;border-radius:16px;max-width:560px;width:100%;padding:18px;box-shadow:0 12px 44px rgba(0,0,0,.35);';
+  box.innerHTML='<h3 style="margin:0 0 6px;color:var(--blue);">Your practice log</h3><p style="margin:0 0 10px;font-size:13px;color:#5a6473;">Easiest on phone: tap <b>Copy</b>, then paste it to your tutor in chat. (Or <b>Download</b> the file.)</p>';
+  const ta=document.createElement('textarea'); ta.readOnly=true; ta.value=md;
+  ta.style.cssText='width:100%;height:170px;border:1px solid var(--line);border-radius:10px;padding:10px;font-family:monospace;font-size:12px;color:var(--ink);';
+  box.appendChild(ta);
+  const row=document.createElement('div'); row.style.cssText='display:flex;gap:10px;margin-top:12px;';
+  function mkBtn(label,ghost,fn){ const b=document.createElement('button'); b.textContent=label; b.className='act'+(ghost?' ghost':''); b.style.flex='1'; b.onclick=fn; return b; }
+  const copyBtn=mkBtn('Copy',false,async()=>{ try{ await navigator.clipboard.writeText(md); }catch(e){ ta.focus(); ta.select(); try{document.execCommand('copy');}catch(_){} } copyBtn.textContent='Copied! ✓'; clearExportData(); });
+  const dlBtn=mkBtn('Download',true,()=>{ const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([md],{type:'text/markdown'})); a.download='practice-log.md'; document.body.appendChild(a); a.click(); a.remove(); clearExportData(); });
+  const closeBtn=mkBtn('Close',true,()=>ov.remove());
+  row.appendChild(copyBtn); row.appendChild(dlBtn); row.appendChild(closeBtn);
+  box.appendChild(row); ov.appendChild(box); document.body.appendChild(ov);
+}
+
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');document.getElementById(b.dataset.p).classList.add('active');
+});
+function doneMsg(el,what){el.innerHTML='<div class="done"><div class="big">&#127881;</div><p><b>All '+what+' reviewed for now!</b><br>They return on a spaced schedule. Want more now?</p><button class="act" onclick="reviewAllNow()">Review everything again</button></div>';}
+
+/* QUIZ */
+let qAns,qItem;
+function newQuiz(){
+  if(!document.getElementById('qIn'))return;
+  qFb.innerHTML="";qIn.value="";qIn.disabled=false;
+  qNew.style.display="block";qCheck.style.display="";qSkip.style.display="";qNext.style.display="none";
+  const pool=VOCAB.filter(v=>isActive("q_"+v[1]));
+  if(!pool.length){doneMsg(quizCard,'words');qItem=null;return;}
+  qItem=pick(pool);qAns=withArt(qItem);qTheme.textContent=qItem[3];qPrompt.textContent=qItem[0];
+  qIn.focus();
+}
+function endQuiz(){qIn.disabled=true;qNew.style.display="none";qCheck.style.display="none";qSkip.style.display="none";qNext.style.display="block";}
+function checkQuiz(){
+  if(!qItem||qIn.disabled)return;
+  const stripArt=s=>norm(s).replace(/^(un|une|des|le|la|les)\s+/,'').replace(/^l'/,'');
+  const ok=norm(qIn.value)===norm(qAns)||stripArt(qIn.value)===norm(qItem[1]);
+  if(ok){qFb.style.color="var(--good)";qFb.innerHTML='Correct !'+pronHTML(qItem);}
+  else{qFb.style.color="var(--bad)";qFb.innerHTML='Reponse : '+qAns+pronHTML(qItem);recordMiss(qAns);}
+  bump("q_"+qItem[1],ok);
+  endQuiz();
+}
+function explainQuiz(){
+  if(!qItem)return;
+  qFb.style.color="var(--ink)";qFb.innerHTML=wordCard(qItem);
+  recordNew(withArt(qItem));
+  mastery["q_"+qItem[1]]={n:0,due:null};saveMastery();
+  endQuiz();
+}
+
+/* GENRE */
+let gCur;
+function newGenre(){
+  if(!document.getElementById('gPrompt'))return;
+  gFb.innerHTML="";gNext.style.display="none";gNew.style.display="block";
+  const pool=NOUNS().filter(v=>isActive("g_"+v[1]));
+  if(!pool.length){doneMsg(genreCard,'nouns');gCur=null;return;}
+  let next=pick(pool); if(pool.length>1){let z=0;while(gCur&&next[1]===gCur[1]&&z++<20)next=pick(pool);}
+  gCur=next;gTheme.textContent=next[3];gPrompt.textContent=next[1]+"  ("+next[0]+")";
+}
+function answerGenre(choice){
+  if(!gCur)return;
+  const ok=choice===gCur[4];
+  const correct=(gCur[4]==="m"?"un ":"une ")+gCur[1];
+  if(ok){gFb.textContent="Correct ! "+correct;gFb.style.color="var(--good)";}
+  else{gFb.textContent="Reponse : "+correct;gFb.style.color="var(--bad)";recordMiss("genre: "+correct);}
+  bump("g_"+gCur[1],ok);gNew.style.display="none";gNext.style.display="block";
+}
+function explainGenre(){
+  if(!gCur)return;
+  gFb.style.color="var(--ink)";gFb.innerHTML=wordCard(gCur);
+  recordNew(withArt(gCur));
+  mastery["g_"+gCur[1]]={n:0,due:null};saveMastery();
+  gNew.style.display="none";gNext.style.display="block";
+}
+
+/* SENTENCES */
+let sCur;
+function newSent(skip){
+  if(!document.getElementById('sIn'))return;
+  sFb.innerHTML="";sIn.value="";sIn.disabled=false;
+  sNew.style.display="block";sCheck.style.display="";sSkip.style.display="";sNext.style.display="none";
+  const pool=SENTENCES.filter(s=>isActive(s[0]));
+  if(!pool.length){doneMsg(sentCard,'sentences');sCur=null;return;}
+  let next=pick(pool); if(pool.length>1){let z=0;while(sCur&&next[0]===sCur[0]&&z++<20)next=pick(pool);}
+  sCur=next;sPrompt.textContent=sCur[0];sIn.focus();
+}
+function endSent(){sIn.disabled=true;sNew.style.display="none";sCheck.style.display="none";sSkip.style.display="none";sNext.style.display="block";}
+function checkSent(){
+  if(!sCur||sIn.disabled)return;
+  const ok=sCur[1].some(a=>norm(a)===norm(sIn.value));
+  if(ok){sFb.style.color="var(--good)";sFb.textContent="Parfait ! "+sCur[1][0];}
+  else{sFb.style.color="var(--bad)";sFb.textContent="Reponse : "+sCur[1][0];recordMiss('[sentence] '+sCur[0]+' = '+sCur[1][0]);}
+  bump(sCur[0],ok);
+  endSent();
+}
+function explainSent(){
+  if(!sCur)return;
+  sFb.style.color="var(--ink)";
+  sFb.innerHTML='<div class="explain"><div class="ew">'+sCur[1][0]+'</div><div class="ep">'+sCur[0]+'</div></div>';
+  recordNew('[sentence] '+sCur[0]+' = '+sCur[1][0]);
+  mastery[sCur[0]]={n:0,due:null};saveMastery();
+  endSent();
+}
+
+/* NUMBERS */
+let numCur;
+function newNum(){numCur=Math.floor(Math.random()*1001);numVal.textContent=numCur;numIn.value="";numFb.textContent="";numIn.focus();}
+function checkNum(){
+  const ok=norm(numIn.value)===norm(numToFr(numCur));
+  if(ok){stats.correct++;saveStats();numFb.textContent="Parfait !";numFb.style.color="var(--good)";}
+  else{numFb.textContent='Reponse : '+numToFr(numCur);numFb.style.color="var(--bad)";recordMiss(numCur+' = '+numToFr(numCur));}
+}
+
+/* CONJUGATION */
+let conjCur,conjRow;
+function newConj(){
+  conjCur=pick(CONJ);conjRow=pick(conjCur.rows);
+  conjTip.innerHTML=conjCur.tip;
+  conjPrompt.textContent=conjRow[0]+" + "+conjCur.v.split(" ")[0];
+  conjIn.value="";conjFb.textContent="";conjIn.focus();
+}
+function conjFull(row){
+  const pron=row[0].split(" ")[0];           // "je (j')" -> "je"; "il/elle" stays
+  const form=row[1];
+  if(pron==="je" && /^[aeiouyhâäéèêîïôöùûü]/i.test(form)) return "j'"+form;  // je + vowel -> j'ai
+  return pron+" "+form;
+}
+function checkConj(){
+  const inp=norm(conjIn.value);
+  const pron=conjRow[0].split(" ")[0];
+  const full=conjFull(conjRow);
+  const ok = inp===norm(conjRow[1]) || inp===norm(pron+" "+conjRow[1]) || inp===norm(full);
+  if(ok){stats.correct++;saveStats();conjFb.textContent="Bravo ! "+full;conjFb.style.color="var(--good)";}
+  else{conjFb.textContent="Reponse : "+full;conjFb.style.color="var(--bad)";recordMiss(full);}
+}
+
+document.addEventListener('keydown',e=>{
+  if(e.key!=='Enter')return;
+  const sp=document.getElementById('sent');
+  if(sp&&sp.classList.contains('active')){ if(sNext.style.display==='block') newSent(); else checkSent(); return; }
+  const qp=document.getElementById('quiz');
+  if(qp&&qp.classList.contains('active')){ if(qNext.style.display==='block') newQuiz(); else checkQuiz(); }
+});
+numIn.addEventListener('keydown',e=>{if(e.key==='Enter')checkNum();});
+conjIn.addEventListener('keydown',e=>{if(e.key==='Enter')checkConj();});
+
+newQuiz(); newGenre(); newSent(); newNum(); newConj(); render();
+</script>
+</body>
+</html>
