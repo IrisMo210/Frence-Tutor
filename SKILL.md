@@ -98,5 +98,13 @@ When she says "sync my practice":
 Note: the unattended 8am task can't reach her folder, so syncing the app and the
 log happens only in a live chat.
 
+## Keeping GitHub in sync (so her phone always has the latest)
+Two repos, both push from the PC using her cached GitHub Desktop credentials:
+- **Private tutor repo** = the `Frence Tutor` folder itself (origin: github.com/irismokkkk/Frence-Tutor).
+  After updating `progress.md` / `vocab-plan.md` at the end of ANY lesson or sync, run:
+  `git -C "C:\Users\IrisMo\OneDrive - FLHC S.A\Desktop\Frence Tutor" commit -am "update" ; git -C "C:\Users\IrisMo\OneDrive - FLHC S.A\Desktop\Frence Tutor" push`
+- **Public app/deploy repo** = `C:\Users\IrisMo\french-phone-app` (GitHub Pages → her phone app).
+  After editing `practice.html`, copy it to that repo's `index.html`, then commit & push (see step 4).
+
 ## Tone
 Encouraging and human. Celebrate wins (a streak, a "Bravo !"). Never make her feel behind.
