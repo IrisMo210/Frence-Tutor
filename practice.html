@@ -335,7 +335,33 @@ const VOCAB=[
   ["clock","horloge","or-LOZH","Time","f","L'horloge est au mur.","The clock is on the wall."],
   ["alarm clock","reveil","ray-VAY","Time","m","Mon reveil sonne a sept heures.","My alarm rings at seven."],
   ["quarter","quart","KAR","Time","m","Il est trois heures et quart.","It is a quarter past three."],
-  ["half (time)","demie","duh-MEE","Time","f","Il est quatre heures et demie.","It is half past four."]
+  ["half (time)","demie","duh-MEE","Time","f","Il est quatre heures et demie.","It is half past four."],
+  ["face","visage","vee-ZAHZH","Description","m","Il a un beau visage.","He has a handsome face."],
+  ["hair","cheveux","shuh-VUH","Description","m","Elle a les cheveux longs.","She has long hair."],
+  ["eyes","yeux","YUH","Description","m","Il a les yeux bleus.","He has blue eyes."],
+  ["nose","nez","NAY","Description","m","Il a un grand nez.","He has a big nose."],
+  ["mouth","bouche","BOOSH","Description","f","Elle a une petite bouche.","She has a small mouth."],
+  ["ears","oreilles","oh-RAY","Description","f","J'ai mal aux oreilles.","My ears hurt."],
+  ["beard","barbe","BARB","Description","f","Mon pere a une barbe.","My father has a beard."],
+  ["moustache","moustache","moo-STAHSH","Description","f","Il porte une moustache.","He has a moustache."],
+  ["glasses","lunettes","loo-NET","Description","f","Je porte des lunettes.","I wear glasses."],
+  ["height/size","taille","TAH-y","Description","f","Il est de taille moyenne.","He is of average height."],
+  ["slim","mince","MANSS","Description","","Elle est tres mince.","She is very slim."],
+  ["fat/big","gros","GROH","Description","","Le chat est gros.","The cat is fat."],
+  ["old","vieux","VYUH","Description","","Mon grand-pere est vieux.","My grandfather is old."],
+  ["pretty","joli","zhoh-LEE","Description","","C'est une jolie fille.","She is a pretty girl."],
+  ["short (length)","court","KOOR","Description","","Elle a les cheveux courts.","She has short hair."],
+  ["long","long","LON","Description","","Il a les cheveux longs.","He has long hair."],
+  ["straight (hair)","raide","RED","Description","","Elle a les cheveux raides.","She has straight hair."],
+  ["curly","boucle","boo-KLAY","Description","","Il a les cheveux boucles.","He has curly hair."],
+  ["blond","blond","BLON","Description","","Elle est blonde.","She is blonde."],
+  ["brown-haired","brun","BRUN","Description","","Il est brun.","He has dark hair."],
+  ["chestnut (hair)","chatain","shah-TAN","Description","","Elle a les cheveux chatains.","She has chestnut hair."],
+  ["red-haired","roux","ROO","Description","","Il est roux.","He is red-haired."],
+  ["blue","bleu","BLUH","Colours","","Il a les yeux bleus.","He has blue eyes."],
+  ["green","vert","VAIR","Colours","","Elle a les yeux verts.","She has green eyes."],
+  ["brown (eyes)","marron","ma-RON","Colours","","Elle a les yeux marron.","She has brown eyes."],
+  ["grey","gris","GREE","Colours","","Il a les cheveux gris.","He has grey hair."]
 ];
 /* === VOCAB_END === */
 
@@ -374,7 +400,12 @@ const IPA={
   "printemps":"/pʁɛ̃.tɑ̃/","ete":"/e.te/","automne":"/o.tɔn/","hiver":"/i.vɛʁ/",
   "jour":"/ʒuʁ/","semaine":"/sə.mɛn/","mois":"/mwa/","annee":"/a.ne/","week-end":"/wi.kɛnd/",
   "premier":"/pʁə.mje/","deuxieme":"/dø.zjɛm/","troisieme":"/tʁwa.zjɛm/",
-  "heure":"/œʁ/","minute":"/mi.nyt/","midi":"/mi.di/","minuit":"/mi.nɥi/","montre":"/mɔ̃tʁ/","horloge":"/ɔʁ.lɔʒ/","reveil":"/ʁe.vɛj/","quart":"/kaʁ/","demie":"/də.mi/"
+  "heure":"/œʁ/","minute":"/mi.nyt/","midi":"/mi.di/","minuit":"/mi.nɥi/","montre":"/mɔ̃tʁ/","horloge":"/ɔʁ.lɔʒ/","reveil":"/ʁe.vɛj/","quart":"/kaʁ/","demie":"/də.mi/",
+  "visage":"/vi.zaʒ/","cheveux":"/ʃə.vø/","yeux":"/jø/","nez":"/ne/","bouche":"/buʃ/","oreilles":"/ɔ.ʁɛj/",
+  "barbe":"/baʁb/","moustache":"/mus.taʃ/","lunettes":"/ly.nɛt/","taille":"/taj/",
+  "mince":"/mɛ̃s/","gros":"/ɡʁo/","vieux":"/vjø/","joli":"/ʒɔ.li/","court":"/kuʁ/","long":"/lɔ̃/",
+  "raide":"/ʁɛd/","boucle":"/bu.kle/","blond":"/blɔ̃/","brun":"/bʁœ̃/","chatain":"/ʃa.tɛ̃/","roux":"/ʁu/",
+  "bleu":"/blø/","vert":"/vɛʁ/","marron":"/ma.ʁɔ̃/","gris":"/ɡʁi/"
 };
 /* === IPA_END === */
 
@@ -462,7 +493,17 @@ const SENTENCES=[
   ["It is ten past two.",["il est deux heures dix"]],
   ["At what time?",["a quelle heure"]],
   ["The film is at 8 pm.",["le film est a vingt heures","le film est a huit heures du soir"]],
-  ["I get up at seven.",["je me leve a sept heures"]]
+  ["I get up at seven.",["je me leve a sept heures"]],
+  ["He is tall and slim.",["il est grand et mince"]],
+  ["She has long brown hair.",["elle a les cheveux longs et bruns","elle a les cheveux bruns et longs"]],
+  ["He has blue eyes.",["il a les yeux bleus"]],
+  ["She has short curly hair.",["elle a les cheveux courts et boucles"]],
+  ["My father has a beard.",["mon pere a une barbe"]],
+  ["He has brown eyes.",["il a les yeux marron"]],
+  ["I wear glasses.",["je porte des lunettes"]],
+  ["She is pretty.",["elle est jolie"]],
+  ["He is of average height.",["il est de taille moyenne"]],
+  ["What does she look like?",["elle est comment","comment est-elle"]]
 ];
 /* === SENTENCES_END === */
 

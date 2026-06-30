@@ -52,7 +52,7 @@ noun gender (un/une) · numbers 70–99 · present-tense conjugation.
 - U6 ⬜ **L'heure** — telling the time (il est huit heures et quart, du matin/soir)
 - U7 🟡 Pays & nationalités *(taught — keep practising; not mastered)*
 - U8 🟡 *(expand)* La famille & les âges de la vie (bébé, ado, adulte, les beaux-parents…)
-- U9 ⬜ **La description physique** (grand/mince, les cheveux, les yeux + agreement)
+- U9 🟡 **La description physique** (grand/mince, les cheveux, les yeux + agreement) *(taught 06-30 — keep practising)*
 - U10 ⬜ **Le caractère & la personnalité** (gentil, timide, travailleur…)
 
 ### Week 3 — everyday life I

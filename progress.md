@@ -15,10 +15,10 @@
 - **PLAN OVERHAULED 2026-06-27** to a full 8-week sprint (A1.1→A1→A2/B1) — see vocab-plan.md,
   now a 40-unit schedule rebuilt from the books' standard contents (the scanned PDFs couldn't
   be OCR'd here; Iris to verify against each Sommaire).
-- **Current unit: next = U9 (La description physique).** Taught so far:
+- **Current unit: next = U10 (Le caractère & la personnalité).** Taught so far:
   U1 alphabet · U2 greetings · U3 se présenter · U4 numbers (0–1000 + ordinals) ·
-  U5 calendrier · U6 l'heure · U7 pays & nationalités. (U8 famille-expand optional.)
-  Biggest NEW gaps next: **U9 physical description, U10 character, U11 colours, U12 clothes.**
+  U5 calendrier · U6 l'heure · U7 pays & nationalités · U9 description physique. (U8 famille-expand optional.)
+  Biggest NEW gaps next: **U10 character, U11 colours, U12 clothes, U13 santé.**
 - Every noun is learned WITH its gender (un/une). The app has a "Genre" mode.
 - Lessons are ON-DEMAND and sized by content: do as many themes in a sitting as
   you like. Advance Current theme as each is finished.
@@ -89,6 +89,14 @@ professeur, étudiant(e), subordonné(e), supérieur / responsable
 **Sentence patterns seen:** j'aime manger du riz · j'aime lire des livres ·
 il n'aime pas le thé au citron chaud · as-tu déjà déjeuné ? · je veux regarder la télé ·
 je veux ceci · que voulez-vous ? · je veux un café, s'il vous plaît · l'addition, s'il vous plaît
+
+**Description physique (taught U9):** le visage (m), les cheveux (m, pl), les yeux (m, pl;
+sing un œil), le nez (m), la bouche (f), les oreilles (f), la barbe (f), la moustache (f),
+les lunettes (f, pl), la taille (f). Adjectives: mince, gros/grosse, vieux/vieille, joli(e),
+court(s), long(s), raide, bouclé(s), blond(e), brun(e), châtain, roux/rousse; eye/hair colours
+bleu, vert, marron (invariable!), gris, noir. Structures: **être** + overall (il est grand et mince)
+vs **avoir les cheveux/les yeux** + adjective that AGREES (elle a les cheveux longs / les yeux verts).
+"What does he look like?" = il est comment ? / comment est-il ?
 
 ## Priority gaps (the real work toward A2)
 - **Numbers** — only "cinquante (50)" seen. Needs 0–100 + prices/age.
@@ -392,6 +400,7 @@ Format: date — theme — note
 - 2026-06-28 (lesson) — U6 L'heure TAUGHT — quelle heure est-il / il est…, et quart / et demie / moins le quart, demi vs demie (midi/minuit→demi), am/pm + 24h, à quelle heure. Added to practice.html: 9 Time-theme VOCAB words (with IPA) + 10 time sentences. Phone copy (phone-app/index.html) also refreshed. Next: U9 description physique.
 - 2026-06-28 (sync) — app practice synced — 1032 correct, 378 mastered, streak 8. Big volume on new U4/U5. ⚠️ Found & FIXED an app bug: the Conjugation tab rejected "j'ai" (accepted only "ai"/"je ai") → she "missed" je-avoir 16x. Patched checkConj to accept elision (j'+vowel) and show/record the clean form (j'ai, je m'appelle). Real weak spots: aller (va/vont/vas), s'appeler forms, introduction phrases (comment allez-vous / vous appelez-vous / ça va), date sentences, and the new hundreds (438/526/914). No new vocab to add — all items already in app. Then ran a full revision session.
 - 2026-06-27 (lesson) — U4 Nombres + U5 Calendrier TAUGHT. U4: 70–99 review, 100–1000 (cent/cents/mille rules), prices, ordinals (premier/deuxième/troisième). U5: days+months (lowercase, m), seasons (au printemps / en été…), the date. Added to practice.html: 31 VOCAB rows (Days/Months/Seasons/Time/ordinals, all with IPA) + 10 sentences, AND upgraded the Numbers tab generator from 0–100 to **0–1000** (new numToFr100 helper + numToFr for hundreds/mille; newNum range *1001). Verified in browser: numToFr correct for 0/21/71/80/91/99/100/101/180/200/201/248/300/999/1000; calendar words show IPA (Monday→lundi /lœ̃.di/). Next: U6 l'heure.
+- 2026-06-30 (lesson) — U9 La description physique TAUGHT. Body/face nouns (le visage, les cheveux m-pl, les yeux m-pl, le nez, la bouche, les oreilles f, la barbe, la moustache, les lunettes f-pl, la taille f), build adjectives (mince, gros, vieux, joli + known grand/petit/jeune/beau), hair (court/long/raide/bouclé/blond/brun/châtain/roux) and eye/hair colours (bleu, vert, marron-invariable, gris, noir). Grammar point: ÊTRE for overall look (il est grand et mince) vs AVOIR les cheveux/les yeux + AGREEING adjective (elle a les cheveux longs, les yeux verts); marron never agrees. Added to practice.html: 26 VOCAB rows (Description + a few Colours) with IPA, and 11 description sentences (now 186 vocab / 93 sentences, validated). Current unit advanced U7→U9 done; next = U10 caractère. Note: a few colour words (bleu/vert/marron/gris) were front-loaded here for eyes/hair — full colours come in U11.
 - 2026-06-30 (sync) — app practice synced (second device, local counters 870 correct · 347 mastered · streak 3 — same device as 06-28 sync 2, now grown; cumulative snapshot left unchanged). NEW #1 weakness = telling the TIME (l'heure, U6 — her freshest theme): "il est trois heures et quart" missed 6x, "moins le quart" 3x, "deux heures dix"/"a vingt heures" 2x. Noun gender still recurring (une montre 5x, une main 5x) and the "de" rules persist (je joue de la guitare 3x, je ne veux pas de thé 3x). Smaller clusters: dates/ordinals (la première fois, la date aujourd'hui 3x each), être+adjective (les cheveux blonds 3x), habiter au/en (au Japon 3x), une tante 4x. No new vocab — all items already in practice.html with IPA. Next lesson: lead with l'heure drilling, then un/une (montre/main/-e traps) + "de" rules upkeep.
 - 2026-06-28 (sync 2) — app practice synced from a SECOND device (local counters 171 correct · 63 mastered · streak 1 — a fresh device, so cumulative snapshot totals left unchanged). NOUN GENDER is again the #1 gap (une demie/gomme 2x, un fils/cuisinier 2x + ~12 more un/une misses) — mirrors the 06-27 session-2 pattern. Smaller clusters: country recall (Allemagne 3x, États-Unis 2x, Chine), calendar words (vendredi, printemps, mars, minuit), and adjective/ordinal recall (jeune, premier). Flagged for reinforcement: un réveil, un jus d'orange, une boulangerie, une trousse (+ gâteau/jambe). No new vocab to add — all 29 items already in practice.html with IPA. Next lesson: lead with un/une gender patterns (esp. -eau/-eur/-sion), then light calendar + country upkeep.
 - 2026-06-27 (plan overhaul) — Iris provided the 3 textbooks (Livre A1.1 / A1 / A2 B1) after finding vocab missing. PDFs are scanned images with NO text layer; this env has no pdftoppm/OCR/ImageMagick and the browser PDF viewer hangs — so could NOT OCR the bold words. Rebuilt vocab-plan.md from the standard published contents of these CLE titles into a 40-unit, 8-week A1.1→A2/B1 sprint (grammar track + daily routine included), flagged for Iris to verify against each Sommaire. Switched theme tracking from T-codes to U-codes (units). Next teaching target: U5 Le calendrier.
