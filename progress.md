@@ -318,6 +318,67 @@ un coiffeur, un serveur, un cuisinier; the -e (m) traps un stylo / un football.
 une jambe (also missed above), un jus d'orange, une boulangerie, une trousse.
 (All already in the app, with IPA + example sentences — no app changes needed this sync.)
 
+### App sync 2026-06-30 — misses (due 2026-07-01), grouped by pattern
+Big session from the second device (its local counters: 870 correct · 347 mastered · streak 3 —
+the same device as the 06-28 sync 2, now grown; cumulative snapshot totals left unchanged).
+The standout NEW weakness is **telling the time (l'heure, U6)** — her freshest material — alongside
+the long-running noun-gender and "de"-rule gaps.
+
+**Pattern A — L'HEURE / time sentences: the new #1 cluster (U6 is fresh).**
+- il est trois heures et quart | a quarter past three | 6 | 2026-07-01
+- il est cinq heures moins le quart | a quarter to five | 3 | 2026-07-01
+- il est deux heures dix | ten past two | 2 | 2026-07-01
+- le film est a vingt heures | the film is at 8 pm | 2 | 2026-07-01
+- il est une heure | one o'clock | 1 | 2026-07-01
+- a quelle heure | at what time | 1 | 2026-07-01
+- je me leve a sept heures | I get up at seven | 1 | 2026-07-01
+- (flagged) il est quatre heures et demie | half past four | 0 | 2026-07-01
+
+**Pattern B — NOUN GENDER (un/une): still recurring (Genre drills).**
+Worst: une montre (5x), une main (5x). Also 1–3x: un verre (3x), un ventre (2x), un the (2x),
+un frere (2x), un marche, une question, un poisson, un livre, un cuisinier, un oncle, un cinema,
+un jus d'orange, une soeur, un supermarche, un dictionnaire, un cafe, une table, un sucre,
+une porte, un ingenieur. → Re-drill traps: -e masculine (un verre/the/cafe/livre/cinema),
+-eur jobs→m (cuisinier/ingenieur), -tion→f (question), une main / une montre.
+
+**Pattern C — the "de" rules (partitive / "pas de" / jouer de): long-running gap.**
+- je joue de la guitare | 3 | 2026-07-01
+- je ne veux pas de the | 3 | 2026-07-01
+- je mange du pain | 2 | 2026-07-01
+- je ne mange pas de poisson | 2 | 2026-07-01
+- je mange de la viande | 2 | 2026-07-01
+- je n'ai pas de billet | 2 | 2026-07-01
+- un verre d'eau s'il vous plait | 2 | 2026-07-01
+- je bois de l'eau (1x) · un kilo de pommes (1x) | 1 | 2026-07-01
+
+**Pattern D — dates / ordinals / calendar (U4/U5).**
+- c'est la premiere fois (3x) · quelle est la date aujourd'hui (3x) · quel jour sommes-nous (2x) ·
+  le deuxieme etage (2x) | 2026-07-01
+- hiver (2x) · une demie (1x) · minuit (1x) · automne (1x) · dimanche (1x) | 2026-07-01
+
+**Pattern E — être + profession / adjective / agreement.**
+- il a les cheveux blonds (3x) · ma soeur est etudiante (1x) · tu es gentil (1x) ·
+  mon pere est grand (1x) · c'est cher (1x) | 2026-07-01
+
+**Pattern F — countries / nationalities / habiter (U7).**
+- il habite au Japon (3x) · je vais en Espagne (1x) · il est allemand (1x) · Italie (1x) ·
+  (flagged) Etats-Unis | 2026-07-01
+
+**Pattern G — directions + "avoir mal à" (health).**
+- c'est a gauche (2x) · allez tout droit (1x) · j'ai mal a la tete (2x) · j'ai mal au ventre (1x) | 2026-07-01
+
+**Pattern H — introductions / small talk (U3).**
+- comment allez-vous (2x) · quel age as-tu (2x) · je me presente (1x) · comment tu t'appelles (1x) | 2026-07-01
+
+**Other word/sentence recall (1x):** une tante (4x!), une trousse (2x), un pied, une boulangerie,
+une fenetre, un prenom, un magasin, un gateau, un cuisinier, une table, noir, une horloge, un sucre,
+un age, un fils, un etudiant, une salade; je vais en voiture; a tout a l'heure; en ete il fait chaud;
+ca coute dix euros; je peux payer par carte. | 2026-07-01
+
+**New words flagged (reinforce next lesson):** une fenetre, hiver, un sucre, une horloge,
+Etats-Unis; + sentences il est quatre heures et demie, je me leve a sept heures, c'est a gauche,
+a quelle heure, quelle est la date aujourd'hui. (All already in the app with IPA — no app changes.)
+
 ## Lesson log
 Format: date — theme — note
 - 2026-06-21 — setup — baseline built from Cantonese course Lessons 1–8; level set to A1, grammar-focused plan
@@ -331,5 +392,6 @@ Format: date — theme — note
 - 2026-06-28 (lesson) — U6 L'heure TAUGHT — quelle heure est-il / il est…, et quart / et demie / moins le quart, demi vs demie (midi/minuit→demi), am/pm + 24h, à quelle heure. Added to practice.html: 9 Time-theme VOCAB words (with IPA) + 10 time sentences. Phone copy (phone-app/index.html) also refreshed. Next: U9 description physique.
 - 2026-06-28 (sync) — app practice synced — 1032 correct, 378 mastered, streak 8. Big volume on new U4/U5. ⚠️ Found & FIXED an app bug: the Conjugation tab rejected "j'ai" (accepted only "ai"/"je ai") → she "missed" je-avoir 16x. Patched checkConj to accept elision (j'+vowel) and show/record the clean form (j'ai, je m'appelle). Real weak spots: aller (va/vont/vas), s'appeler forms, introduction phrases (comment allez-vous / vous appelez-vous / ça va), date sentences, and the new hundreds (438/526/914). No new vocab to add — all items already in app. Then ran a full revision session.
 - 2026-06-27 (lesson) — U4 Nombres + U5 Calendrier TAUGHT. U4: 70–99 review, 100–1000 (cent/cents/mille rules), prices, ordinals (premier/deuxième/troisième). U5: days+months (lowercase, m), seasons (au printemps / en été…), the date. Added to practice.html: 31 VOCAB rows (Days/Months/Seasons/Time/ordinals, all with IPA) + 10 sentences, AND upgraded the Numbers tab generator from 0–100 to **0–1000** (new numToFr100 helper + numToFr for hundreds/mille; newNum range *1001). Verified in browser: numToFr correct for 0/21/71/80/91/99/100/101/180/200/201/248/300/999/1000; calendar words show IPA (Monday→lundi /lœ̃.di/). Next: U6 l'heure.
+- 2026-06-30 (sync) — app practice synced (second device, local counters 870 correct · 347 mastered · streak 3 — same device as 06-28 sync 2, now grown; cumulative snapshot left unchanged). NEW #1 weakness = telling the TIME (l'heure, U6 — her freshest theme): "il est trois heures et quart" missed 6x, "moins le quart" 3x, "deux heures dix"/"a vingt heures" 2x. Noun gender still recurring (une montre 5x, une main 5x) and the "de" rules persist (je joue de la guitare 3x, je ne veux pas de thé 3x). Smaller clusters: dates/ordinals (la première fois, la date aujourd'hui 3x each), être+adjective (les cheveux blonds 3x), habiter au/en (au Japon 3x), une tante 4x. No new vocab — all items already in practice.html with IPA. Next lesson: lead with l'heure drilling, then un/une (montre/main/-e traps) + "de" rules upkeep.
 - 2026-06-28 (sync 2) — app practice synced from a SECOND device (local counters 171 correct · 63 mastered · streak 1 — a fresh device, so cumulative snapshot totals left unchanged). NOUN GENDER is again the #1 gap (une demie/gomme 2x, un fils/cuisinier 2x + ~12 more un/une misses) — mirrors the 06-27 session-2 pattern. Smaller clusters: country recall (Allemagne 3x, États-Unis 2x, Chine), calendar words (vendredi, printemps, mars, minuit), and adjective/ordinal recall (jeune, premier). Flagged for reinforcement: un réveil, un jus d'orange, une boulangerie, une trousse (+ gâteau/jambe). No new vocab to add — all 29 items already in practice.html with IPA. Next lesson: lead with un/une gender patterns (esp. -eau/-eur/-sion), then light calendar + country upkeep.
 - 2026-06-27 (plan overhaul) — Iris provided the 3 textbooks (Livre A1.1 / A1 / A2 B1) after finding vocab missing. PDFs are scanned images with NO text layer; this env has no pdftoppm/OCR/ImageMagick and the browser PDF viewer hangs — so could NOT OCR the bold words. Rebuilt vocab-plan.md from the standard published contents of these CLE titles into a 40-unit, 8-week A1.1→A2/B1 sprint (grammar track + daily routine included), flagged for Iris to verify against each Sommaire. Switched theme tracking from T-codes to U-codes (units). Next teaching target: U5 Le calendrier.
