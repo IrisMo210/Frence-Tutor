@@ -33,8 +33,9 @@ after every 5 lessons** (8 exams). Pace ≈ 2 lessons/week.
   official mock exams (run on paper in class, tutor marks with the corrigés).
 - `class-app-layout-mockup*.html` — approved layout history (V1 chosen).
 - **Deploy repo**: `C:\Users\IrisMo\la-classe-de-francais\` (local clone) →
-  github.com/irismokkkk/**French-Class** (public) → LIVE at
-  **https://irismokkkk.github.io/French-Class/** (Pages serves the `gh-pages`
+  github.com/IrisMo210/**French-Class** (public; she renamed her account
+  irismokkkk → **IrisMo210** on 2026-07-05) → LIVE at
+  **https://irismo210.github.io/French-Class/** (Pages serves the `gh-pages`
   branch). Repo contains only `index.html` (copy of class-app.html) + `README.md`
   — NEVER the book extracts or scans.
 
@@ -49,10 +50,24 @@ after every 5 lessons** (8 exams). Pace ≈ 2 lessons/week.
   exam listening part. Shadowing prompts, NO recording (her choice).
 - Dialogues: one scene per lesson, 3 levels — ① listen&read ② choose your reply
   ③ type your reply from the English hint. Progress saved per lesson (P.dlg).
-- Mixed review: 10 questions across studied lessons; missed items tracked in
-  P.weak ("key = lessonN:wordIndex") and resurface ~50% of the time.
-- Exams = full DELF A2 format: 4 parts × 25 (oral TTS / écrits / écrite with
-  model+copy-to-tutor / orale checklist), pass ≥ 50/100 AND ≥ 5/25 per part.
+- **Mastery** (her request 2026-07-05): 2 correct answers IN A ROW = maîtrisé 🏆.
+  Streaks per drill in P.ms (keys "q|e|g|s|c:lesson:idx"; conj keyed by verb);
+  a wrong answer resets the streak and flags P.weak. Mastered items leave the
+  drill's pool; empty pool → "Bravo … maîtrisé ✓" card + ↻ Recommencer. Home
+  stat shows mastered words (quiz keys). Weak items get ~50% pick priority.
+- Mixed review: **20 questions** across studied lessons (memory curve).
+- **Names are personalized**: dialogues/sentences/exam models use the literal
+  placeholder "Iris" / "Iris Mo" in the DATA; pers() swaps in the current
+  user's name at display/answer time. ALWAYS write "Iris"/"Iris Mo" when a
+  lesson needs a name — never another hardcoded student name.
+- Lesson done → Bravo overlay (next-lesson / exam button); dialogue levels are
+  auto-recorded when a scene is completed error-free (P.dlg), re-entry resumes
+  at the next level, 3/3 shows a "maîtrisé ✓" card + tab checkmark.
+- Exams = full DELF A2 format & volume: 4 parts × 25, pass ≥ 50/100 AND ≥ 5/25
+  per part; **~4 listening docs / 10 MCQ + ~4 texts / 10 MCQ + 2 écrite tasks +
+  orale in the 3 real parts (entretien dirigé / monologue / interaction, 5
+  checkboxes total)**. Keep this volume when authoring EX3–EX8.
+- Mode Classe "écouter tout" reads slowly (rate .72 + 850 ms gaps, PLGEN guard).
 - Per-person per-device progress (localStorage `fcl_*`); name pills; Sauvegarder/
   Restaurer = backup code "FCL1.<base64 JSON>".
 - **Mode Classe** (two-layer model, Iris's design): the class meets daily, taught
@@ -99,7 +114,7 @@ corrections with one-line whys, give /25 to type into the app.
 2. `git -C C:\Users\IrisMo\la-classe-de-francais add -A; git -C C:\Users\IrisMo\la-classe-de-francais commit -m "update"; git -C C:\Users\IrisMo\la-classe-de-francais push origin main; git -C C:\Users\IrisMo\la-classe-de-francais branch -f gh-pages main; git -C C:\Users\IrisMo\la-classe-de-francais push -f origin gh-pages`
    (**gh-pages is the branch Pages serves** — always sync it with main)
 3. Also commit/push the private `Frence Tutor` repo. Pages rebuilds in ~1 min;
-   classmates just reopen https://irismokkkk.github.io/French-Class/
+   classmates just reopen https://irismo210.github.io/French-Class/
 
 ## Getting book content for ANY chapter (the vocabulary pipeline)
 Priority order when preparing a lesson:

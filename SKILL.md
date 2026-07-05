@@ -88,7 +88,7 @@ When she says "sync my practice":
    - **Deploy to her phone (auto-update):** after editing `practice.html`, copy it to
      `C:\Users\IrisMo\french-phone-app\index.html`, then
      `git -C C:\Users\IrisMo\french-phone-app commit -am "update" && git -C C:\Users\IrisMo\french-phone-app push`.
-     GitHub Pages auto-rebuilds her live app at https://irismokkkk.github.io/french-phone-app/ (~1 min);
+     GitHub Pages auto-rebuilds her live app at https://irismo210.github.io/french-phone-app/ (~1 min; username renamed from irismokkkk on 2026-07-05 — she must re-add the phone bookmark);
      she just reopens it. (Push works via her cached GitHub Desktop credentials. The old OneDrive
      `phone-app/` copy + Netlify are retired.)
 5. Clear/delete `practice-log.md` (only if she used a file; the app already clears its own
@@ -100,7 +100,7 @@ log happens only in a live chat.
 
 ## Keeping GitHub in sync (so her phone always has the latest)
 Two repos, both push from the PC using her cached GitHub Desktop credentials:
-- **Private tutor repo** = the `Frence Tutor` folder itself (origin: github.com/irismokkkk/Frence-Tutor).
+- **Private tutor repo** = the `Frence Tutor` folder itself (origin: github.com/IrisMo210/Frence-Tutor).
   After updating `progress.md` / `vocab-plan.md` at the end of ANY lesson or sync, run:
   `git -C "C:\Users\IrisMo\OneDrive - FLHC S.A\Desktop\Frence Tutor" commit -am "update" ; git -C "C:\Users\IrisMo\OneDrive - FLHC S.A\Desktop\Frence Tutor" push`
 - **Public app/deploy repo** = `C:\Users\IrisMo\french-phone-app` (GitHub Pages → her phone app).
