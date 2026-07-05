@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Classe de Français — App Layout Mockup (V1)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Karla:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F4EF;
+    --ink:#23262B;
+    --ink-soft:#5C636E;
+    --line:#E0DBD1;
+
+    --m-deep:#2C5C86;      /* masculine / primary blue */
+    --m-bg:#E6EEF6;
+    --m-edge:#B9D0E5;
+
+    --f-deep:#A8425A;      /* feminine / rose */
+    --f-bg:#F7E6EA;
+    --f-edge:#E8BFC9;
+
+    --gold:#B68A35;
+    --gold-bg:#FBF3E2;
+    --gold-edge:#E3CC9A;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:'Karla',system-ui,sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.55;
+    padding:clamp(20px,5vw,64px) clamp(14px,4vw,48px);
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1040px;margin:0 auto;}
+
+  /* ---------- page header ---------- */
+  header{text-align:center;padding-bottom:34px;border-bottom:1px solid var(--line);margin-bottom:44px;}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:16px;}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(2.3rem,6vw,3.6rem);line-height:1.05;letter-spacing:-.5px;}
+  h1 .m{color:var(--m-deep);font-style:italic;}
+  h1 .f{color:var(--f-deep);font-style:italic;}
+  .sub{margin-top:12px;color:var(--ink-soft);font-size:1rem;max-width:56ch;margin-left:auto;margin-right:auto;}
+
+  .sec-head{display:flex;align-items:baseline;gap:14px;margin:56px 0 8px;}
+  .sec-num{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--gold);border:1px solid var(--gold);border-radius:50%;width:30px;height:30px;display:flex;align-items:center;justify-content:center;flex:0 0 auto;}
+  .sec-head h2{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(1.5rem,4vw,2rem);letter-spacing:-.3px;}
+  .sec-note{color:var(--ink-soft);font-size:.95rem;margin:0 0 22px 44px;max-width:70ch;}
+
+  /* ---------- phone frame ---------- */
+  .phones{display:flex;flex-wrap:wrap;gap:28px;justify-content:center;}
+  .phone{
+    width:100%;max-width:400px;background:#fff;
+    border:1px solid var(--line);border-radius:26px;
+    padding:22px 18px 26px;
+    box-shadow:0 10px 30px rgba(35,38,43,.08);
+  }
+  .phone .app-eyebrow{font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;color:var(--ink-soft);text-align:center;margin-bottom:8px;}
+  .phone .app-title{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.7rem;text-align:center;letter-spacing:-.3px;line-height:1.1;}
+  .phone .app-title .m{color:var(--m-deep);font-style:italic;}
+  .phone .app-title .f{color:var(--f-deep);font-style:italic;}
+  .phone .app-sub{text-align:center;color:var(--ink-soft);font-size:.82rem;margin-top:4px;}
+
+  /* who is practising */
+  .who{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:16px 0 4px;}
+  .who span{font-family:'JetBrains Mono',monospace;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);align-self:center;}
+  .pill{border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:6px 14px;font-size:.85rem;font-weight:700;color:var(--ink-soft);}
+  .pill.on{background:var(--m-deep);border-color:var(--m-deep);color:#fff;}
+
+  .progressline{display:flex;justify-content:space-between;gap:8px;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin:14px 0 18px;}
+  .progressline div{text-align:center;flex:1;}
+  .progressline b{display:block;font-family:'Cormorant Garamond',serif;font-size:1.35rem;color:var(--m-deep);}
+  .progressline small{font-family:'JetBrains Mono',monospace;font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);}
+
+  .bookhead{font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);border-bottom:1px solid var(--line);padding-bottom:6px;margin:18px 0 10px;}
+
+  .lesson{display:flex;align-items:center;gap:12px;border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:8px;background:#fff;}
+  .lesson .num{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--ink-soft);width:34px;flex:0 0 auto;}
+  .lesson .t{font-weight:700;font-size:.93rem;flex:1;}
+  .lesson .t small{display:block;font-weight:400;color:var(--ink-soft);font-size:.76rem;}
+  .st{font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.06em;border-radius:999px;padding:4px 10px;flex:0 0 auto;}
+  .st.done{background:var(--gold-bg);color:var(--gold);border:1px solid var(--gold-edge);}
+  .st.now{background:var(--m-bg);color:var(--m-deep);border:1px solid var(--m-edge);}
+  .st.todo{background:var(--paper);color:var(--ink-soft);border:1px solid var(--line);}
+
+  .lesson.exam{background:var(--gold-bg);border:1px solid var(--gold-edge);}
+  .lesson.exam .num{color:var(--gold);}
+  .lesson.exam .t{font-family:'Cormorant Garamond',serif;font-size:1.08rem;font-weight:600;}
+
+  /* ---------- lesson screen ---------- */
+  .back{font-family:'JetBrains Mono',monospace;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:10px;}
+  .lesson-title{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.55rem;line-height:1.15;letter-spacing:-.3px;}
+  .lesson-meta{color:var(--ink-soft);font-size:.8rem;margin:4px 0 14px;}
+
+  .tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;}
+  .tabs b{border:1px solid var(--line);border-radius:999px;padding:7px 13px;font-size:.8rem;font-weight:700;color:var(--ink-soft);background:#fff;}
+  .tabs b.on{background:var(--m-deep);border-color:var(--m-deep);color:#fff;}
+
+  .word{display:flex;align-items:baseline;gap:10px;border-bottom:1px dashed var(--line);padding:9px 2px;}
+  .word .fr{font-weight:700;font-size:1rem;}
+  .word .fr.m{color:var(--m-deep);} .word .fr.f{color:var(--f-deep);}
+  .word .ipa{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--ink-soft);}
+  .word .en{margin-left:auto;color:var(--ink-soft);font-size:.86rem;text-align:right;}
+  .gtag{font-family:'JetBrains Mono',monospace;font-size:.6rem;border-radius:4px;padding:1px 5px;}
+  .gtag.m{background:var(--m-bg);color:var(--m-deep);} .gtag.f{background:var(--f-bg);color:var(--f-deep);}
+
+  .quizcard{border:1px solid var(--line);border-radius:14px;padding:16px;background:var(--paper);margin-top:14px;}
+  .quizcard .q{font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);}
+  .quizcard .prompt{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;margin:6px 0 12px;}
+  .fakein{border:1px solid var(--line);background:#fff;border-radius:10px;padding:11px;color:#A9A294;font-size:.9rem;margin-bottom:10px;}
+  .btnrow{display:flex;gap:8px;}
+  .btn{flex:1;text-align:center;border-radius:10px;padding:11px;font-weight:700;font-size:.9rem;}
+  .btn.blue{background:var(--m-deep);color:#fff;}
+  .btn.ghost{border:1px solid var(--m-deep);color:var(--m-deep);background:#fff;}
+  .btn.gold{background:var(--gold);color:#fff;}
+
+  /* ---------- exam screen ---------- */
+  .exam-title{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.6rem;letter-spacing:-.3px;}
+  .exam-sub{color:var(--ink-soft);font-size:.82rem;margin:4px 0 16px;}
+  .part{border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:10px;background:#fff;}
+  .part .ph{display:flex;align-items:baseline;gap:10px;}
+  .part .pn{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--gold);border:1px solid var(--gold);border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;flex:0 0 auto;align-self:center;}
+  .part .pt{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.15rem;flex:1;}
+  .part .pts{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--ink-soft);}
+  .part .pd{color:var(--ink-soft);font-size:.82rem;margin:6px 0 0 34px;}
+  .part .sample{margin:10px 0 0 34px;background:var(--paper);border:1px dashed var(--line);border-radius:10px;padding:10px 12px;font-size:.84rem;}
+  .part .sample i{color:var(--m-deep);}
+  .rule{background:var(--gold-bg);border:1px solid var(--gold-edge);border-radius:12px;padding:12px 14px;font-size:.85rem;margin-top:14px;}
+  .rule b{color:var(--gold);}
+
+  /* ---------- plan table ---------- */
+  table.plan{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-left:0;}
+  table.plan th,table.plan td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--line);font-size:.95rem;}
+  table.plan thead th{font-family:'JetBrains Mono',monospace;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);font-weight:500;background:var(--paper);}
+  table.plan tr:last-child td{border-bottom:none;}
+  table.plan td.exam{color:var(--gold);font-weight:700;}
+  footer{text-align:center;color:var(--ink-soft);font-size:.8rem;margin-top:60px;padding-top:20px;border-top:1px solid var(--line);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">Layout proposal · V1 (for comparison)</div>
+  <h1>La <span class="m">Classe</span> de <span class="f">Français</span></h1>
+  <p class="sub">Group practice app — Vocabulaire Progressif (A1.1 → A1 → A2/B1) · lesson-by-lesson revision · a DELF-style exam every 5 lessons · objectif : <b>DELF A2 in 5 months</b></p>
+</header>
+
+<!-- ===================== SCREEN 1 ===================== -->
+<div class="sec-head"><div class="sec-num">1</div><h2>Écran 1 — Choisir sa leçon</h2></div>
+<p class="sec-note">The home screen. Each classmate picks their name (progress is saved per person on their own phone), then chooses a lesson to study or revise. Lessons follow the three books in order; every 5th step is a gold <b>exam</b> card. Statuses: ✓ terminée · en cours · à venir.</p>
+
+<div class="phones">
+<div class="phone">
+  <div class="app-eyebrow">La Classe de Français</div>
+  <div class="app-title">Notre <span class="m">Classe</span> de <span class="f">Français</span></div>
+  <div class="app-sub">Objectif DELF A2 · 5 mois</div>
+
+  <div class="who"><span>Qui pratique ?</span><b class="pill on">Iris</b><b class="pill">Marco</b><b class="pill">+ ajouter un nom</b></div>
+
+  <div class="progressline">
+    <div><b>7/40</b><small>Leçons</small></div>
+    <div><b>1/8</b><small>Examens</small></div>
+    <div><b>12</b><small>Jours de suite</small></div>
+  </div>
+
+  <div class="bookhead">Livre 1 · Débutant Complet — A1.1</div>
+  <div class="lesson"><span class="num">L04</span><div class="t">Les nombres<small>0–1000, les prix, les ordinaux</small></div><span class="st done">✓ terminée</span></div>
+  <div class="lesson"><span class="num">L05</span><div class="t">Le calendrier<small>jours, mois, la date, les saisons</small></div><span class="st done">✓ terminée</span></div>
+  <div class="lesson exam"><span class="num">EX1</span><div class="t">Examen 1 · Leçons 1–5</div><span class="st done">✓ 68/100</span></div>
+  <div class="lesson"><span class="num">L06</span><div class="t">L'heure<small>il est huit heures et quart…</small></div><span class="st now">en cours</span></div>
+  <div class="lesson"><span class="num">L07</span><div class="t">Pays &amp; nationalités<small>en France, au Japon, la Chine…</small></div><span class="st todo">à venir</span></div>
+  <div class="lesson"><span class="num">L08</span><div class="t">La famille &amp; les âges de la vie<small>les beaux-parents, un ado…</small></div><span class="st todo">à venir</span></div>
+  <div class="lesson"><span class="num">L09</span><div class="t">La description physique<small>grand, mince, les cheveux…</small></div><span class="st todo">à venir</span></div>
+  <div class="lesson"><span class="num">L10</span><div class="t">Le caractère<small>gentil, timide, travailleur…</small></div><span class="st todo">à venir</span></div>
+  <div class="lesson exam"><span class="num">EX2</span><div class="t">Examen 2 · Leçons 6–10</div><span class="st todo">verrouillé</span></div>
+</div>
+</div>
+
+<!-- ===================== SCREEN 2 ===================== -->
+<div class="sec-head"><div class="sec-num">2</div><h2>Écran 2 — Dans une leçon</h2></div>
+<p class="sec-note">Tap a lesson to open it. First tab <b>Apprendre</b> shows the word list — every noun with its gender in the blue/rose colours, with pronunciation. The other tabs are the drills you already know (Quiz, Genre un/une, Phrases), but <b>filtered to this lesson only</b> — that's the "revision for a specific class" you asked for.</p>
+
+<div class="phones">
+<div class="phone">
+  <div class="back">← Toutes les leçons</div>
+  <div class="lesson-title">Leçon 6 — L'heure</div>
+  <div class="lesson-meta">Livre 1 · A1.1 · 18 mots · grammaire : « il est » + les heures</div>
+  <div class="tabs"><b class="on">Apprendre</b><b>Quiz</b><b>Genre un/une</b><b>Phrases</b></div>
+
+  <div class="word"><span class="fr f">une heure</span><span class="gtag f">f</span><span class="ipa">/œʁ/</span><span class="en">an hour / o'clock</span></div>
+  <div class="word"><span class="fr m">le matin</span><span class="gtag m">m</span><span class="ipa">/matɛ̃/</span><span class="en">the morning</span></div>
+  <div class="word"><span class="fr m">le soir</span><span class="gtag m">m</span><span class="ipa">/swaʁ/</span><span class="en">the evening</span></div>
+  <div class="word"><span class="fr f">une montre</span><span class="gtag f">f</span><span class="ipa">/mɔ̃tʁ/</span><span class="en">a watch</span></div>
+  <div class="word"><span class="fr">et quart / et demie</span><span class="ipa">/e kaʁ/</span><span class="en">quarter / half past</span></div>
+
+  <div class="quizcard">
+    <div class="q">Tab « Quiz » — cette leçon seulement</div>
+    <div class="prompt">the morning&nbsp;?</div>
+    <div class="fakein">type the French with its article… (le matin)</div>
+    <div class="btnrow"><div class="btn blue">Vérifier</div><div class="btn ghost">Je ne sais pas</div></div>
+  </div>
+</div>
+</div>
+
+<!-- ===================== SCREEN 3 ===================== -->
+<div class="sec-head"><div class="sec-num">3</div><h2>Écran 3 — L'examen blanc (style DELF A2)</h2></div>
+<p class="sec-note">After every 5 lessons, an exam unlocks. It follows the DELF A2 format (minus the listening part for now — we practise listening together in class): three parts, 25 points each. The app corrects part 1 automatically; for parts 2–3 it shows model answers, and you can copy your writing to me (your tutor) for real correction and a mark.</p>
+
+<div class="phones">
+<div class="phone">
+  <div class="back">← Toutes les leçons</div>
+  <div class="exam-title">Examen 2 · Leçons 6–10</div>
+  <div class="exam-sub">Format DELF A2 · 3 parties · 75 points · ~35 minutes</div>
+
+  <div class="part">
+    <div class="ph"><span class="pn">1</span><span class="pt">Compréhension des écrits</span><span class="pts">/25</span></div>
+    <div class="pd">Read short texts (a message, a menu, a timetable) and answer multiple-choice questions. Auto-corrected.</div>
+    <div class="sample"><i>« Le train pour Paris part à quinze heures trente. »</i><br>À quelle heure part le train ? ○ 15h13 &nbsp;●&nbsp;15h30 &nbsp;○ 5h30</div>
+  </div>
+
+  <div class="part">
+    <div class="ph"><span class="pn">2</span><span class="pt">Production écrite</span><span class="pts">/25</span></div>
+    <div class="pd">Write two short texts (~60 words) — e.g. describe your day, reply to an invitation. Compare with a model answer, or send it to the tutor for correction.</div>
+    <div class="sample"><div class="btn gold" style="font-size:.8rem;padding:9px;">Copier ma production → correction par le tuteur</div></div>
+  </div>
+
+  <div class="part">
+    <div class="ph"><span class="pn">3</span><span class="pt">Production orale</span><span class="pts">/25</span></div>
+    <div class="pd">Speaking cards to do <b>together as a class</b>: introduce yourself, ask questions, role-play (au café, à la gare). Self-scored checklist.</div>
+  </div>
+
+  <div class="rule"><b>Barème DELF :</b> réussite à partir de <b>38/75</b> (50%), minimum 5/25 par partie — same rules as the real exam, so exam day feels familiar. We add listening later when we're ready.</div>
+</div>
+</div>
+
+<!-- ===================== PLAN ===================== -->
+<div class="sec-head"><div class="sec-num">4</div><h2>Le plan — 40 leçons · 8 examens · 5 mois</h2></div>
+<p class="sec-note">The 40 lessons come straight from your existing vocab-plan (the three Vocabulaire Progressif books). Pace for the class: <b>2 lessons per week</b> → an exam roughly every 2–3 weeks.</p>
+
+<table class="plan">
+  <thead><tr><th>Mois</th><th>Leçons</th><th>Livre</th><th>Examens</th></tr></thead>
+  <tbody>
+    <tr><td>Mois 1</td><td>L1 – L8</td><td>Débutant Complet (A1.1)</td><td class="exam">EX1</td></tr>
+    <tr><td>Mois 2</td><td>L9 – L16</td><td>A1.1 → Débutant (A1)</td><td class="exam">EX2 · EX3</td></tr>
+    <tr><td>Mois 3</td><td>L17 – L24</td><td>Débutant (A1)</td><td class="exam">EX4</td></tr>
+    <tr><td>Mois 4</td><td>L25 – L32</td><td>Débutant (A1) → Intermédiaire</td><td class="exam">EX5 · EX6</td></tr>
+    <tr><td>Mois 5</td><td>L33 – L40</td><td>Intermédiaire (A2/B1)</td><td class="exam">EX7 · EX8 — DELF blanc complet</td></tr>
+  </tbody>
+</table>
+
+<footer>V1 mockup (kept for comparison) — layout redesigned from scratch. V2 = your practice.html layout in the chart colours.</footer>
+</div>
+</body>
+</html>

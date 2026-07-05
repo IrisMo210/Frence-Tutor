@@ -1,0 +1,1857 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>La Classe de Français</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="La Classe">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#F6F4EF">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Karla:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F4EF; --ink:#23262B; --ink-soft:#5C636E; --line:#E0DBD1;
+    --m-deep:#2C5C86; --m-bg:#E6EEF6; --m-edge:#B9D0E5;
+    --f-deep:#A8425A; --f-bg:#F7E6EA; --f-edge:#E8BFC9;
+    --gold:#B68A35; --gold-bg:#FBF3E2; --gold-edge:#E3CC9A;
+    --good:#3E7C4F; --good-bg:#E8F2EA; --bad:#B23A2E; --bad-bg:#F6E3E0;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Karla',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;padding:18px 14px 50px;}
+  .wrap{max-width:640px;margin:0 auto;}
+
+  .app-eyebrow{font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.28em;text-transform:uppercase;color:var(--ink-soft);text-align:center;margin:8px 0 6px;}
+  .app-title{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.9rem;text-align:center;letter-spacing:-.3px;line-height:1.1;}
+  .app-title .m{color:var(--m-deep);font-style:italic;}
+  .app-title .f{color:var(--f-deep);font-style:italic;}
+  .app-sub{text-align:center;color:var(--ink-soft);font-size:.82rem;margin-top:4px;}
+
+  .who{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:16px 0 4px;}
+  .who span{font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);align-self:center;}
+  .pill{border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 14px;font-size:.85rem;font-weight:700;color:var(--ink-soft);cursor:pointer;}
+  .pill.on{background:var(--m-deep);border-color:var(--m-deep);color:#fff;}
+  .pill.add{border-style:dashed;color:var(--gold);border-color:var(--gold-edge);background:var(--gold-bg);}
+
+  .progressline{display:flex;justify-content:space-between;gap:8px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin:14px 0 6px;}
+  .progressline div{text-align:center;flex:1;}
+  .progressline b{display:block;font-family:'Cormorant Garamond',serif;font-size:1.35rem;color:var(--m-deep);}
+  .progressline small{font-family:'JetBrains Mono',monospace;font-size:.54rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);}
+  .homebtns{display:flex;gap:9px;margin:10px 0 2px;}
+  .homebtns button{flex:1;}
+  .exportline{text-align:center;margin:8px 0 2px;}
+  .exportline button{border:none;background:none;color:var(--ink-soft);font-size:.74rem;text-decoration:underline;cursor:pointer;font-family:'Karla',sans-serif;padding:3px 6px;}
+
+  .bookhead{font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);border-bottom:1px solid var(--line);padding-bottom:6px;margin:22px 2px 10px;line-height:1.5;}
+  .lesson{display:flex;align-items:center;gap:12px;border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:8px;background:#fff;cursor:pointer;}
+  .lesson .num{font-family:'JetBrains Mono',monospace;font-size:.66rem;color:var(--ink-soft);width:32px;flex:0 0 auto;}
+  .lesson .t{font-weight:700;font-size:.92rem;flex:1;line-height:1.3;}
+  .lesson .t small{display:block;font-weight:400;color:var(--ink-soft);font-size:.75rem;}
+  .st{font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.05em;border-radius:999px;padding:4px 9px;flex:0 0 auto;white-space:nowrap;}
+  .st.done{background:var(--gold-bg);color:var(--gold);border:1px solid var(--gold-edge);}
+  .st.now{background:var(--m-bg);color:var(--m-deep);border:1px solid var(--m-edge);}
+  .st.todo{background:var(--paper);color:var(--ink-soft);border:1px solid var(--line);}
+  .lesson.exam{background:var(--gold-bg);border-color:var(--gold-edge);}
+  .lesson.exam .num{color:var(--gold);}
+  .lesson.exam .t{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600;}
+
+  .back{font-family:'JetBrains Mono',monospace;font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin:6px 0 12px;cursor:pointer;display:inline-block;}
+  .lesson-title{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.55rem;line-height:1.15;letter-spacing:-.3px;}
+  .lesson-meta{color:var(--ink-soft);font-size:.8rem;margin:4px 0 14px;}
+
+  .tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;}
+  .tabs button{border:1px solid var(--line);border-radius:999px;padding:7px 12px;font-size:.78rem;font-weight:700;color:var(--ink-soft);background:#fff;cursor:pointer;font-family:'Karla',sans-serif;}
+  .tabs button.on{background:var(--m-deep);border-color:var(--m-deep);color:#fff;}
+  .panel{display:none;}.panel.on{display:block;}
+
+  .gram{background:#fff;border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:12px;padding:12px 14px;font-size:.88rem;margin-bottom:14px;}
+  .gram b{color:var(--gold);}
+  .word{display:flex;align-items:baseline;gap:9px;border-bottom:1px dashed var(--line);padding:9px 2px;}
+  .word .fr{font-weight:700;font-size:1rem;}
+  .word .fr.m{color:var(--m-deep);} .word .fr.f{color:var(--f-deep);}
+  .word .ipa{font-family:'JetBrains Mono',monospace;font-size:.66rem;color:var(--ink-soft);flex:0 0 auto;}
+  .word .en{margin-left:auto;color:var(--ink-soft);font-size:.84rem;text-align:right;}
+  .gtag{font-family:'JetBrains Mono',monospace;font-size:.58rem;border-radius:4px;padding:1px 5px;flex:0 0 auto;}
+  .gtag.m{background:var(--m-bg);color:var(--m-deep);} .gtag.f{background:var(--f-bg);color:var(--f-deep);}
+  .spk{border:1px solid var(--m-edge);background:var(--m-bg);color:var(--m-deep);border-radius:8px;font-size:.72rem;padding:2px 8px;cursor:pointer;flex:0 0 auto;font-family:'Karla',sans-serif;}
+  .spk:hover{filter:brightness(1.05);}
+
+  .card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:0 4px 18px rgba(35,38,43,.06);margin-bottom:14px;}
+  .q{font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);}
+  .prompt{font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:600;margin:6px 0 14px;line-height:1.25;}
+  input.txt{width:100%;padding:12px;border:1px solid var(--line);border-radius:12px;font-size:16px;text-align:center;background:#fff;font-family:'Karla',sans-serif;}
+  textarea.txt{width:100%;min-height:110px;padding:12px;border:1px solid var(--line);border-radius:12px;font-size:15px;background:#fff;font-family:'Karla',sans-serif;line-height:1.5;}
+  .newword{display:block;width:100%;margin-top:12px;background:var(--gold-bg);color:var(--gold);border:1px dashed var(--gold-edge);padding:10px;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;text-align:center;font-family:'Karla',sans-serif;}
+  .row{display:flex;gap:9px;margin-top:14px;}
+  .row button{flex:1;}
+  button.act{border:none;background:var(--m-deep);color:#fff;padding:12px;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Karla',sans-serif;}
+  button.act:hover{filter:brightness(1.08);}
+  button.ghost{background:#fff;color:var(--m-deep);border:1px solid var(--m-deep);}
+  button.goldb{background:var(--gold);}
+  .feedback{margin-top:13px;text-align:center;font-weight:700;min-height:20px;font-size:.95rem;border-radius:10px;}
+  .feedback.ok{color:var(--good);background:var(--good-bg);padding:9px;}
+  .feedback.ko{color:var(--bad);background:var(--bad-bg);padding:9px;}
+  .feedback .sub2{display:block;font-weight:400;font-size:.82rem;color:var(--ink-soft);margin-top:3px;}
+  .hint{text-align:center;color:var(--ink-soft);font-size:.72rem;margin:10px 0 0;}
+  .opts{display:grid;gap:9px;margin-top:6px;}
+  .opt{border:1px solid var(--line);background:#fff;padding:12px;border-radius:12px;cursor:pointer;font-size:.95rem;text-align:left;font-family:'Karla',sans-serif;}
+  .opt.okc{background:var(--good-bg);border-color:var(--good);color:var(--good);font-weight:700;}
+  .opt.koc{background:var(--bad-bg);border-color:var(--bad);color:var(--bad);}
+  .genrebtns{display:flex;gap:12px;margin-top:6px;}
+  .genrebtns button{flex:1;font-family:'Cormorant Garamond',serif;font-size:1.5rem;padding:15px;border-radius:14px;font-weight:600;cursor:pointer;}
+  .genrebtns .un{color:var(--m-deep);border:2px solid var(--m-edge);background:var(--m-bg);}
+  .genrebtns .une{color:var(--f-deep);border:2px solid var(--f-edge);background:var(--f-bg);}
+  .donebtn{display:block;width:100%;margin-top:18px;background:#fff;border:1px solid var(--gold-edge);color:var(--gold);border-radius:12px;padding:12px;font-weight:700;font-size:14px;cursor:pointer;font-family:'Karla',sans-serif;}
+  .donebtn.is{background:var(--gold-bg);}
+  .shadowtip{background:var(--gold-bg);border:1px dashed var(--gold-edge);border-radius:10px;padding:9px 12px;font-size:.8rem;color:var(--gold);text-align:center;margin-top:12px;font-weight:700;}
+
+  /* dialogues */
+  .lvlbtns{display:flex;gap:8px;margin-bottom:12px;}
+  .lvlbtns button{flex:1;border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px 6px;font-size:.78rem;font-weight:700;color:var(--ink-soft);cursor:pointer;font-family:'Karla',sans-serif;}
+  .lvlbtns button.on{background:var(--gold);border-color:var(--gold);color:#fff;}
+  .lvlbtns button.won{border-color:var(--gold-edge);color:var(--gold);background:var(--gold-bg);}
+  .bubble{max-width:88%;border-radius:14px;padding:10px 13px;margin-bottom:9px;font-size:.95rem;line-height:1.45;position:relative;}
+  .bubble.a{background:#fff;border:1px solid var(--line);margin-right:auto;}
+  .bubble.me{background:var(--m-bg);border:1px solid var(--m-edge);margin-left:auto;}
+  .bubble .who{font-family:'JetBrains Mono',monospace;font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);display:block;margin-bottom:2px;}
+  .bubble .entr{display:block;color:var(--ink-soft);font-size:.78rem;margin-top:3px;}
+  .bubble .spk{margin-left:6px;}
+
+  /* exam */
+  .exam-title{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.5rem;letter-spacing:-.3px;}
+  .exam-sub{color:var(--ink-soft);font-size:.8rem;margin:4px 0 14px;}
+  .part{border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px;background:#fff;}
+  .part .ph{display:flex;align-items:center;gap:9px;margin-bottom:6px;}
+  .part .pn{font-family:'JetBrains Mono',monospace;font-size:.66rem;color:var(--gold);border:1px solid var(--gold);border-radius:50%;width:23px;height:23px;display:flex;align-items:center;justify-content:center;flex:0 0 auto;}
+  .part .pt{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.12rem;flex:1;}
+  .part .pts{font-family:'JetBrains Mono',monospace;font-size:.66rem;color:var(--ink-soft);}
+  .rtext{background:var(--paper);border:1px dashed var(--line);border-radius:10px;padding:11px 13px;font-size:.9rem;margin:8px 0;font-style:italic;}
+  .mcq{margin:10px 0 14px;}
+  .mcq .qq{font-weight:700;font-size:.9rem;margin-bottom:6px;}
+  .mcq label{display:block;border:1px solid var(--line);border-radius:10px;padding:9px 12px;margin-bottom:6px;font-size:.9rem;cursor:pointer;background:#fff;}
+  .mcq label.okc{background:var(--good-bg);border-color:var(--good);color:var(--good);font-weight:700;}
+  .mcq label.koc{background:var(--bad-bg);border-color:var(--bad);color:var(--bad);}
+  .model{background:var(--gold-bg);border:1px solid var(--gold-edge);border-radius:10px;padding:11px 13px;font-size:.88rem;margin-top:8px;display:none;}
+  .model b{color:var(--gold);}
+  .speakx label{display:flex;gap:9px;align-items:flex-start;border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:6px;font-size:.9rem;cursor:pointer;background:#fff;}
+  .speakx input{margin-top:3px;}
+  .scoreline{display:flex;align-items:center;gap:10px;margin-top:10px;font-size:.88rem;flex-wrap:wrap;}
+  .scoreline input{width:70px;padding:8px;border:1px solid var(--line);border-radius:10px;font-size:15px;text-align:center;}
+  .rule{background:var(--gold-bg);border:1px solid var(--gold-edge);border-radius:12px;padding:11px 13px;font-size:.82rem;margin:4px 0 14px;}
+  .rule b{color:var(--gold);}
+  .result{border:2px solid var(--gold);border-radius:16px;background:#fff;padding:18px;text-align:center;margin-top:14px;}
+  .result .big{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:600;color:var(--gold);}
+  .result .det{color:var(--ink-soft);font-size:.85rem;margin-top:6px;}
+
+  .note{background:#fff;border:1px dashed var(--gold-edge);border-radius:14px;padding:16px;font-size:.9rem;color:var(--ink-soft);}
+
+  /* ---------- Mode Classe (shared class device, big screen) ---------- */
+  body.classe .wrap{max-width:980px;}
+  .cls-top{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px;}
+  .cls-top .x{margin-left:auto;}
+  .cls-lnav{font-family:'JetBrains Mono',monospace;font-size:.72rem;border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 14px;cursor:pointer;color:var(--ink-soft);}
+  .cls-lnav.big{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600;color:var(--ink);cursor:default;}
+  .cls-slide{background:#fff;border:1px solid var(--line);border-radius:20px;padding:clamp(22px,4vw,46px);box-shadow:0 8px 30px rgba(35,38,43,.08);min-height:56vh;}
+  .cls-eyebrow{font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;}
+  .cls-title{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(2rem,5vw,3.2rem);line-height:1.08;letter-spacing:-.5px;}
+  .cls-sub{color:var(--ink-soft);font-size:clamp(1rem,2.2vw,1.25rem);margin-top:12px;}
+  .cls-word{display:flex;align-items:baseline;gap:14px;border-bottom:1px dashed var(--line);padding:12px 2px;}
+  .cls-word .fr{font-weight:700;font-size:clamp(1.25rem,2.8vw,1.7rem);}
+  .cls-word .fr.m{color:var(--m-deep);} .cls-word .fr.f{color:var(--f-deep);}
+  .cls-word .en{margin-left:auto;color:var(--ink-soft);font-size:clamp(.95rem,2vw,1.15rem);text-align:right;}
+  .cls-word .spk{font-size:.95rem;padding:4px 12px;}
+  .cls-gram{font-size:clamp(1.15rem,2.6vw,1.6rem);line-height:1.7;}
+  .cls-gram b{color:var(--gold);}
+  .cls-bubble{max-width:82%;border-radius:16px;padding:14px 18px;margin-bottom:12px;font-size:clamp(1.05rem,2.4vw,1.4rem);line-height:1.5;}
+  .cls-bubble.a{background:var(--paper);border:1px solid var(--line);margin-right:auto;}
+  .cls-bubble.me{background:var(--m-bg);border:1px solid var(--m-edge);margin-left:auto;}
+  .cls-bubble .who{font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);display:block;margin-bottom:3px;}
+  .cls-parler{list-style:none;}
+  .cls-parler li{font-size:clamp(1.1rem,2.5vw,1.5rem);padding:14px 0 14px 44px;position:relative;border-bottom:1px dashed var(--line);line-height:1.5;}
+  .cls-parler li::before{content:"🗣";position:absolute;left:0;top:12px;}
+  .cls-tip{background:var(--gold-bg);border:1px dashed var(--gold-edge);border-radius:12px;padding:12px 16px;font-size:clamp(.9rem,2vw,1.05rem);color:var(--gold);font-weight:700;text-align:center;margin-top:18px;}
+  .cls-nav{display:flex;gap:10px;align-items:center;justify-content:center;margin-top:16px;}
+  .cls-nav button{border:none;background:var(--m-deep);color:#fff;border-radius:12px;padding:14px 26px;font-size:1rem;font-weight:700;cursor:pointer;font-family:'Karla',sans-serif;}
+  .cls-nav button:disabled{opacity:.35;cursor:default;}
+  .cls-nav .cnt{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--ink-soft);min-width:70px;text-align:center;}
+  .cls-dots{display:flex;gap:6px;justify-content:center;margin-top:10px;flex-wrap:wrap;}
+  .cls-dots span{width:9px;height:9px;border-radius:50%;background:var(--line);cursor:pointer;}
+  .cls-dots span.on{background:var(--gold);}
+  #toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:var(--ink);color:#fff;border-radius:999px;padding:9px 18px;font-size:.85rem;opacity:0;transition:opacity .3s;pointer-events:none;z-index:9;max-width:90%;text-align:center;}
+  footer{text-align:center;color:var(--ink-soft);font-size:.72rem;margin-top:34px;padding-top:16px;border-top:1px solid var(--line);}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<div id="toast"></div>
+
+<script>
+/* ============================================================
+   LA CLASSE DE FRANÇAIS — v2
+   Curriculum: the REAL books (extracts in book-extracts/)
+   L1–L16 = Débutant Complet A1.1 (29 ch) · L17–L32 = Débutant A1 (28 ch)
+   L33–L40 = Intermédiaire A2/B1 (25 ch)
+   Word row: [english, "article français", "/ipa/", g, exFR, exEN]
+   ============================================================ */
+
+const BOOKS=[
+ "Livre 1 · Débutant Complet A1.1 (29 chapitres)",
+ "Livre 2 · Débutant A1, 3e édition (28 chapitres)",
+ "Livre 3 · Intermédiaire A2/B1, 3e édition (25 chapitres)"
+];
+
+const VERBS={
+  "être":["suis","es","est","sommes","êtes","sont"],
+  "avoir":["ai","as","a","avons","avez","ont"],
+  "aller":["vais","vas","va","allons","allez","vont"],
+  "faire":["fais","fais","fait","faisons","faites","font"],
+  "parler":["parle","parles","parle","parlons","parlez","parlent"],
+  "habiter":["habite","habites","habite","habitons","habitez","habitent"],
+  "aimer":["aime","aimes","aime","aimons","aimez","aiment"],
+  "travailler":["travaille","travailles","travaille","travaillons","travaillez","travaillent"],
+  "acheter":["achète","achètes","achète","achetons","achetez","achètent"],
+  "appeler (j'appelle)":["appelle","appelles","appelle","appelons","appelez","appellent"],
+  "comprendre":["comprends","comprends","comprend","comprenons","comprenez","comprennent"],
+  "lire":["lis","lis","lit","lisons","lisez","lisent"],
+  "écrire":["écris","écris","écrit","écrivons","écrivez","écrivent"],
+  "venir":["viens","viens","vient","venons","venez","viennent"],
+  "jouer":["joue","joues","joue","jouons","jouez","jouent"]
+};
+const CORE=["être","avoir","aller","faire"];
+const PRON=["je","tu","il / elle","nous","vous","ils / elles"];
+const GEN_DIST=["Je ne sais pas.","Merci, au revoir !","Oui, bien sûr.","Non merci."];
+
+/* === LESSONS_START === */
+const LESSONS=[
+{n:1,b:0,ch:"ch. 1–2 (p. 6–9)",t:"Les lettres & les nombres",s:"A, B, C… · 1, 2, 3… · épeler",
+ g:"Les accents sur le e : <b>é</b> (accent aigu), <b>è</b> (grave), <b>ê</b> (circonflexe), <b>ë</b> (tréma). Attention : 70 = soixante-dix, 80 = quatre-vingts, 90 = quatre-vingt-dix. En Belgique on dit septante / nonante !",
+ v:["être","avoir"],
+ w:[
+  ["a letter","une lettre","/lɛtʁ/","f","Il y a quatre lettres dans « Iris ».","There are four letters in 'Iris'."],
+  ["a vowel","une voyelle","/vwajɛl/","f","A, E, I, O, U, Y sont des voyelles.","A E I O U Y are vowels."],
+  ["a consonant","une consonne","/kɔ̃sɔn/","f","",""],
+  ["a capital letter","une majuscule","/maʒyskyl/","f","Paris commence par une majuscule.","Paris starts with a capital."],
+  ["a small letter","une minuscule","/minyskyl/","f","",""],
+  ["an accent","un accent","/aksɑ̃/","m","Café a un accent aigu.","Café has an acute accent."],
+  ["to spell","épeler","/eple/","","Vous pouvez épeler votre nom ?","Can you spell your name?"],
+  ["a digit","un chiffre","/ʃifʁ/","m","",""],
+  ["a number","un nombre","/nɔ̃bʁ/","m","",""],
+  ["zero","zéro","/zeʁo/","","",""],
+  ["one / two / three","un, deux, trois","","","",""],
+  ["four / five / six","quatre, cinq, six","","","",""],
+  ["seven / eight / nine","sept, huit, neuf","/sɛt ɥit nœf/","","",""],
+  ["ten","dix","/dis/","","",""],
+  ["eleven","onze","/ɔ̃z/","","",""],
+  ["twelve","douze","/duz/","","",""],
+  ["thirteen","treize","/tʁɛz/","","",""],
+  ["fourteen","quatorze","/katɔʁz/","","",""],
+  ["fifteen","quinze","/kɛ̃z/","","",""],
+  ["sixteen","seize","/sɛz/","","",""],
+  ["seventeen","dix-sept","/disɛt/","","",""],
+  ["eighteen","dix-huit","/dizɥit/","","",""],
+  ["nineteen","dix-neuf","/diznœf/","","",""],
+  ["twenty","vingt","/vɛ̃/","","",""],
+  ["twenty-one","vingt et un","/vɛ̃teœ̃/","","",""],
+  ["thirty","trente","/tʁɑ̃t/","","",""],
+  ["forty","quarante","/kaʁɑ̃t/","","",""],
+  ["fifty","cinquante","/sɛ̃kɑ̃t/","","",""],
+  ["sixty","soixante","/swasɑ̃t/","","",""],
+  ["seventy","soixante-dix","/swasɑ̃tdis/","","70 = 60 + 10 !",""],
+  ["seventy-five","soixante-quinze","/swasɑ̃tkɛ̃z/","","",""],
+  ["eighty","quatre-vingts","/katʁəvɛ̃/","","80 = 4 × 20 !",""],
+  ["ninety","quatre-vingt-dix","/katʁəvɛ̃dis/","","",""],
+  ["ninety-nine","quatre-vingt-dix-neuf","","","",""],
+  ["a hundred","cent","/sɑ̃/","","",""],
+  ["a thousand","mille","/mil/","","",""],
+  ["a million","un million","/miljɔ̃/","m","",""]
+ ],
+ x:[
+  ["How do you spell it?",["comment ca s'ecrit","ca s'ecrit comment"]],
+  ["Can you spell your name, please?",["vous pouvez epeler votre nom s'il vous plait","tu peux epeler ton nom s'il te plait"]],
+  ["seventy-eight",["soixante-dix-huit"]],
+  ["ninety-five",["quatre-vingt-quinze"]],
+  ["two hundred and fifty",["deux cent cinquante"]],
+  ["There is an accent on the e.",["il y a un accent sur le e"]]
+ ],
+ d:{t:"Épeler son nom",lines:[
+  ["A","Bonjour ! Votre nom, s'il vous plaît ?","Hello! Your name, please?"],
+  ["M","Je m'appelle Iris Mo.","My name is Iris Mo."],
+  ["A","Comment ça s'écrit ?","How is that spelled?"],
+  ["M","I-R-I-S, M-O.","I-R-I-S, M-O."],
+  ["A","Et votre numéro de salle ? ","And your room number?"],
+  ["M","C'est la salle quatre-vingt-quinze.","It's room ninety-five."],
+  ["A","Merci beaucoup !","Thank you very much!"],
+  ["M","De rien, au revoir !","You're welcome, goodbye!"]
+ ]}},
+{n:2,b:0,ch:"ch. 3–4 (p. 10–13)",t:"En cours de français",s:"la classe, les jours, parler, écouter, lire, écrire",
+ g:"Le samedi et le dimanche, c'est <b>le week-end</b>. Les jours fériés, on ne travaille pas. Les actions de la classe : le professeur <b>dit</b> « maison », l'élève <b>répète</b> « maison ».",
+ v:["parler","comprendre","lire","écrire"],
+ w:[
+  ["a pen","un stylo","/stilo/","m","J'écris avec un stylo.","I write with a pen."],
+  ["a notebook","un cahier","/kaje/","m","","" ],
+  ["a book","un livre","/livʁ/","m","Ouvrez le livre page dix !","Open the book at page ten!"],
+  ["a tablet","une tablette","/tablɛt/","f","",""],
+  ["a (laptop) computer","un ordinateur (portable)","/ɔʁdinatœʁ/","m","",""],
+  ["the (white)board","le tableau","/tablo/","m","Regardez le tableau !","Look at the board!"],
+  ["a highlighter","un surligneur","/syʁliɲœʁ/","m","",""],
+  ["the teacher","le professeur","/pʁɔfesœʁ/","m","Le professeur corrige l'exercice.","The teacher corrects the exercise."],
+  ["a student / pupil","un élève / une élève","/elɛv/","m","",""],
+  ["an exercise","un exercice","/ɛɡzɛʁsis/","m","Elle fait un exercice.","She does an exercise."],
+  ["a question","une question","/kɛstjɔ̃/","f","Je pose une question.","I ask a question."],
+  ["Monday","lundi","/lœ̃di/","","",""],
+  ["Tuesday","mardi","/maʁdi/","","",""],
+  ["Wednesday","mercredi","/mɛʁkʁədi/","","",""],
+  ["Thursday","jeudi","/ʒødi/","","",""],
+  ["Friday","vendredi","/vɑ̃dʁədi/","","",""],
+  ["Saturday","samedi","/samdi/","","",""],
+  ["Sunday","dimanche","/dimɑ̃ʃ/","","",""],
+  ["the weekend","le week-end","/wikɛnd/","m","",""],
+  ["a public holiday","un jour férié","/ʒuʁ feʁje/","m","",""],
+  ["to speak","parler","/paʁle/","","Elle parle français.","She speaks French."],
+  ["to listen","écouter","/ekute/","","Il écoute le professeur.","He listens to the teacher."],
+  ["to read","lire","/liʁ/","","Elle lit un texte.","She reads a text."],
+  ["to write","écrire","/ekʁiʁ/","","J'écris une lettre en français.","I write a letter in French."],
+  ["to repeat","répéter","/ʁepete/","","Tu peux répéter ?","Can you repeat?"],
+  ["to understand","comprendre","/kɔ̃pʁɑ̃dʁ/","","Je ne comprends pas.","I don't understand."],
+  ["to answer","répondre","/ʁepɔ̃dʁ/","","L'élève répond à la question.","The pupil answers the question."],
+  ["to correct","corriger","/kɔʁiʒe/","","",""]
+ ],
+ x:[
+  ["I don't understand.",["je ne comprends pas"]],
+  ["Can you repeat, please?",["vous pouvez repeter s'il vous plait","tu peux repeter s'il te plait","pouvez-vous repeter s'il vous plait"]],
+  ["I have class on Monday and Wednesday.",["j'ai cours lundi et mercredi","j'ai cours le lundi et le mercredi"]],
+  ["She reads a book.",["elle lit un livre"]],
+  ["The teacher asks a question.",["le professeur pose une question"]],
+  ["I don't work on public holidays.",["je ne travaille pas les jours feries"]]
+ ],
+ d:{t:"En classe",lines:[
+  ["A","Bonjour à tous ! Ouvrez le livre, page douze.","Hello everyone! Open the book at page 12."],
+  ["M","Excusez-moi, je ne comprends pas.","Excuse me, I don't understand."],
+  ["A","Pas de problème. Regardez le tableau.","No problem. Look at the board."],
+  ["M","Vous pouvez répéter, s'il vous plaît ?","Can you repeat, please?"],
+  ["A","Bien sûr ! On fait l'exercice numéro trois.","Of course! We do exercise number three."],
+  ["M","Merci ! J'écris avec mon stylo.","Thank you! I write with my pen."]
+ ]}},
+{n:3,b:0,ch:"ch. 5 (p. 14–17)",t:"Je m'appelle Marie Durand…",s:"identité : nom, âge, date de naissance",
+ g:"« Je <b>m'appelle</b> Iris » (s'appeler) · « J'<b>ai</b> 30 ans » — en français on <b>a</b> un âge (avoir, pas être !) · « Je <b>suis</b> mariée. »",
+ v:["être","avoir","appeler (j'appelle)"],
+ w:[
+  ["a first name","un prénom","/pʁenɔ̃/","m","Mon prénom est Iris.","My first name is Iris."],
+  ["a family name","un nom (de famille)","/nɔ̃/","m","Durand est un nom de famille.","Durand is a family name."],
+  ["the age","l'âge","/ɑʒ/","m","Quel âge as-tu ?","How old are you?"],
+  ["a year (of age)","un an","/ɑ̃/","m","J'ai trente ans.","I am thirty."],
+  ["the date of birth","la date de naissance","/dat də nɛsɑ̃s/","f","",""],
+  ["a signature","une signature","/siɲatyʁ/","f","Signez ici, s'il vous plaît.","Sign here, please."],
+  ["an address","une adresse","/adʁɛs/","f","",""],
+  ["Mr / sir","monsieur","/məsjø/","m","Bonjour, monsieur Durand.","Hello, Mr Durand."],
+  ["Mrs / madam","madame","/madam/","f","",""],
+  ["single","célibataire","/selibatɛʁ/","","Il est célibataire.","He is single."],
+  ["married","marié / mariée","/maʁje/","","Elle est mariée.","She is married."],
+  ["a man","un homme","/ɔm/","m","",""],
+  ["a woman","une femme","/fam/","f","",""],
+  ["to be called","s'appeler","/saple/","","Comment tu t'appelles ?","What's your name?"],
+  ["to be born (I was born)","être né / née","/ne/","","Je suis née en 1996.","I was born in 1996 (f)."]
+ ],
+ x:[
+  ["My name is Iris.",["je m'appelle iris"]],
+  ["What's your name? (informal)",["comment tu t'appelles","tu t'appelles comment","comment t'appelles-tu"]],
+  ["I am thirty years old.",["j'ai trente ans"]],
+  ["She is married.",["elle est mariee"]],
+  ["I was born in March.",["je suis nee en mars","je suis ne en mars"]]
+ ],
+ d:{t:"À l'inscription",lines:[
+  ["A","Bonjour ! Votre prénom et votre nom ?","Hello! Your first name and family name?"],
+  ["M","Je m'appelle Iris Mo.","My name is Iris Mo."],
+  ["A","Quel âge avez-vous ?","How old are you?"],
+  ["M","J'ai trente ans.","I am thirty."],
+  ["A","Vous êtes mariée ou célibataire ?","Are you married or single?"],
+  ["M","Je suis mariée.","I am married."],
+  ["A","Parfait. Signez ici, s'il vous plaît !","Perfect. Sign here, please!"],
+  ["M","Voilà ma signature. Merci !","Here is my signature. Thanks!"]
+ ]}},
+{n:4,b:0,ch:"ch. 6–7 (p. 18–23)",t:"Bonjour, comment ça va ? Enchanté !",s:"saluer, tu ou vous, présenter quelqu'un",
+ g:"<b>« Tu » ou « vous » ?</b> On dit « vous » quand on ne connaît pas la personne (dans la rue, les magasins). On dit « tu » aux enfants, aux amis, en famille. Si vous n'êtes pas sûr → « vous » ! « Salut » = bonjour OU au revoir.",
+ v:["aller"],
+ w:[
+  ["hello / good morning","bonjour","/bɔ̃ʒuʁ/","","Bonjour, madame !","Good morning, madam!"],
+  ["good evening","bonsoir","/bɔ̃swaʁ/","","Bonsoir, Raphaël, à lundi !","Good evening, Raphaël, see you Monday!"],
+  ["hi / bye (informal)","salut","/saly/","","Salut, Mathilde, ça va ?","Hi Mathilde, how are you?"],
+  ["goodbye","au revoir","/o ʁəvwaʁ/","","Au revoir, Diane, à bientôt !","Goodbye Diane, see you soon!"],
+  ["see you soon","à bientôt","/a bjɛ̃to/","","",""],
+  ["see you later (today)","à tout à l'heure","/a tutalœʁ/","","Salut Simon, à tout à l'heure !","Bye Simon, see you later!"],
+  ["good night","bonne nuit","/bɔn nɥi/","","",""],
+  ["have a good day","bonne journée","/bɔn ʒuʁne/","","",""],
+  ["how are you? (formal)","comment allez-vous ?","/kɔmɑ̃talevu/","","",""],
+  ["how are you? (informal)","comment vas-tu ?","","","Bonjour Bénédicte, comment vas-tu ?","Hello Bénédicte, how are you?"],
+  ["fine, thanks","ça va bien, merci","","","Ça va bien, merci, et toi ?","Fine thanks, and you?"],
+  ["thank you very much","merci beaucoup","/mɛʁsi boku/","","",""],
+  ["you're welcome","de rien","/də ʁjɛ̃/","","",""],
+  ["please (formal)","s'il vous plaît","/sil vu plɛ/","","",""],
+  ["please (informal)","s'il te plaît","/sil tə plɛ/","","",""],
+  ["excuse me","excusez-moi","/ɛkskyzemwa/","","",""],
+  ["nice to meet you","enchanté / enchantée","/ɑ̃ʃɑ̃te/","","Bonjour madame, enchanté !","Hello madam, nice to meet you!"],
+  ["to introduce","présenter","/pʁezɑ̃te/","","Je vous présente Florence.","Let me introduce Florence."],
+  ["a friend","un ami / une amie","/ami/","m","Tu connais ma copine Émilie ?","Do you know my friend Émilie?"],
+  ["polite / impolite","poli / impoli","/pɔli/","","Utilisez « vous » : c'est poli.","Use 'vous': it's polite."]
+ ],
+ x:[
+  ["Good evening, how are you? (formal)",["bonsoir comment allez-vous","bonsoir comment allez vous"]],
+  ["Fine, thanks, and you? (informal)",["ca va bien merci et toi","bien merci et toi"]],
+  ["Let me introduce Nicolas to you.",["je vous presente nicolas","je te presente nicolas"]],
+  ["Nice to meet you!",["enchante","enchantee"]],
+  ["See you later!",["a tout a l'heure"]],
+  ["Have a good day!",["bonne journee"]]
+ ],
+ d:{t:"Faire les présentations",lines:[
+  ["A","Bonjour ! Je vous présente Émilie, une amie.","Hello! Let me introduce Émilie, a friend."],
+  ["M","Bonjour, Émilie. Enchantée !","Hello Émilie. Nice to meet you!"],
+  ["A","Enchantée ! Comment allez-vous ?","Nice to meet you! How are you?"],
+  ["M","Ça va bien, merci. Et vous ?","Fine, thanks. And you?"],
+  ["A","Très bien ! Bon, je dois partir. À tout à l'heure !","Very well! Right, I must go. See you later!"],
+  ["M","Au revoir, à bientôt !","Goodbye, see you soon!"]
+ ]}},
+{n:5,b:0,ch:"ch. 8–9 (p. 24–29)",t:"Je suis chinois · Vous habitez où ?",s:"pays, nationalités, langues, habiter",
+ g:"<b>en</b> + pays féminin (en France, en Chine) · <b>au</b> + pays masculin (au Japon, au Portugal) · <b>aux</b> + pluriel (aux États-Unis). Nationalité : il est chinois → elle est chinois<b>e</b>.",
+ v:["habiter","parler","venir"],
+ w:[
+  ["a country","un pays","/pei/","m","La France est un beau pays.","France is a beautiful country."],
+  ["a city","une ville","/vil/","f","Paris est une grande ville.","Paris is a big city."],
+  ["a nationality","une nationalité","/nasjɔnalite/","f","",""],
+  ["a language","une langue","/lɑ̃ɡ/","f","Je parle trois langues.","I speak three languages."],
+  ["France / French","la France · français(e)","/fʁɑ̃s/","f","Elle est française.","She is French."],
+  ["China / Chinese","la Chine · chinois(e)","/ʃin/","f","Je suis chinoise.","I am Chinese (f)."],
+  ["Japan / Japanese","le Japon · japonais(e)","/ʒapɔ̃/","m","Il habite au Japon.","He lives in Japan."],
+  ["Germany / German","l'Allemagne · allemand(e)","/almaɲ/","f","",""],
+  ["Italy / Italian","l'Italie · italien(ne)","/itali/","f","",""],
+  ["Spain / Spanish","l'Espagne · espagnol(e)","/ɛspaɲ/","f","",""],
+  ["Portugal / Portuguese","le Portugal · portugais(e)","/pɔʁtyɡal/","m","",""],
+  ["the United States / American","les États-Unis · américain(e)","/etazyni/","m","Ils habitent aux États-Unis.","They live in the US."],
+  ["England / English","l'Angleterre · anglais(e)","/ɑ̃ɡlətɛʁ/","f","",""],
+  ["Luxembourg","le Luxembourg","/lyksɑ̃buʁ/","m","Je travaille au Luxembourg.","I work in Luxembourg."],
+  ["to live (somewhere)","habiter","/abite/","","Vous habitez où ?","Where do you live?"],
+  ["to come from","venir de","/vəniʁ/","","Je viens de Chine.","I come from China."],
+  ["abroad","à l'étranger","/a letʁɑ̃ʒe/","","Elle travaille à l'étranger.","She works abroad."]
+ ],
+ x:[
+  ["Where do you live?",["vous habitez ou","tu habites ou","ou habitez-vous","ou habites-tu"]],
+  ["I live in France.",["j'habite en france"]],
+  ["She is Chinese and she speaks English.",["elle est chinoise et elle parle anglais"]],
+  ["He comes from Japan.",["il vient du japon"]],
+  ["They live in the United States.",["ils habitent aux etats-unis","elles habitent aux etats-unis"]]
+ ],
+ d:{t:"D'où venez-vous ?",lines:[
+  ["A","Vous êtes française ?","Are you French?"],
+  ["M","Non, je suis chinoise. Je viens de Shanghai.","No, I'm Chinese. I come from Shanghai."],
+  ["A","Ah, super ! Et vous habitez où maintenant ?","Oh great! And where do you live now?"],
+  ["M","J'habite au Luxembourg. Je travaille ici.","I live in Luxembourg. I work here."],
+  ["A","Vous parlez beaucoup de langues ?","Do you speak many languages?"],
+  ["M","Je parle chinois, anglais et un peu français !","I speak Chinese, English and a little French!"]
+ ]}},
+{n:6,b:0,ch:"ch. 10 (p. 30–33)",t:"Mon numéro de téléphone et mon email",s:"les coordonnées, appeler, envoyer un message",
+ g:"<b>Les coordonnées</b> = le nom + le numéro de téléphone + l'adresse (email). L'arobase = <b>@</b>. On dit un numéro par deux chiffres : 06 12 34… = zéro six, douze, trente-quatre…",
+ v:["appeler (j'appelle)","écrire"],
+ w:[
+  ["a phone number","un numéro de téléphone","/nymeʁo/","m","C'est le zéro six, douze, trente-quatre.","It's 06 12 34."],
+  ["a mobile phone","un (téléphone) portable","/pɔʁtabl/","m","",""],
+  ["an email","un email / un mail","/imɛl/","m","J'envoie un mail.","I send an email."],
+  ["an email address","une adresse email","/adʁɛs imɛl/","f","",""],
+  ["the at sign @","l'arobase","/aʁɔbaz/","f","iris arobase gmail point com","iris at gmail dot com"],
+  ["dot (in address)","point","/pwɛ̃/","m","",""],
+  ["a message","un message","/mesaʒ/","m","Laissez un message !","Leave a message!"],
+  ["a text message","un texto / un SMS","/tɛksto/","m","",""],
+  ["contact details","les coordonnées","/kɔɔʁdɔne/","f","Je note vos coordonnées.","I note your contact details."],
+  ["to call","appeler","/aple/","","Appelle-moi ce soir !","Call me tonight!"],
+  ["to phone","téléphoner (à)","/telefɔne/","","Je peux téléphoner ?","May I make a call?"],
+  ["to send","envoyer","/ɑ̃vwaje/","","J'envoie un texto à Marco.","I send Marco a text."],
+  ["to receive","recevoir","/ʁəsəvwaʁ/","","",""],
+  ["to call back","rappeler","/ʁaple/","","Rappelle-moi demain !","Call me back tomorrow!"],
+  ["to leave a message","laisser un message","","","",""]
+ ],
+ x:[
+  ["What is your phone number?",["quel est ton numero de telephone","quel est votre numero de telephone"]],
+  ["My number is 06 15 40 80.",["mon numero c'est le zero six quinze quarante quatre-vingts","mon numero est le zero six quinze quarante quatre-vingts"]],
+  ["I send you an email.",["je t'envoie un email","je vous envoie un email","je t'envoie un mail"]],
+  ["Call me back tonight, please.",["rappelle-moi ce soir s'il te plait","rappelez-moi ce soir s'il vous plait"]],
+  ["I leave a message.",["je laisse un message"]]
+ ],
+ d:{t:"Échanger les coordonnées",lines:[
+  ["A","On reste en contact ? Quel est votre numéro ?","Shall we keep in touch? What's your number?"],
+  ["M","Oui ! C'est le zéro six, douze, trente-quatre, cinquante-six.","Yes! It's 06 12 34 56."],
+  ["A","Merci. Et votre adresse email ?","Thanks. And your email address?"],
+  ["M","C'est iris point mo arobase gmail point com.","It's iris.mo@gmail.com."],
+  ["A","Parfait, je vous envoie un message ce soir.","Perfect, I'll send you a message tonight."],
+  ["M","D'accord, à bientôt !","OK, see you soon!"]
+ ]}},
+{n:7,b:0,ch:"ch. 11 (p. 34–37)",t:"Je suis coiffeur — les professions",s:"les métiers, travailler, chercher un travail",
+ g:"Beaucoup de métiers changent au féminin : coiffeur → coiff<b>euse</b>, vendeur → vend<b>euse</b>, infirmier → infirmi<b>ère</b>. « Je suis médecin » — <b>sans article</b> !",
+ v:["travailler","être","faire"],
+ w:[
+  ["a job / profession","un métier","/metje/","m","Quel est votre métier ?","What is your job?"],
+  ["a hairdresser","un coiffeur / une coiffeuse","/kwafœʁ/","m","",""],
+  ["a baker","un boulanger / une boulangère","/bulɑ̃ʒe/","m","",""],
+  ["a doctor","un médecin","/medsɛ̃/","m","Elle est médecin.","She is a doctor."],
+  ["a nurse","un infirmier / une infirmière","/ɛ̃fiʁmje/","m","",""],
+  ["a teacher","un professeur","/pʁɔfesœʁ/","m","",""],
+  ["a student","un étudiant / une étudiante","/etydjɑ̃/","m","",""],
+  ["an engineer","un ingénieur","/ɛ̃ʒenjœʁ/","m","",""],
+  ["a shop assistant","un vendeur / une vendeuse","/vɑ̃dœʁ/","m","",""],
+  ["a waiter","un serveur / une serveuse","/sɛʁvœʁ/","m","",""],
+  ["a cook","un cuisinier / une cuisinière","/kɥizinje/","m","",""],
+  ["a lawyer","un avocat / une avocate","/avɔka/","m","",""],
+  ["a police officer","un policier / une policière","/pɔlisje/","m","",""],
+  ["an employee","un employé / une employée","/ɑ̃plwaje/","m","",""],
+  ["an office","un bureau","/byʁo/","m","Je travaille dans un bureau.","I work in an office."],
+  ["a company","une entreprise","/ɑ̃tʁəpʁiz/","f","",""],
+  ["to work","travailler","/tʁavaje/","","Il travaille à l'hôpital.","He works at the hospital."],
+  ["to look for a job","chercher un travail","/ʃɛʁʃe/","","Elle cherche un travail.","She's looking for a job."],
+  ["unemployed","au chômage","/o ʃomaʒ/","","",""]
+ ],
+ x:[
+  ["What is your job?",["quel est votre metier","quel est ton metier","qu'est-ce que vous faites dans la vie","tu fais quoi dans la vie"]],
+  ["I am an engineer.",["je suis ingenieur","je suis ingenieure"]],
+  ["She is a nurse, she works at the hospital.",["elle est infirmiere elle travaille a l'hopital"]],
+  ["He is looking for a job.",["il cherche un travail"]],
+  ["I work in an office in Luxembourg.",["je travaille dans un bureau au luxembourg"]]
+ ],
+ d:{t:"Tu fais quoi dans la vie ?",lines:[
+  ["A","Et vous, qu'est-ce que vous faites dans la vie ?","And you, what do you do for a living?"],
+  ["M","Je travaille dans la logistique, dans un bureau.","I work in logistics, in an office."],
+  ["A","C'est intéressant ! Vous travaillez où ?","Interesting! Where do you work?"],
+  ["M","Au Luxembourg, dans une entreprise internationale.","In Luxembourg, in an international company."],
+  ["A","Moi, je suis coiffeuse. J'adore mon métier !","Me, I'm a hairdresser. I love my job!"],
+  ["M","Super ! Vous travaillez le samedi aussi ?","Great! Do you work on Saturdays too?"]
+ ]}},
+{n:8,b:0,ch:"ch. 12 (p. 38–41)",t:"J'aime le football et la guitare",s:"les goûts, les loisirs, jouer à / jouer de",
+ g:"<b>jouer à</b> + sport/jeu (jouer au football, aux cartes) · <b>jouer de</b> + instrument (jouer de la guitare, du piano) · <b>faire de</b> + activité (faire du sport, de la danse). J'aime → j'adore ↑ · je n'aime pas → je déteste ↓",
+ v:["aimer","jouer","faire"],
+ w:[
+  ["football","le football / le foot","/futbol/","m","J'aime le foot.","I like football."],
+  ["tennis","le tennis","/tenis/","m","",""],
+  ["basketball","le basket","/baskɛt/","m","",""],
+  ["swimming","la natation","/natasjɔ̃/","f","",""],
+  ["dance","la danse","/dɑ̃s/","f","Elle fait de la danse.","She does dance."],
+  ["sport","le sport","/spɔʁ/","m","Tu fais du sport ?","Do you do sport?"],
+  ["music","la musique","/myzik/","f","",""],
+  ["the guitar","la guitare","/ɡitaʁ/","f","Il joue de la guitare.","He plays the guitar."],
+  ["the piano","le piano","/pjano/","m","",""],
+  ["cinema","le cinéma","/sinema/","m","On va au cinéma ?","Shall we go to the cinema?"],
+  ["reading","la lecture","/lɛktyʁ/","f","",""],
+  ["cooking (hobby)","la cuisine","/kɥizin/","f","J'adore la cuisine italienne.","I love Italian cooking."],
+  ["travel","les voyages","/vwajaʒ/","m","",""],
+  ["a game","un jeu","/ʒø/","m","",""],
+  ["the cards","les cartes","/kaʁt/","f","On joue aux cartes ?","Shall we play cards?"],
+  ["to like / love","aimer","/eme/","","J'aime la musique.","I like music."],
+  ["to love / adore","adorer","/adɔʁe/","","J'adore voyager !","I love travelling!"],
+  ["to hate","détester","/detɛste/","","Je déteste le lundi.","I hate Mondays."],
+  ["to prefer","préférer","/pʁefeʁe/","","Je préfère le thé.","I prefer tea."]
+ ],
+ x:[
+  ["I like football and music.",["j'aime le football et la musique","j'aime le foot et la musique"]],
+  ["He plays the guitar.",["il joue de la guitare"]],
+  ["We play tennis on Saturday.",["on joue au tennis samedi","nous jouons au tennis samedi","on joue au tennis le samedi","nous jouons au tennis le samedi"]],
+  ["I hate cards!",["je deteste les cartes"]],
+  ["Do you do sport?",["tu fais du sport","vous faites du sport","est-ce que tu fais du sport"]],
+  ["I prefer the cinema.",["je prefere le cinema"]]
+ ],
+ d:{t:"Les loisirs",lines:[
+  ["A","Qu'est-ce que vous aimez faire le week-end ?","What do you like doing at the weekend?"],
+  ["M","J'adore la lecture et je fais de la natation.","I love reading and I swim."],
+  ["A","Moi, je joue au tennis. Vous aimez le sport ?","I play tennis. Do you like sport?"],
+  ["M","Oui, mais je préfère la musique. Je joue du piano.","Yes, but I prefer music. I play the piano."],
+  ["A","Super ! On va au cinéma samedi ?","Great! Shall we go to the cinema on Saturday?"],
+  ["M","Oui, j'adore le cinéma ! À samedi !","Yes, I love the cinema! See you Saturday!"]
+ ]}},
+{n:9,b:0,ch:"ch. 13 (p. 42–45)",t:"J'ai un frère — la famille",s:"les parents, les enfants, mon / ma / mes",
+ g:"Possessifs : <b>mon</b> père, <b>ma</b> mère, <b>mes</b> parents. Attention : <b>mon</b> amie (devant une voyelle, même au féminin !).",
+ v:["avoir"],
+ w:[
+  ["the family","la famille","/famij/","f","J'aime ma famille.","I love my family."],
+  ["the parents","les parents","/paʁɑ̃/","m","",""],
+  ["the father","le père","/pɛʁ/","m","Mon père a soixante ans.","My father is sixty."],
+  ["the mother","la mère","/mɛʁ/","f","",""],
+  ["a brother","un frère","/fʁɛʁ/","m","J'ai un frère.","I have one brother."],
+  ["a sister","une sœur","/sœʁ/","f","Ma sœur habite en Chine.","My sister lives in China."],
+  ["a son","un fils","/fis/","m","",""],
+  ["a daughter / girl","une fille","/fij/","f","",""],
+  ["a boy","un garçon","/ɡaʁsɔ̃/","m","",""],
+  ["a husband","un mari","/maʁi/","m","C'est mon mari.","This is my husband."],
+  ["a wife","une femme","/fam/","f","",""],
+  ["the grandparents","les grands-parents","/ɡʁɑ̃paʁɑ̃/","m","",""],
+  ["the grandfather","le grand-père","/ɡʁɑ̃pɛʁ/","m","",""],
+  ["the grandmother","la grand-mère","/ɡʁɑ̃mɛʁ/","f","",""],
+  ["an uncle","un oncle","/ɔ̃kl/","m","",""],
+  ["an aunt","une tante","/tɑ̃t/","f","",""],
+  ["a cousin","un cousin / une cousine","/kuzɛ̃/","m","",""],
+  ["a baby","un bébé","/bebe/","m","",""],
+  ["a child","un enfant","/ɑ̃fɑ̃/","m","Vous avez des enfants ?","Do you have children?"],
+  ["only child","fils unique / fille unique","/ynik/","","Je suis fille unique.","I'm an only child (f)."]
+ ],
+ x:[
+  ["I have two brothers and one sister.",["j'ai deux freres et une soeur"]],
+  ["This is my husband.",["c'est mon mari","voici mon mari"]],
+  ["Do you have children?",["vous avez des enfants","tu as des enfants","as-tu des enfants","avez-vous des enfants"]],
+  ["My grandmother is eighty years old.",["ma grand-mere a quatre-vingts ans"]],
+  ["I am an only child.",["je suis fille unique","je suis fils unique"]]
+ ],
+ d:{t:"Parler de sa famille",lines:[
+  ["A","Vous avez des frères et sœurs ?","Do you have brothers and sisters?"],
+  ["M","Oui, j'ai un frère. Il habite en Chine.","Yes, I have a brother. He lives in China."],
+  ["A","Et vous avez des enfants ?","And do you have children?"],
+  ["M","Non, pas encore. Et vous ?","No, not yet. And you?"],
+  ["A","Moi, j'ai une fille. Elle a cinq ans.","I have a daughter. She's five."],
+  ["M","C'est super ! Comment elle s'appelle ?","That's great! What's her name?"]
+ ]}},
+{n:10,b:0,ch:"ch. 14–15 (p. 48–55)",t:"1 kilo d'oranges — au supermarché",s:"les courses, les quantités, fruits & légumes",
+ g:"Les quantités : un kilo <b>de</b> tomates, une bouteille <b>d'</b>eau, un paquet <b>de</b> pâtes — toujours <b>de</b> après une quantité ! « Je voudrais… » = poli pour « je veux ».",
+ v:["acheter","aller"],
+ w:[
+  ["the shopping / groceries","les courses","/kuʁs/","f","Je fais les courses samedi.","I do the shopping on Saturday."],
+  ["the supermarket","le supermarché","/sypɛʁmaʁʃe/","m","",""],
+  ["the market","le marché","/maʁʃe/","m","Au marché, c'est frais !","At the market it's fresh!"],
+  ["a kilo of","un kilo de","/kilo/","m","Un kilo d'oranges, s'il vous plaît !","A kilo of oranges, please!"],
+  ["a bottle of","une bouteille de","/butɛj/","f","une bouteille d'eau","a bottle of water"],
+  ["a packet of","un paquet de","/pakɛ/","m","",""],
+  ["a tin / box of","une boîte de","/bwat/","f","",""],
+  ["a piece of","un morceau de","/mɔʁso/","m","un morceau de fromage","a piece of cheese"],
+  ["an orange","une orange","/ɔʁɑ̃ʒ/","f","",""],
+  ["an apple","une pomme","/pɔm/","f","",""],
+  ["a banana","une banane","/banan/","f","",""],
+  ["a tomato","une tomate","/tɔmat/","f","",""],
+  ["a carrot","une carotte","/kaʁɔt/","f","",""],
+  ["a potato","une pomme de terre","/pɔm də tɛʁ/","f","",""],
+  ["the bread","le pain","/pɛ̃/","m","",""],
+  ["the milk","le lait","/lɛ/","m","",""],
+  ["the cheese","le fromage","/fʁɔmaʒ/","m","",""],
+  ["the eggs","les œufs","/lezø/","m","",""],
+  ["the water","l'eau","/o/","f","",""],
+  ["the checkout","la caisse","/kɛs/","f","Payez à la caisse !","Pay at the checkout!"],
+  ["a bag","un sac","/sak/","m","",""],
+  ["fresh","frais / fraîche","/fʁɛ/","","",""],
+  ["to buy","acheter","/aʃte/","","J'achète du pain.","I buy some bread."],
+  ["I would like…","je voudrais…","/ʒə vudʁɛ/","","Je voudrais trois bananes.","I'd like three bananas."]
+ ],
+ x:[
+  ["A kilo of tomatoes, please.",["un kilo de tomates s'il vous plait"]],
+  ["I would like a bottle of water.",["je voudrais une bouteille d'eau"]],
+  ["I buy bread and cheese at the market.",["j'achete du pain et du fromage au marche"]],
+  ["How much are the oranges?",["combien coutent les oranges","c'est combien les oranges"]],
+  ["I do the shopping on Saturday.",["je fais les courses samedi","je fais les courses le samedi"]]
+ ],
+ d:{t:"Au marché",lines:[
+  ["A","Bonjour ! Vous désirez ?","Hello! What would you like?"],
+  ["M","Bonjour ! Je voudrais un kilo de tomates, s'il vous plaît.","Hello! I'd like a kilo of tomatoes, please."],
+  ["A","Voilà ! Et avec ça ?","There you go! Anything else?"],
+  ["M","Trois bananes et un morceau de fromage.","Three bananas and a piece of cheese."],
+  ["A","Ça fait huit euros cinquante.","That's €8.50."],
+  ["M","Voilà. Merci, bonne journée !","Here you are. Thanks, have a good day!"]
+ ]}},
+{n:11,b:0,ch:"ch. 16–17 (p. 56–61)",t:"Un croissant, s'il vous plaît ! À table !",s:"la boulangerie, les repas, la table",g:"",v:[],w:[],x:[],d:null},
+{n:12,b:0,ch:"ch. 18–19 (p. 62–67)",t:"Au restaurant · Bon appétit !",s:"commander, le menu, l'addition",g:"",v:[],w:[],x:[],d:null},
+{n:13,b:0,ch:"ch. 20 (p. 68–71)",t:"Je peux payer par carte ?",s:"l'argent, payer, la monnaie",g:"",v:[],w:[],x:[],d:null},
+{n:14,b:0,ch:"ch. 21–23 (p. 72–83)",t:"Où est la gare ? Bus, métro, tramway",s:"la ville, les transports, demander son chemin",g:"",v:[],w:[],x:[],d:null},
+{n:15,b:0,ch:"ch. 24–25 (p. 84–91)",t:"Je suis blond et grand · Je cherche une robe",s:"description physique, les vêtements",g:"",v:[],w:[],x:[],d:null},
+{n:16,b:0,ch:"ch. 26–29 (p. 92–103)",t:"Santé, émotions, logement",s:"j'ai mal au ventre · je suis content · appartement à louer",g:"",v:[],w:[],x:[],d:null},
+{n:17,b:1,ch:"ch. 1 (p. 6–13)",t:"Les usages & la politesse",s:"tu/vous, présenter, tutoyer, les gestes",
+ g:"Si vous n'êtes pas sûr, utilisez « <b>vous</b> » — vous ne risquez pas d'être impoli. « Bonsoir » le soir. On ajoute « madame », « monsieur » ou le prénom : « Bonjour, madame ! »",
+ v:["être","aller"],
+ w:[
+  ["the manners / customs","les usages","/yzaʒ/","m","",""],
+  ["the politeness","la politesse","/pɔlitɛs/","f","",""],
+  ["to say hello","dire bonjour","/diʁ bɔ̃ʒuʁ/","","",""],
+  ["to say goodbye","dire au revoir","","","",""],
+  ["to use 'tu'","tutoyer","/tytwaje/","","On peut se tutoyer ?","Can we say 'tu' to each other?"],
+  ["to use 'vous'","vouvoyer","/vuvwaje/","","",""],
+  ["dear (f) / dear (m)","ma chère / mon cher","/ʃɛʁ/","","Bonjour, ma chère Mathilde !","Hello, my dear Mathilde!"],
+  ["to know (someone)","connaître","/kɔnɛtʁ/","","Tu connais ma copine Émilie ?","Do you know my friend Émilie?"],
+  ["a friend (informal)","un copain / une copine","/kɔpɛ̃/","m","",""],
+  ["to shake hands","serrer la main","/seʁe la mɛ̃/","","",""],
+  ["to kiss (greeting)","faire la bise","/fɛʁ la biz/","","En France, on fait la bise !","In France you kiss cheeks!"],
+  ["see you Monday","à lundi","/a lœ̃di/","","Bonsoir, Raphaël, à lundi !","Good evening Raphaël, see you Monday!"]
+ ],
+ x:[
+  ["Can we say 'tu' to each other?",["on peut se tutoyer"]],
+  ["In France, people kiss on the cheek.",["en france on fait la bise"]],
+  ["Do you know my friend Emilie?",["tu connais ma copine emilie","vous connaissez ma copine emilie","tu connais mon amie emilie"]],
+  ["Goodbye, see you Monday!",["au revoir a lundi"]]
+ ],
+ d:null},
+{n:18,b:1,ch:"ch. 2 (p. 14–17)",t:"La famille & les périodes de la vie",s:"les beaux-parents, le gendre · bébé, ado, adulte",
+ g:"La belle-famille : le <b>beau-père</b>, la <b>belle-mère</b>, la <b>belle-fille</b>, le <b>gendre</b>. En famille on dit : papa/maman, <b>papi/mamie</b>, tonton/tatie. « Bébé » est toujours masculin ; « personne » est toujours féminine !",
+ v:["avoir","être"],
+ w:[
+  ["the parents-in-law","les beaux-parents","/bo paʁɑ̃/","m","Victor et Jeanne sont les beaux-parents de Caroline.","Victor and Jeanne are Caroline's parents-in-law."],
+  ["the father-in-law","le beau-père","/bopɛʁ/","m","",""],
+  ["the mother-in-law","la belle-mère","/bɛlmɛʁ/","f","",""],
+  ["the daughter-in-law","la belle-fille","/bɛlfij/","f","",""],
+  ["the son-in-law","le gendre","/ʒɑ̃dʁ/","m","Denis est le gendre de Victor.","Denis is Victor's son-in-law."],
+  ["the brother-in-law","le beau-frère","/bofʁɛʁ/","m","",""],
+  ["the sister-in-law","la belle-sœur","/bɛlsœʁ/","f","",""],
+  ["the grandchildren","les petits-enfants","/pətizɑ̃fɑ̃/","m","",""],
+  ["the granddaughter","la petite-fille","/pətitfij/","f","Ariane est la petite-fille de Jeanne.","Ariane is Jeanne's granddaughter."],
+  ["the grandson","le petit-fils","/pətitfis/","m","",""],
+  ["a nephew","un neveu","/nəvø/","m","",""],
+  ["a niece","une nièce","/njɛs/","f","",""],
+  ["dad / mum (informal)","papa / maman","/papa mamɑ̃/","","",""],
+  ["grandpa / grandma (informal)","papi / mamie","/papi mami/","","« Mamie, viens ! »","'Grandma, come!'"],
+  ["uncle / auntie (informal)","tonton / tatie","/tɔ̃tɔ̃ tati/","","",""],
+  ["a baby (0–2)","un bébé","/bebe/","m","« Bébé » est toujours masculin !","'Bébé' is always masculine!"],
+  ["a child (2–12)","un enfant","/ɑ̃fɑ̃/","m","",""],
+  ["a teenager (12–18)","un adolescent / une adolescente","/adɔlesɑ̃/","m","",""],
+  ["an adult","un adulte","/adylt/","m","",""],
+  ["an elderly person","une personne âgée","/pɛʁsɔn ɑʒe/","f","",""],
+  ["the childhood","l'enfance","/ɑ̃fɑ̃s/","f","J'ai passé mon enfance en Bretagne.","I spent my childhood in Brittany."],
+  ["the adolescence","l'adolescence","/adɔlesɑ̃s/","f","",""],
+  ["the birth","la naissance","/nɛsɑ̃s/","f","Ma date de naissance est le 28 septembre.","My date of birth is 28 September."],
+  ["the death","la mort","/mɔʁ/","f","",""],
+  ["to grow (up)","grandir","/ɡʁɑ̃diʁ/","","Mon fils a grandi de 4 centimètres !","My son grew 4 cm!"],
+  ["young / elderly","jeune / âgé(e)","/ʒœn ɑʒe/","","On préfère dire « âgé » que « vieux ».","'Âgé' is politer than 'vieux'."]
+ ],
+ x:[
+  ["Victor is Jeanne's husband.",["victor est le mari de jeanne"]],
+  ["Caroline is Victor's daughter-in-law.",["caroline est la belle-fille de victor"]],
+  ["She is five years younger than Denis.",["elle a cinq ans de moins que denis"]],
+  ["How old are your grandchildren?",["quel age ont vos petits-enfants","quel age ont tes petits-enfants"]],
+  ["I spent my childhood in China.",["j'ai passe mon enfance en chine"]]
+ ],
+ d:{t:"Les petits-enfants",lines:[
+  ["A","Vous avez des petits-enfants ?","Do you have grandchildren?"],
+  ["M","Oui, mon fils Marc a deux enfants.","Yes, my son Marc has two children."],
+  ["A","Quel âge ont-ils ?","How old are they?"],
+  ["M","Ariane a huit ans et Félix a cinq ans.","Ariane is eight and Félix is five."],
+  ["A","Et votre gendre, qu'est-ce qu'il fait ?","And your son-in-law, what does he do?"],
+  ["M","Denis ? Il est ingénieur, il travaille à Lyon.","Denis? He's an engineer, he works in Lyon."]
+ ]}},
+{n:19,b:1,ch:"ch. 3 (p. 18–23)",t:"L'amour & les émotions",s:"tomber amoureux, se marier · joie, colère, peur",
+ g:"tomber amoureux <b>de</b> quelqu'un · furieux <b>contre</b> quelqu'un · avoir peur <b>de</b>. Échelle : j'aime bien &lt; j'aime beaucoup &lt; <b>j'aime</b> (le plus fort pour les personnes !). En France, seul le mariage <b>civil</b> (à la mairie) a une valeur légale.",
+ v:["aimer","être","avoir"],
+ w:[
+  ["the love","l'amour","/amuʁ/","m","",""],
+  ["to fall in love (with)","tomber amoureux / amoureuse (de)","/tɔ̃be amuʁø/","","Gabriel tombe amoureux de Mathilde.","Gabriel falls in love with Mathilde."],
+  ["to kiss","embrasser","/ɑ̃bʁase/","","Ils s'embrassent.","They kiss."],
+  ["to go out with","sortir avec","/sɔʁtiʁ avɛk/","","Gabriel sort avec Mathilde.","Gabriel is going out with Mathilde."],
+  ["to live together","vivre ensemble","/vivʁ ɑ̃sɑ̃bl/","","Ils vivent ensemble.","They live together."],
+  ["a relationship","une relation","/ʁəlasjɔ̃/","f","",""],
+  ["boyfriend / girlfriend (informal)","un copain / une copine","/kɔpɛ̃ kɔpin/","m","",""],
+  ["to get married","se marier","/sə maʁje/","","Ils décident de se marier.","They decide to get married."],
+  ["the wedding / marriage","le mariage","/maʁjaʒ/","m","un mariage civil ou religieux","a civil or religious wedding"],
+  ["the town hall","la mairie","/meʁi/","f","Samedi, ils vont à la mairie.","On Saturday they go to the town hall."],
+  ["the church","l'église","/eɡliz/","f","",""],
+  ["a wedding dress","une robe de mariée","/ʁɔb də maʁje/","f","",""],
+  ["to divorce","divorcer","/divɔʁse/","","Gabriel et Mathilde ont divorcé.","Gabriel and Mathilde divorced."],
+  ["to leave (someone)","quitter","/kite/","","Elle a quitté Gabriel.","She left Gabriel."],
+  ["to argue","se disputer","/sə dispyte/","","On se disputait beaucoup.","We argued a lot."],
+  ["an argument","une dispute","/dispyt/","f","",""],
+  ["jealous","jaloux / jalouse","/ʒalu ʒaluz/","","Elle était très jalouse.","She was very jealous."],
+  ["the joy","la joie","/ʒwa/","f","",""],
+  ["joyful","joyeux / joyeuse","/ʒwajø/","","Les enfants sont joyeux.","The children are joyful."],
+  ["to laugh","rire","/ʁiʁ/","","Ils rient beaucoup.","They laugh a lot."],
+  ["to smile","sourire","/suʁiʁ/","","",""],
+  ["proud (of)","fier / fière (de)","/fjɛʁ/","","Les parents sont fiers de leurs enfants.","The parents are proud of their children."],
+  ["the sadness","la tristesse","/tʁistɛs/","f","",""],
+  ["the grief / sorrow","le chagrin","/ʃaɡʁɛ̃/","m","Elle a beaucoup de chagrin.","She is grieving a lot."],
+  ["unhappy","malheureux / malheureuse","/malœʁø/","","",""],
+  ["to cry","pleurer","/pløʁe/","","Elle pleure tout le temps.","She cries all the time."],
+  ["the anger","la colère","/kɔlɛʁ/","f","Elle est en colère contre lui.","She is angry with him."],
+  ["furious (with)","furieux / furieuse (contre)","/fyʁjø/","","",""],
+  ["the fear","la peur","/pœʁ/","f","Julien a eu très peur.","Julien was very scared."],
+  ["surprised","surpris / surprise (= étonné)","/syʁpʁi/","","C'était une bonne surprise !","It was a nice surprise!"],
+  ["to be bored","s'ennuyer","/sɑ̃nɥije/","","Benoît s'ennuie le dimanche.","Benoît is bored on Sundays."],
+  ["boring","ennuyeux / ennuyeuse","/ɑ̃nɥijø/","","",""]
+ ],
+ x:[
+  ["Gabriel falls in love with Mathilde.",["gabriel tombe amoureux de mathilde"]],
+  ["They live together.",["ils vivent ensemble"]],
+  ["She is furious with Nicolas.",["elle est furieuse contre nicolas"]],
+  ["I am afraid of dogs.",["j'ai peur des chiens"]],
+  ["The children laugh a lot.",["les enfants rient beaucoup"]],
+  ["He is bored on Sundays.",["il s'ennuie le dimanche"]]
+ ],
+ d:{t:"Des nouvelles de Gabriel",lines:[
+  ["A","Tu sais que Gabriel sort avec Mathilde ?","Do you know Gabriel is going out with Mathilde?"],
+  ["M","Mais oui, ils vivent ensemble !","Of course, they live together!"],
+  ["A","Ils sont amoureux ?","Are they in love?"],
+  ["M","Ah oui, c'est la passion !","Oh yes, it's passion!"],
+  ["A","Et ils vont se marier ?","And are they getting married?"],
+  ["M","Oui, samedi à la mairie. Le soir, il y a une grande fête !","Yes, Saturday at the town hall. In the evening there's a big party!"]
+ ]}},
+{n:20,b:1,ch:"ch. 4–5 (p. 24–33)",t:"Le caractère & la communication",s:"qualités & défauts · parler, raconter, mentir",
+ g:"Féminin des adjectifs : + e (bavard → bavard<b>e</b>) · -eux → <b>-euse</b> (généreux → généreuse) · -if → <b>-ive</b> (agressif → agressive) · timide, calme ne changent pas. Parler <b>à</b> quelqu'un, parler <b>de</b> quelque chose ; demander <b>à</b> / répondre <b>à</b>.",
+ v:["parler","comprendre"],
+ w:[
+  ["to be good/bad-tempered","avoir bon / mauvais caractère","/kaʁaktɛʁ/","","Clément a bon caractère.","Clément is good-natured."],
+  ["nice / likeable","sympathique (sympa)","/sɛ̃patik/","","Tout le monde l'aime bien.","Everyone likes him."],
+  ["unpleasant","antipathique","/ɑ̃tipatik/","","",""],
+  ["reserved","réservé / réservée","/ʁezɛʁve/","","Il n'aime pas parler en public.","He doesn't like speaking in public."],
+  ["shy","timide","/timid/","","",""],
+  ["talkative","bavard / bavarde","/bavaʁ/","","Agnès n'arrête pas de parler !","Agnès never stops talking!"],
+  ["nervous","nerveux / nerveuse","/nɛʁvø/","","",""],
+  ["calm","calme","/kalm/","","",""],
+  ["optimistic / pessimistic","optimiste / pessimiste","/ɔptimist/","","Elle voit le bon côté des choses.","She sees the bright side."],
+  ["to have a sense of humour","avoir le sens de l'humour","/ymuʁ/","","Il fait rire ses amis.","He makes his friends laugh."],
+  ["a quality","une qualité","/kalite/","f","",""],
+  ["a flaw / fault","un défaut","/defo/","m","",""],
+  ["intelligent","intelligent / intelligente","/ɛ̃teliʒɑ̃/","","",""],
+  ["hard-working","travailleur / travailleuse","/tʁavajœʁ/","","",""],
+  ["lazy","paresseux / paresseuse","/paʁesø/","","Didier ne veut jamais travailler.","Didier never wants to work."],
+  ["generous","généreux / généreuse","/ʒeneʁø/","","Il fait tout le temps des cadeaux.","He gives presents all the time."],
+  ["kind","gentil / gentille","/ʒɑ̃ti/","","",""],
+  ["mean","méchant / méchante","/meʃɑ̃/","","",""],
+  ["honest / dishonest","honnête / malhonnête","/ɔnɛt/","","Il dit toujours la vérité.","He always tells the truth."],
+  ["frank","franc / franche","/fʁɑ̃ fʁɑ̃ʃ/","","",""],
+  ["selfish","égoïste","/eɡɔist/","","Il ne pense qu'à lui.","He only thinks of himself."],
+  ["patient / impatient","patient(e) / impatient(e)","/pasjɑ̃/","","",""],
+  ["to joke","plaisanter","/plɛzɑ̃te/","","Il n'est pas sérieux, il aime plaisanter.","He's not serious, he likes joking."],
+  ["to tell a story","raconter une histoire","/ʁakɔ̃te/","","Je raconte une histoire à ma fille.","I tell my daughter a story."],
+  ["to ask a question","poser une question","/poze/","","Vincent pose toujours des questions.","Vincent always asks questions."],
+  ["to explain","expliquer","/ɛksplike/","","Ils expliquent pourquoi le ciel est bleu.","They explain why the sky is blue."],
+  ["to lie","mentir","/mɑ̃tiʁ/","","Julie ment à ses parents.","Julie lies to her parents."],
+  ["a lie","un mensonge","/mɑ̃sɔ̃ʒ/","m","Elle fait un mensonge.","She tells a lie."],
+  ["the truth","la vérité","/veʁite/","f","",""],
+  ["to mean","vouloir dire / signifier","/vulwaʁ diʁ/","","Qu'est-ce que ça veut dire ?","What does that mean?"],
+  ["to translate","traduire","/tʁadɥiʁ/","","Comment on traduit « mentir » en anglais ?","How do you translate 'mentir' into English?"],
+  ["the pronunciation","la prononciation","/pʁɔnɔ̃sjasjɔ̃/","f","",""],
+  ["an accent","un accent","/aksɑ̃/","m","Pawel parle avec un petit accent polonais.","Pawel speaks with a slight Polish accent."]
+ ],
+ x:[
+  ["She is talkative but very nice.",["elle est bavarde mais tres sympa","elle est bavarde mais tres sympathique"]],
+  ["He has a good sense of humour.",["il a le sens de l'humour"]],
+  ["What does 'mentir' mean?",["qu'est-ce que ca veut dire mentir","que veut dire mentir","qu'est-ce que ca signifie mentir"]],
+  ["She tells a story to her daughter.",["elle raconte une histoire a sa fille"]],
+  ["He is lying: it's a lie!",["il ment c'est un mensonge"]],
+  ["How do you translate this word?",["comment est-ce qu'on traduit ce mot","comment on traduit ce mot","comment traduit-on ce mot"]]
+ ],
+ d:{t:"Qu'est-ce que ça veut dire ?",lines:[
+  ["A","Vous comprenez le mot « gendre » ?","Do you understand the word 'gendre'?"],
+  ["M","Non, qu'est-ce que ça veut dire ?","No, what does it mean?"],
+  ["A","C'est le mari de votre fille.","It's your daughter's husband."],
+  ["M","Ah, merci ! Et comment on traduit « belle-mère » en anglais ?","Ah, thanks! And how do you translate 'belle-mère'?"],
+  ["A","« Mother-in-law ». Vous apprenez vite !","'Mother-in-law'. You learn fast!"],
+  ["M","Merci, vous êtes très gentille !","Thank you, you're very kind!"]
+ ]}},
+{n:21,b:1,ch:"ch. 6–7 (p. 34–41)",t:"Le corps & la santé",s:"les mouvements, avoir mal, chez le médecin",g:"",v:[],w:[],x:[],d:null},
+{n:22,b:1,ch:"ch. 8–9 (p. 42–51)",t:"Description physique · vêtements & couleurs",s:"grand, mince, les cheveux · une chemise, rouge",g:"",v:[],w:[],x:[],d:null},
+{n:23,b:1,ch:"ch. 10–11 (p. 52–63)",t:"La maison & les activités quotidiennes",s:"le logement, les pièces · se lever, se coucher",g:"",v:[],w:[],x:[],d:null},
+{n:24,b:1,ch:"ch. 12–13 (p. 64–75)",t:"Les aliments & faire les courses",s:"les produits, les commerces, les quantités",g:"",v:[],w:[],x:[],d:null},
+{n:25,b:1,ch:"ch. 14–15 (p. 76–85)",t:"La cuisine, les repas & le temps qui passe",s:"préparer, le petit-déjeuner · hier, demain, une heure",g:"",v:[],w:[],x:[],d:null},
+{n:26,b:1,ch:"ch. 16–17 (p. 86–93)",t:"L'école & les professions",s:"l'enseignement, une matière · les métiers",g:"",v:[],w:[],x:[],d:null},
+{n:27,b:1,ch:"ch. 18 (p. 94–97)",t:"La technologie & les médias",s:"internet, l'ordinateur, la télévision",g:"",v:[],w:[],x:[],d:null},
+{n:28,b:1,ch:"ch. 19–20 (p. 98–107)",t:"L'argent, la banque & l'administration",s:"payer, un compte · la poste, les papiers",g:"",v:[],w:[],x:[],d:null},
+{n:29,b:1,ch:"ch. 21–22 (p. 108–119)",t:"La géographie, la francophonie & la météo",s:"pays, régions · il pleut, il fait beau",g:"",v:[],w:[],x:[],d:null},
+{n:30,b:1,ch:"ch. 23–24 (p. 120–129)",t:"La ville, la campagne & les directions",s:"le quartier · à gauche, tout droit",g:"",v:[],w:[],x:[],d:null},
+{n:31,b:1,ch:"ch. 25–26 (p. 130–139)",t:"Les transports & le tourisme",s:"le train, l'avion · les voyages, les vacances",g:"",v:[],w:[],x:[],d:null},
+{n:32,b:1,ch:"ch. 27–28 (p. 140–149)",t:"Les loisirs, les sports, les arts",s:"les jeux, le spectacle, la musique",g:"",v:[],w:[],x:[],d:null},
+{n:33,b:2,ch:"ch. 1 (p. 6–11)",t:"Présentations et usages (A2+)",s:"se présenter en détail, les usages sociaux",g:"",v:[],w:[],x:[],d:null},
+{n:34,b:2,ch:"ch. 3 (p. 16–23)",t:"Les relations & les sentiments",s:"l'amitié, l'amour, se disputer",g:"",v:[],w:[],x:[],d:null},
+{n:35,b:2,ch:"ch. 5 (p. 28–35)",t:"Le temps qui passe (A2/B1)",s:"la durée, la fréquence, avant/après",g:"",v:[],w:[],x:[],d:null},
+{n:36,b:2,ch:"ch. 6–7 (p. 36–47)",t:"La météo, le climat & la nature",s:"le climat, l'environnement",g:"",v:[],w:[],x:[],d:null},
+{n:37,b:2,ch:"ch. 8–9 (p. 48–61)",t:"Le corps, la santé & l'apparence",s:"chez le médecin, l'allure, le look",g:"",v:[],w:[],x:[],d:null},
+{n:38,b:2,ch:"ch. 12–13 (p. 78–89)",t:"Les activités quotidiennes & le commerce",s:"la routine, les magasins, acheter",g:"",v:[],w:[],x:[],d:null},
+{n:39,b:2,ch:"ch. 17–19 (p. 116–135)",t:"Tourisme, enseignement, vie professionnelle",s:"les vacances, les études, le travail",g:"",v:[],w:[],x:[],d:null},
+{n:40,b:2,ch:"révision générale",t:"Consolidation & DELF blanc",s:"tout réviser + l'examen blanc du livre DELF",g:"",v:[],w:[],x:[],d:null}
+];
+/* === LESSONS_END === */
+
+/* === EXAMS_START === */
+const EXAMS=[
+{n:1,after:5,ready:true,
+ listen:[
+  {say:"Bonjour ! Je m'appelle Thomas. T, H, O, M, A, S. Je suis français. J'ai vingt-trois ans et j'habite à Lyon.",
+   qs:[
+    {q:"Quel âge a Thomas ?",o:["13 ans","23 ans","33 ans"],c:1},
+    {q:"Où habite-t-il ?",o:["à Lyon","à Paris","à Lille"],c:0}
+   ]},
+  {say:"Attention ! Le cours de français commence à neuf heures, salle numéro douze. Apportez votre livre et un stylo.",
+   qs:[
+    {q:"Le cours est dans quelle salle ?",o:["salle 2","salle 12","salle 22"],c:1},
+    {q:"Qu'est-ce qu'il faut apporter ?",o:["un livre et un stylo","une tablette","un cahier et un surligneur"],c:0},
+    {q:"Le cours commence à…",o:["neuf heures","dix-neuf heures","six heures"],c:0}
+   ]}
+ ],
+ read:[
+  {t:"Bonjour ! Je m'appelle Ana. Je suis espagnole, de Madrid. J'ai vingt-huit ans. J'apprends le français en classe le lundi et le mercredi. Mon professeur est très gentil. Et toi ? — Ana",
+   qs:[
+    {q:"Quelle est la nationalité d'Ana ?",o:["italienne","française","espagnole"],c:2},
+    {q:"Quels jours a-t-elle cours ?",o:["lundi et mercredi","mardi et jeudi","samedi et dimanche"],c:0}
+   ]},
+  {t:"COURS DE FRANÇAIS POUR DÉBUTANTS — Petits groupes de huit personnes maximum. Le samedi, de dix heures à midi. Quarante euros par mois. Salle quinze, École Molière.",
+   qs:[
+    {q:"Le cours coûte combien ?",o:["40 € par mois","14 € par mois","45 € par mois"],c:0},
+    {q:"C'est quel jour ?",o:["le dimanche","le samedi","le mercredi"],c:1},
+    {q:"Combien de personnes maximum ?",o:["8","15","10"],c:0}
+   ]}
+ ],
+ write:[
+  {p:"Tu t'inscris au cours de français. Présente-toi (40 mots) : nom (épelé), âge, nationalité, langues parlées.",
+   m:"Bonjour ! Je m'appelle Iris Mo. I-R-I-S, M-O. J'ai trente ans et je suis chinoise. Je parle chinois, anglais et un peu français. J'habite au Luxembourg. Enchantée !"},
+  {p:"Réponds au message d'Ana : présente-toi et pose-lui une question (40 mots).",
+   m:"Bonjour Ana ! Moi, je m'appelle Iris. Je suis chinoise et j'ai trente ans. J'apprends le français aussi, avec ma classe. Mon professeur est sympa. Et toi, tu parles anglais ? À bientôt ! Iris"}
+ ],
+ speak:[
+  "Épelle ton prénom et ton nom à voix haute.",
+  "Compte de 60 à 80 sans erreur.",
+  "Présente-toi en 6 phrases (nom, âge, nationalité, langues, ville).",
+  "Demande à un(e) camarade son nom, son âge et sa nationalité — il/elle répond.",
+  "Dis l'alphabet en français."
+ ]},
+{n:2,after:10,ready:true,
+ listen:[
+  {say:"Bonjour, c'est Julie ! Mon nouveau numéro, c'est le zéro six, douze, trente-quatre, cinquante-six. Rappelle-moi ce soir, s'il te plaît !",
+   qs:[
+    {q:"Qui appelle ?",o:["Julie","Julien","Ana"],c:0},
+    {q:"Quand faut-il rappeler ?",o:["demain matin","ce soir","lundi"],c:1},
+    {q:"Le numéro commence par…",o:["zéro six, douze","zéro six, deux","six, douze"],c:0}
+   ]},
+  {say:"Chéri, tu peux aller au marché ? Achète un kilo de tomates, du pain et trois bananes. Merci beaucoup !",
+   qs:[
+    {q:"Où faut-il aller ?",o:["au supermarché","au marché","à la boulangerie"],c:1},
+    {q:"Combien de tomates ?",o:["un kilo","trois kilos","une boîte"],c:0}
+   ]}
+ ],
+ read:[
+  {t:"Ma sœur Claire est infirmière. Elle travaille à l'hôpital le week-end. Son mari est cuisinier dans un restaurant italien. Ils ont deux enfants : un garçon de cinq ans et une fille de deux ans.",
+   qs:[
+    {q:"Quel est le métier de Claire ?",o:["cuisinière","infirmière","coiffeuse"],c:1},
+    {q:"Quand travaille-t-elle ?",o:["le week-end","le lundi","la nuit"],c:0},
+    {q:"Combien d'enfants ont-ils ?",o:["deux","trois","un"],c:0}
+   ]},
+  {t:"ÉPICERIE CHEZ MARCO — Ouvert du mardi au dimanche, de huit heures à dix-neuf heures. Fruits et légumes frais. Aujourd'hui : les oranges à deux euros le kilo !",
+   qs:[
+    {q:"Le magasin est fermé quel jour ?",o:["le lundi","le mardi","le dimanche"],c:0},
+    {q:"Les oranges coûtent…",o:["2 € le kilo","12 € le kilo","2 € les trois"],c:0}
+   ]}
+ ],
+ write:[
+  {p:"Décris ta famille (50 mots) : qui, leurs métiers, ce qu'ils aiment.",
+   m:"Dans ma famille, nous sommes quatre. Mon père est ingénieur, il adore la lecture. Ma mère travaille dans un bureau ; elle aime la musique et joue du piano. Mon frère est étudiant. Il joue au football le samedi. Et moi, j'adore les voyages !"},
+  {p:"Écris un message à un ami : demande-lui d'aller au marché avec une petite liste de courses (40 mots).",
+   m:"Salut Marco ! Tu peux aller au marché samedi matin, s'il te plaît ? Achète un kilo de pommes, du pain, un morceau de fromage et une bouteille d'eau. Merci beaucoup ! Je t'appelle ce soir. Bises, Iris"}
+ ],
+ speak:[
+  "Dicte ton numéro de téléphone à un(e) camarade — il/elle l'écrit.",
+  "Présente ta famille en 6 phrases (métiers + goûts).",
+  "Dis trois choses que tu aimes et deux choses que tu détestes.",
+  "Jeu de rôle au marché : achète trois choses, demande le prix, dis merci.",
+  "Épelle ton adresse email en français (arobase, point…)."
+ ]},
+{n:3,after:15,ready:false},
+{n:4,after:20,ready:false},
+{n:5,after:25,ready:false},
+{n:6,after:30,ready:false},
+{n:7,after:35,ready:false},
+{n:8,after:40,ready:false}
+];
+/* === EXAMS_END === */
+
+/* ================= audio (TTS) ================= */
+let VOICE=null,TTS=("speechSynthesis" in window);
+function pickVoice(){
+  if(!TTS)return;
+  const vs=speechSynthesis.getVoices().filter(v=>v.lang&&v.lang.toLowerCase().startsWith("fr"));
+  VOICE=vs.find(v=>/fr[-_]FR/i.test(v.lang))||vs[0]||null;
+}
+if(TTS){pickVoice();speechSynthesis.onvoiceschanged=pickVoice;}
+function speak(txt){
+  if(!TTS){toast("Pas de voix française sur cet appareil");return;}
+  try{
+    speechSynthesis.cancel();
+    const u=new SpeechSynthesisUtterance(txt);
+    u.lang="fr-FR";if(VOICE)u.voice=VOICE;u.rate=0.85;
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+function spkBtn(txt){return `<button class="spk" onclick="speak(this.dataset.s);event.stopPropagation()" data-s="${esc(txt).replace(/"/g,"&quot;")}">🔊</button>`;}
+
+/* ================= state & storage ================= */
+const $=id=>document.getElementById(id);
+let people,cur,P;
+function loadPeople(){
+  try{people=JSON.parse(localStorage.getItem("fcl_people")||"null")||["Iris"];}catch(e){people=["Iris"];}
+  cur=localStorage.getItem("fcl_cur")||people[0];
+  if(people.indexOf(cur)<0)cur=people[0];
+}
+function loadP(){
+  try{P=JSON.parse(localStorage.getItem("fcl_p_"+cur)||"null");}catch(e){P=null;}
+  if(!P)P={done:{},exam:{},dlg:{},weak:{},correct:0,streak:0,last:""};
+  P.dlg=P.dlg||{};P.weak=P.weak||{};
+}
+function saveAll(){
+  localStorage.setItem("fcl_people",JSON.stringify(people));
+  localStorage.setItem("fcl_cur",cur);
+  localStorage.setItem("fcl_p_"+cur,JSON.stringify(P));
+}
+function today(){return new Date().toISOString().slice(0,10);}
+function touch(){
+  const t=today();
+  if(P.last!==t){
+    const y=new Date(Date.now()-864e5).toISOString().slice(0,10);
+    P.streak=(P.last===y)?(P.streak||0)+1:1;
+    P.last=t;
+  }
+}
+function markWeak(key){P.weak[key]=(P.weak[key]||0)+1;}
+function easeWeak(key){if(P.weak[key]){P.weak[key]--;if(P.weak[key]<=0)delete P.weak[key];}}
+function scoreGood(key){P.correct=(P.correct||0)+1;if(key)easeWeak(key);touch();saveAll();}
+function toast(msg){const t=$("toast");t.textContent=msg;t.style.opacity=1;clearTimeout(t._h);t._h=setTimeout(()=>t.style.opacity=0,2400);}
+
+/* ================= helpers ================= */
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+function norm(s){
+  return String(s).toLowerCase()
+    .normalize("NFD").replace(/[̀-ͯ]/g,"")
+    .replace(/œ/g,"oe").replace(/[’']/g," ")
+    .replace(/[^a-z0-9 -]/g," ").replace(/-/g," ")
+    .replace(/\s+/g," ").trim();
+}
+function stripArt(s){return norm(s).replace(/^(une|un|des|les|le|la|l) /,"");}
+function art(fr){const m=fr.match(/^(une|un|les|le|la|l')\s?/i);return m?m[0].trim():"";}
+function bare(fr){return fr.replace(/^(une|un|les|le|la|l')\s?/i,"");}
+function pick(arr,not){
+  if(!arr.length)return null;
+  if(arr.length===1)return arr[0];
+  let it;do{it=arr[Math.floor(Math.random()*arr.length)];}while(it===not);
+  return it;
+}
+function shuffle(a){const b=a.slice();for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
+function lessonByN(n){return LESSONS.find(l=>l.n===n);}
+function doneCount(){return LESSONS.filter(l=>P.done[l.n]).length;}
+function examsPassed(){return Object.keys(P.exam||{}).filter(k=>P.exam[k]&&P.exam[k].pass).length;}
+function examUnlocked(e){for(let i=e.after-4;i<=e.after;i++){if(!P.done[i])return false;}return true;}
+function studiedLessons(){
+  const out=LESSONS.filter(l=>l.w.length&&P.done[l.n]);
+  const first=LESSONS.find(l=>!P.done[l.n]&&l.w.length);
+  if(first)out.push(first);
+  return out;
+}
+
+/* ================= home ================= */
+function renderHome(){
+  const first=LESSONS.find(l=>!P.done[l.n]&&l.w.length);
+  let h=`
+  <div class="app-eyebrow">La Classe de Français</div>
+  <div class="app-title">Notre <span class="m">Classe</span> de <span class="f">Français</span></div>
+  <div class="app-sub">Objectif DELF A2 · 5 mois · Vocabulaire Progressif (les 3 livres)</div>
+  <div class="who"><span>Qui pratique ?</span>`;
+  people.forEach(p=>{h+=`<b class="pill ${p===cur?"on":""}" onclick="setPerson('${esc(p).replace(/'/g,"\\'")}')">${esc(p)}</b>`;});
+  h+=`<b class="pill add" onclick="addPerson()">+ ajouter un nom</b><b class="pill" style="border-style:dashed;" onclick="removePerson()">– retirer</b></div>
+  <div class="progressline">
+    <div><b>${doneCount()}/40</b><small>Leçons</small></div>
+    <div><b>${examsPassed()}/8</b><small>Examens</small></div>
+    <div><b>${P.streak||0}</b><small>Jours de suite</small></div>
+    <div><b>${P.correct||0}</b><small>Correct</small></div>
+  </div>
+  <div class="homebtns">
+    <button class="act" onclick="startReview()">🔁 Révision mixte (10 questions)</button>
+    <button class="act goldb" onclick="openClasse()">🎓 Mode Classe</button>
+  </div>
+  <div class="exportline">
+    <button onclick="exportProgress()">Copier ma progression</button> ·
+    <button onclick="backupProgress()">Sauvegarder</button> ·
+    <button onclick="restoreProgress()">Restaurer</button>
+  </div>`;
+  let curBook=-1;
+  LESSONS.forEach(l=>{
+    if(l.b!==curBook){curBook=l.b;h+=`<div class="bookhead">${BOOKS[curBook]}</div>`;}
+    let st,cls;
+    if(P.done[l.n]){st="✓ terminée";cls="done";}
+    else if(!l.w.length){st="à venir";cls="todo";}
+    else if(first&&l.n===first.n){st="en cours";cls="now";}
+    else{st="prête";cls="todo";}
+    h+=`<div class="lesson" onclick="openLesson(${l.n})">
+      <span class="num">L${String(l.n).padStart(2,"0")}</span>
+      <div class="t">${esc(l.t)}<small>${esc(l.ch)} · ${esc(l.s)}</small></div>
+      <span class="st ${cls}">${st}</span></div>`;
+    if(l.n%5===0){
+      const e=EXAMS[l.n/5-1],sc=P.exam[e.n];
+      let est,ecls;
+      if(sc){est=(sc.pass?"✓ ":"")+sc.total+"/100";ecls="done";}
+      else if(examUnlocked(e)&&e.ready){est="débloqué !";ecls="now";}
+      else if(examUnlocked(e)&&!e.ready){est="à préparer";ecls="todo";}
+      else{est="verrouillé";ecls="todo";}
+      h+=`<div class="lesson exam" onclick="openExam(${e.n})">
+        <span class="num">EX${e.n}</span>
+        <div class="t">Examen ${e.n} · Leçons ${e.after-4}–${e.after}${e.n===8?" · DELF blanc":""}</div>
+        <span class="st ${ecls}">${est}</span></div>`;
+    }
+  });
+  h+=`<footer>La Classe de Français · leçons = les chapitres réels des 3 livres · examens au format DELF A2</footer>`;
+  $("app").innerHTML=h;
+  window.scrollTo(0,0);
+}
+function setPerson(p){cur=p;loadP();saveAll();renderHome();}
+function addPerson(){
+  const n=prompt("Prénom du nouvel élève ?");
+  if(n&&n.trim()){
+    const nm=n.trim();
+    if(people.indexOf(nm)<0)people.push(nm);
+    cur=nm;loadP();saveAll();renderHome();toast("Bienvenue, "+nm+" !");
+  }
+}
+function removePerson(){
+  if(people.length<2){toast("Il faut garder au moins un nom !");return;}
+  const n=prompt("Quel nom retirer ? ("+people.join(", ")+")");
+  if(!n||!n.trim())return;
+  const nm=n.trim();
+  const idx=people.findIndex(p=>p.toLowerCase()===nm.toLowerCase());
+  if(idx<0){toast("« "+nm+" » n'est pas dans la liste.");return;}
+  const real=people[idx];
+  if(!confirm("Retirer « "+real+" » et effacer sa progression sur cet appareil ?"))return;
+  people.splice(idx,1);
+  localStorage.removeItem("fcl_p_"+real);
+  if(cur===real){cur=people[0];loadP();}
+  saveAll();renderHome();toast("« "+real+" » retiré.");
+}
+function exportProgress(){
+  let txt="LA CLASSE DE FRANÇAIS — progression de "+cur+" ("+today()+")\n";
+  txt+="Leçons terminées : "+(LESSONS.filter(l=>P.done[l.n]).map(l=>"L"+l.n).join(", ")||"aucune")+"\n";
+  txt+="Examens : "+(Object.keys(P.exam).map(k=>"EX"+k+" = "+P.exam[k].total+"/100"+(P.exam[k].pass?" (réussi)":" (à refaire)")).join(", ")||"aucun")+"\n";
+  txt+="Mots difficiles : "+(Object.keys(P.weak).length? Object.keys(P.weak).map(k=>{const[a,b]=k.split(":");const L2=lessonByN(+a);return L2&&L2.w[+b]?L2.w[+b][1]:"";}).filter(Boolean).join(", ") : "aucun")+"\n";
+  txt+="Bonnes réponses : "+(P.correct||0)+" · Jours de suite : "+(P.streak||0);
+  copyText(txt);
+}
+function backupProgress(){
+  const code="FCL1."+btoa(unescape(encodeURIComponent(JSON.stringify({name:cur,p:P}))));
+  copyText(code);
+  toast("Code de sauvegarde copié — garde-le précieusement !");
+}
+function restoreProgress(){
+  const code=prompt("Colle ton code de sauvegarde (FCL1.…) :");
+  if(!code)return;
+  try{
+    const obj=JSON.parse(decodeURIComponent(escape(atob(code.trim().replace(/^FCL1\./,"")))));
+    if(!obj||!obj.p)throw 0;
+    if(people.indexOf(obj.name)<0)people.push(obj.name);
+    cur=obj.name;P=obj.p;P.dlg=P.dlg||{};P.weak=P.weak||{};
+    saveAll();renderHome();toast("Progression de "+obj.name+" restaurée !");
+  }catch(e){toast("Code invalide…");}
+}
+function copyText(txt){
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(()=>toast("Copié !"),()=>fallbackCopy(txt));
+  }else fallbackCopy(txt);
+}
+function fallbackCopy(txt){
+  const ta=document.createElement("textarea");ta.value=txt;document.body.appendChild(ta);
+  ta.select();try{document.execCommand("copy");toast("Copié !");}catch(e){toast("Copie impossible.");}
+  document.body.removeChild(ta);
+}
+
+/* ================= lesson view ================= */
+let L=null,qw=null,gw=null,sx=null,cv=null,cp=0,ew=null;
+function openLesson(n){
+  L=lessonByN(n);
+  if(!L.w.length){
+    $("app").innerHTML=`
+    <span class="back" onclick="renderHome()">← Toutes les leçons</span>
+    <div class="lesson-title">Leçon ${L.n} — ${esc(L.t)}</div>
+    <div class="lesson-meta">${BOOKS[L.b]} · ${esc(L.ch)}</div>
+    <div class="note">📚 Cette leçon suit le livre (${esc(L.ch)}) mais n'est pas encore chargée dans l'app.
+    Quand la classe arrive ici, dites au tuteur : <b>« Prépare la leçon ${L.n} »</b>.
+    En attendant, vous pouvez étudier le chapitre dans le livre papier !</div>`;
+    window.scrollTo(0,0);return;
+  }
+  const nouns=genrePool();
+  let h=`
+  <span class="back" onclick="renderHome()">← Toutes les leçons</span>
+  <div class="lesson-title">Leçon ${L.n} — ${esc(L.t)}</div>
+  <div class="lesson-meta">${BOOKS[L.b]} · ${esc(L.ch)} · ${L.w.length} mots</div>
+  <div class="tabs">
+    <button id="tb_learn" class="on" onclick="showTab('learn')">Apprendre</button>
+    <button id="tb_quiz" onclick="showTab('quiz')">Quiz</button>
+    <button id="tb_ecoute" onclick="showTab('ecoute')">Écoute</button>
+    ${nouns.length?`<button id="tb_genre" onclick="showTab('genre')">Genre</button>`:""}
+    <button id="tb_sent" onclick="showTab('sent')">Phrases</button>
+    <button id="tb_conj" onclick="showTab('conj')">Conjugaison</button>
+    ${L.d?`<button id="tb_dlg" onclick="showTab('dlg')">Dialogue</button>`:""}
+  </div>
+
+  <div class="panel on" id="pn_learn">
+    ${L.g?`<div class="gram"><b>Grammaire :</b> ${L.g}</div>`:""}`;
+  L.w.forEach(w=>{
+    h+=`<div class="word"><span class="fr ${w[3]}">${esc(w[1])}</span>${w[3]?`<span class="gtag ${w[3]}">${w[3]}</span>`:""}${spkBtn(w[1])}${w[2]?`<span class="ipa">${esc(w[2])}</span>`:""}<span class="en">${esc(w[0])}</span></div>`;
+  });
+  h+=`<button class="donebtn ${P.done[L.n]?"is":""}" id="doneBtn" onclick="toggleDone()">${P.done[L.n]?"✓ Leçon terminée — bravo !":"Marquer la leçon comme terminée ✓"}</button>
+  </div>
+
+  <div class="panel" id="pn_quiz">
+    <div class="card">
+      <div class="q">Écris le français (avec son article) :</div>
+      <div class="prompt" id="qPrompt">—</div>
+      <input class="txt" id="qIn" placeholder="ex. une lettre…" autocomplete="off" onkeydown="if(event.key==='Enter')checkQuiz()">
+      <button class="newword" onclick="explainQuiz()">🤔 Je ne sais pas — montre la réponse</button>
+      <div class="feedback" id="qFb"></div>
+      <div class="row"><button class="act" onclick="checkQuiz()">Vérifier</button><button class="act ghost" onclick="newQuiz()">Passer →</button></div>
+      <p class="hint">Article + mot. Les accents sont optionnels.</p>
+    </div>
+  </div>
+
+  <div class="panel" id="pn_ecoute">
+    <div class="card">
+      <div class="q">Écoute et choisis la bonne traduction :</div>
+      <div class="prompt" style="font-size:1.2rem;">🎧 <button class="act ghost" style="padding:8px 18px;font-size:14px;" onclick="playEcoute()">▶ Écouter</button></div>
+      <div class="opts" id="eOpts"></div>
+      <div class="feedback" id="eFb"></div>
+      <div class="shadowtip" id="eShadow" style="display:none;">🗣 Maintenant, répète à voix haute ! <button class="spk" onclick="playEcoute()">🔊 réécouter</button></div>
+      <div class="row"><button class="act ghost" onclick="newEcoute()">Suivant →</button></div>
+      <p class="hint">Sans lire ! Écoute, choisis, puis répète le mot à voix haute.</p>
+    </div>
+  </div>
+
+  <div class="panel" id="pn_genre">
+    <div class="card">
+      <div class="q">Masculin ou féminin ? Choisis l'article :</div>
+      <div class="prompt" id="gPrompt">—</div>
+      <div class="genrebtns"><button class="un" onclick="answerGenre('m')">un</button><button class="une" onclick="answerGenre('f')">une</button></div>
+      <div class="feedback" id="gFb"></div>
+      <div class="row"><button class="act ghost" onclick="newGenre()">Suivant →</button></div>
+    </div>
+  </div>
+
+  <div class="panel" id="pn_sent">
+    <div class="card">
+      <div class="q">Traduis en français :</div>
+      <div class="prompt" id="sPrompt" style="font-size:1.3rem;">—</div>
+      <input class="txt" id="sIn" placeholder="écris la phrase…" autocomplete="off" onkeydown="if(event.key==='Enter')checkSent()">
+      <button class="newword" onclick="explainSent()">🤔 Je ne sais pas — montre la réponse</button>
+      <div class="feedback" id="sFb"></div>
+      <div class="row"><button class="act" onclick="checkSent()">Vérifier</button><button class="act ghost" onclick="newSent()">Passer →</button></div>
+      <p class="hint">Accents et apostrophes optionnels. Après, dis la phrase à voix haute !</p>
+    </div>
+  </div>
+
+  <div class="panel" id="pn_conj">
+    <div class="card">
+      <div class="q">Conjugue le verbe au présent :</div>
+      <div class="prompt" id="cPrompt">—</div>
+      <input class="txt" id="cIn" placeholder="écris la forme…" autocomplete="off" onkeydown="if(event.key==='Enter')checkConj()">
+      <button class="newword" onclick="explainConj()">🤔 Je ne sais pas — montre la conjugaison</button>
+      <div class="feedback" id="cFb"></div>
+      <div class="row"><button class="act" onclick="checkConj()">Vérifier</button><button class="act ghost" onclick="newConj()">Passer →</button></div>
+    </div>
+  </div>
+
+  ${L.d?`<div class="panel" id="pn_dlg"><div id="dlgBox"></div></div>`:""}`;
+  $("app").innerHTML=h;
+  newQuiz();newEcoute();if(nouns.length)newGenre();if(L.x.length)newSent();newConj();
+  if(L.d)renderDlg(P.dlg[L.n]||1);
+  window.scrollTo(0,0);
+}
+function showTab(t){
+  ["learn","quiz","ecoute","genre","sent","conj","dlg"].forEach(k=>{
+    const p=$("pn_"+k),b=$("tb_"+k);
+    if(p)p.classList.toggle("on",k===t);
+    if(b)b.classList.toggle("on",k===t);
+  });
+  if(TTS)speechSynthesis.cancel();
+}
+function toggleDone(){
+  P.done[L.n]=!P.done[L.n];if(!P.done[L.n])delete P.done[L.n];
+  touch();saveAll();
+  const b=$("doneBtn");
+  b.classList.toggle("is",!!P.done[L.n]);
+  b.textContent=P.done[L.n]?"✓ Leçon terminée — bravo !":"Marquer la leçon comme terminée ✓";
+  if(P.done[L.n])toast("Bravo ! Leçon "+L.n+" terminée 🎉");
+}
+
+/* --- quiz --- */
+function wkey(l,w){return l.n+":"+l.w.indexOf(w);}
+function newQuiz(){qw=pick(L.w,qw);$("qPrompt").textContent=qw[0];$("qIn").value="";const f=$("qFb");f.textContent="";f.className="feedback";}
+function checkQuiz(){
+  if(!qw)return;
+  const inp=$("qIn").value;if(!inp.trim())return;
+  const f=$("qFb");
+  const okFull=norm(inp)===norm(qw[1]);
+  const okBare=stripArt(inp)===stripArt(qw[1]);
+  const userArt=norm(inp).split(" ")[0],realArt=norm(qw[1]).split(" ")[0];
+  if(okFull||(okBare&&(!qw[3]||norm(inp).indexOf(" ")<0))){
+    f.className="feedback ok";
+    f.innerHTML=`✓ Bravo ! <b>${esc(qw[1])}</b> ${qw[2]?esc(qw[2]):""} ${spkBtn(qw[1])}`;
+    scoreGood(wkey(L,qw));setTimeout(newQuiz,1600);
+  }else if(okBare&&qw[3]){
+    f.className="feedback ko";
+    f.innerHTML=`Presque ! Attention au genre : <b>${esc(qw[1])}</b> (${qw[3]})<span class="sub2">${userArt} → ${realArt}</span>`;
+    markWeak(wkey(L,qw));saveAll();
+  }else{
+    f.className="feedback ko";
+    f.innerHTML=`✗ La réponse : <b>${esc(qw[1])}</b> ${qw[2]?esc(qw[2]):""} ${spkBtn(qw[1])}`;
+    markWeak(wkey(L,qw));saveAll();
+  }
+}
+function explainQuiz(){
+  if(!qw)return;const f=$("qFb");
+  f.className="feedback ok";
+  f.innerHTML=`<b>${esc(qw[1])}</b> ${qw[2]?esc(qw[2]):""} ${spkBtn(qw[1])}${qw[4]?`<span class="sub2"><i>${esc(qw[4])}</i> — ${esc(qw[5])}</span>`:""}`;
+  markWeak(wkey(L,qw));saveAll();
+}
+
+/* --- écoute --- */
+function newEcoute(){
+  ew=pick(L.w,ew);
+  const others=shuffle(L.w.filter(w=>w!==ew)).slice(0,2);
+  const opts=shuffle([ew].concat(others));
+  $("eOpts").innerHTML=opts.map(o=>`<div class="opt" onclick="answerEcoute(this,${L.w.indexOf(o)})">${esc(o[0])}</div>`).join("");
+  const f=$("eFb");f.textContent="";f.className="feedback";
+  $("eShadow").style.display="none";
+  playEcoute();
+}
+function playEcoute(){if(ew)speak(ew[1]);}
+function answerEcoute(el,idx){
+  if(!ew)return;
+  const f=$("eFb");
+  if(L.w[idx]===ew){
+    el.classList.add("okc");
+    f.className="feedback ok";f.innerHTML=`✓ Oui ! <b>${esc(ew[1])}</b> = ${esc(ew[0])}`;
+    $("eShadow").style.display="block";
+    scoreGood(wkey(L,ew));
+  }else{
+    el.classList.add("koc");
+    f.className="feedback ko";f.innerHTML=`✗ C'était : <b>${esc(ew[1])}</b> = ${esc(ew[0])}`;
+    markWeak(wkey(L,ew));saveAll();
+  }
+}
+
+/* --- genre --- */
+function genrePool(){return L?L.w.filter(w=>w[3]&&/^(un|une|le|la|l')/i.test(w[1])&&!/^les /i.test(w[1])):[];}
+function newGenre(){const p=genrePool();if(!p.length)return;gw=pick(p,gw);$("gPrompt").textContent=bare(gw[1]);const f=$("gFb");f.textContent="";f.className="feedback";}
+function answerGenre(g){
+  if(!gw)return;const f=$("gFb");
+  if(g===gw[3]){f.className="feedback ok";f.innerHTML=`✓ Oui ! <b>${esc(gw[1])}</b> (${gw[3]}) ${spkBtn(gw[1])}`;scoreGood(wkey(L,gw));setTimeout(newGenre,1400);}
+  else{f.className="feedback ko";f.innerHTML=`✗ Non — c'est <b>${esc(gw[1])}</b> (${gw[3]})`;markWeak(wkey(L,gw));saveAll();}
+}
+
+/* --- sentences --- */
+function newSent(){if(!L.x.length)return;sx=pick(L.x,sx);$("sPrompt").textContent=sx[0];$("sIn").value="";const f=$("sFb");f.textContent="";f.className="feedback";}
+function checkSent(){
+  if(!sx)return;const inp=$("sIn").value;if(!inp.trim())return;
+  const f=$("sFb");
+  if(sx[1].some(a=>norm(a)===norm(inp))){
+    f.className="feedback ok";f.innerHTML=`✓ Parfait ! <b>${esc(sx[1][0])}</b> ${spkBtn(sx[1][0])}`;scoreGood();setTimeout(newSent,1800);
+  }else{
+    f.className="feedback ko";f.innerHTML=`✗ Réponse : <b>${esc(sx[1][0])}</b> ${spkBtn(sx[1][0])}`;
+  }
+}
+function explainSent(){if(!sx)return;const f=$("sFb");f.className="feedback ok";f.innerHTML=`<b>${esc(sx[1][0])}</b> ${spkBtn(sx[1][0])}`;}
+
+/* --- conjugation --- */
+function conjVerbs(){return (L&&L.v&&L.v.length?L.v:CORE).filter(v=>VERBS[v]);}
+function newConj(){
+  const vs=conjVerbs();
+  cv=pick(vs,cv);cp=Math.floor(Math.random()*6);
+  $("cPrompt").innerHTML=`${esc(cv)} — <i>${PRON[cp]}</i> ______`;
+  $("cIn").value="";const f=$("cFb");f.textContent="";f.className="feedback";
+}
+function conjShow(){
+  const form=VERBS[cv][cp];
+  let pr=PRON[cp].split(" ")[0];
+  if(pr==="je"&&/^[aeiouâêé]/.test(form))return "j'"+form;
+  return pr+" "+form;
+}
+function checkConj(){
+  if(!cv)return;const inp=$("cIn").value;if(!inp.trim())return;
+  const f=$("cFb");
+  const form=VERBS[cv][cp];
+  const cleaned=norm(inp).replace(/^(je|j|tu|il|elle|on|nous|vous|ils|elles) /,"");
+  if(cleaned===norm(form)){
+    f.className="feedback ok";f.innerHTML=`✓ Bravo ! <b>${esc(conjShow())}</b> ${spkBtn(conjShow())}`;scoreGood();setTimeout(newConj,1500);
+  }else{
+    f.className="feedback ko";f.innerHTML=`✗ On dit : <b>${esc(conjShow())}</b> ${spkBtn(conjShow())}`;
+  }
+}
+function explainConj(){
+  if(!cv)return;const f=$("cFb");
+  f.className="feedback ok";
+  f.innerHTML=`<b>${esc(cv)}</b> : ${VERBS[cv].map((fm,i)=>`${PRON[i].split(" ")[0]} <b>${esc(fm)}</b>`).join(" · ")}`;
+}
+
+/* --- dialogue (3 niveaux) --- */
+let dLvl=1,dStep=0,dErr=0;
+function renderDlg(lvl){
+  dLvl=lvl;dStep=0;dErr=0;
+  const won=P.dlg[L.n]||0;
+  let h=`<div class="card">
+    <div class="q">Scène : ${esc(L.d.t)} — c'est TOI la partie bleue</div>
+    <div class="lvlbtns">
+      <button class="${dLvl===1?"on":(won>=1?"won":"")}" onclick="renderDlg(1)">① Écouter &amp; lire</button>
+      <button class="${dLvl===2?"on":(won>=2?"won":"")}" onclick="renderDlg(2)">② Choisir ta réplique</button>
+      <button class="${dLvl===3?"on":(won>=3?"won":"")}" onclick="renderDlg(3)">③ Parler toi-même</button>
+    </div>
+    <div id="dlgArea"></div>
+  </div>`;
+  $("dlgBox").innerHTML=h;
+  if(dLvl===1)dlgLevel1();else dlgNextStep();
+}
+function bubble(line,withEn){
+  const me=line[0]==="M";
+  return `<div class="bubble ${me?"me":"a"}"><span class="who">${me?"— toi —":"— l'autre —"}</span>${esc(line[1])} ${spkBtn(line[1])}${withEn?`<span class="entr">${esc(line[2])}</span>`:""}</div>`;
+}
+function dlgLevel1(){
+  let h=L.d.lines.map(l=>bubble(l,true)).join("");
+  h+=`<div class="shadowtip">🗣 Écoute chaque bulle (🔊) et répète-la à voix haute — surtout les bleues !</div>
+  <div class="row"><button class="act ghost" onclick="playAllDlg()">▶ Écouter toute la scène</button>
+  <button class="act goldb" onclick="dlgWin(1)">Niveau ① fait ✓</button></div>`;
+  $("dlgArea").innerHTML=h;
+}
+function playAllDlg(){
+  if(!TTS){toast("Pas de voix française sur cet appareil");return;}
+  speechSynthesis.cancel();
+  L.d.lines.forEach(l=>{
+    const u=new SpeechSynthesisUtterance(l[1]);
+    u.lang="fr-FR";if(VOICE)u.voice=VOICE;u.rate=0.85;
+    speechSynthesis.speak(u);
+  });
+}
+function dlgNextStep(){
+  const lines=L.d.lines;
+  if(dStep>=lines.length){
+    const ok=dErr===0;
+    $("dlgArea").innerHTML=(ok?`<div class="feedback ok" style="margin-top:4px;">🎉 Scène complète sans erreur — bravo !</div>`:`<div class="feedback ok" style="margin-top:4px;">Scène terminée ! (${dErr} aide${dErr>1?"s":""}) — refais-la pour la réussir sans erreur.</div>`)+
+      `<div class="row"><button class="act" onclick="renderDlg(${dLvl})">↻ Recommencer</button>${ok?`<button class="act goldb" onclick="dlgWin(${dLvl})">Niveau ${dLvl===2?"②":"③"} réussi ✓</button>`:""}</div>`;
+    return;
+  }
+  const line=lines[dStep];
+  let h=lines.slice(0,dStep).map(l=>bubble(l,false)).join("");
+  if(line[0]==="A"){
+    h+=bubble(line,false);
+    $("dlgArea").innerHTML=h+`<div class="row"><button class="act ghost" onclick="dStep++;dlgNextStep()">Continuer →</button></div>`;
+    speak(line[1]);
+  }else{
+    if(dLvl===2){
+      const others=shuffle(L.d.lines.filter(l=>l[0]==="M"&&l!==line).map(l=>l[1]).concat(GEN_DIST)).slice(0,2);
+      const opts=shuffle([line[1]].concat(others));
+      h+=`<div class="bubble me"><span class="who">— toi — (choisis ta réplique : « ${esc(line[2])} »)</span>
+        <div class="opts">${opts.map(o=>`<div class="opt" onclick="dlgPick(this,${o===line[1]})">${esc(o)}</div>`).join("")}</div></div>`;
+      $("dlgArea").innerHTML=h;
+    }else{
+      h+=`<div class="bubble me"><span class="who">— toi — dis en français : « ${esc(line[2])} »</span>
+        <input class="txt" id="dIn" placeholder="écris ta réplique…" autocomplete="off" onkeydown="if(event.key==='Enter')dlgType()">
+        <div class="row"><button class="act" onclick="dlgType()">Vérifier</button>
+        <button class="act ghost" onclick="dlgHelp()">🤔 aide</button></div>
+        <div class="feedback" id="dFb"></div></div>`;
+      $("dlgArea").innerHTML=h;
+      const inp=$("dIn");if(inp)inp.focus();
+    }
+  }
+}
+function dlgPick(el,ok){
+  const line=L.d.lines[dStep];
+  if(ok){
+    el.classList.add("okc");speak(line[1]);scoreGood();
+    setTimeout(()=>{dStep++;dlgNextStep();},1100);
+  }else{
+    el.classList.add("koc");dErr++;
+  }
+}
+function dlgType(){
+  const line=L.d.lines[dStep];
+  const inp=$("dIn").value;if(!inp.trim())return;
+  const f=$("dFb");
+  if(norm(inp)===norm(line[1])){
+    f.className="feedback ok";f.innerHTML="✓ Parfait !";
+    speak(line[1]);scoreGood();
+    setTimeout(()=>{dStep++;dlgNextStep();},1100);
+  }else{
+    f.className="feedback ko";f.innerHTML=`Pas tout à fait. Modèle : <b>${esc(line[1])}</b>`;
+    dErr++;
+  }
+}
+function dlgHelp(){
+  const line=L.d.lines[dStep];
+  const f=$("dFb");f.className="feedback ok";f.innerHTML=`<b>${esc(line[1])}</b> ${spkBtn(line[1])}`;
+  dErr++;
+}
+function dlgWin(lvl){
+  P.dlg[L.n]=Math.max(P.dlg[L.n]||0,lvl);
+  touch();saveAll();
+  toast(lvl>=3?"🎉 Dialogue maîtrisé aux 3 niveaux !":"Niveau "+lvl+" validé — passe au niveau "+(lvl+1)+" !");
+  renderDlg(Math.min(3,lvl+1));
+}
+
+/* ================= révision mixte ================= */
+let RV=null;
+function startReview(){
+  const pool=studiedLessons();
+  if(!pool.length){toast("Commence d'abord une leçon !");return;}
+  RV={i:0,ok:0,qs:[]};
+  for(let k=0;k<10;k++){
+    let li,wi=null;
+    const weakKeys=Object.keys(P.weak);
+    if(weakKeys.length&&Math.random()<0.5){
+      const wk=weakKeys[Math.floor(Math.random()*weakKeys.length)].split(":");
+      const l2=lessonByN(+wk[0]);
+      if(l2&&l2.w[+wk[1]]){li=l2;wi=+wk[1];}
+    }
+    if(!li){li=pool[Math.floor(Math.random()*pool.length)];}
+    const types=["quiz","ecoute","genre","conj"];
+    let ty=types[Math.floor(Math.random()*types.length)];
+    if(ty==="ecoute"&&!TTS)ty="quiz";
+    if(ty==="genre"){
+      const gp=li.w.filter(w=>w[3]&&/^(un|une|le|la|l')/i.test(w[1])&&!/^les /i.test(w[1]));
+      if(!gp.length)ty="quiz";
+    }
+    RV.qs.push({ty:ty,l:li,wi:wi});
+  }
+  reviewStep();
+}
+function reviewStep(){
+  if(RV.i>=RV.qs.length){
+    $("app").innerHTML=`
+    <span class="back" onclick="renderHome()">← Accueil</span>
+    <div class="card" style="text-align:center;">
+      <div class="prompt">Révision terminée !</div>
+      <div class="result"><div class="big">${RV.ok}/10</div>
+      <div class="det">${RV.ok>=8?"Excellent ! 🎉":RV.ok>=5?"Bien — on continue demain !":"Les mots difficiles reviendront — courage !"}</div></div>
+      <div class="row"><button class="act" onclick="startReview()">↻ Encore 10</button><button class="act ghost" onclick="renderHome()">Accueil</button></div>
+    </div>`;
+    return;
+  }
+  const q=RV.qs[RV.i];
+  const l2=q.l;
+  const w=(q.wi!=null&&l2.w[q.wi])?l2.w[q.wi]:l2.w[Math.floor(Math.random()*l2.w.length)];
+  let inner="";
+  if(q.ty==="quiz"){
+    inner=`<div class="q">Leçon ${l2.n} · Écris le français :</div>
+    <div class="prompt">${esc(w[0])}</div>
+    <input class="txt" id="rIn" autocomplete="off" onkeydown="if(event.key==='Enter')revCheck()">
+    <div class="feedback" id="rFb"></div>
+    <div class="row"><button class="act" onclick="revCheck()">Vérifier</button><button class="act ghost" onclick="revSkip()">Je ne sais pas</button></div>`;
+    RV.cur={w:w,l:l2,mode:"quiz"};
+  }else if(q.ty==="ecoute"){
+    const others=shuffle(l2.w.filter(x=>x!==w)).slice(0,2);
+    const opts=shuffle([w].concat(others));
+    inner=`<div class="q">Leçon ${l2.n} · Écoute et choisis :</div>
+    <div class="prompt" style="font-size:1.2rem;">🎧 <button class="act ghost" style="padding:8px 18px;font-size:14px;" onclick="speak('${esc(w[1]).replace(/'/g,"\\'")}')">▶ Écouter</button></div>
+    <div class="opts">${opts.map(o=>`<div class="opt" onclick="revPick(this,${o===w})">${esc(o[0])}</div>`).join("")}</div>
+    <div class="feedback" id="rFb"></div>`;
+    RV.cur={w:w,l:l2,mode:"ecoute"};
+    setTimeout(()=>speak(w[1]),300);
+  }else if(q.ty==="genre"){
+    const gp=l2.w.filter(x=>x[3]&&/^(un|une|le|la|l')/i.test(x[1])&&!/^les /i.test(x[1]));
+    const gw2=gp[Math.floor(Math.random()*gp.length)];
+    inner=`<div class="q">Leçon ${l2.n} · Masculin ou féminin ?</div>
+    <div class="prompt">${esc(bare(gw2[1]))}</div>
+    <div class="genrebtns"><button class="un" onclick="revGenre('m')">un</button><button class="une" onclick="revGenre('f')">une</button></div>
+    <div class="feedback" id="rFb"></div>`;
+    RV.cur={w:gw2,l:l2,mode:"genre"};
+  }else{
+    const vs=(l2.v&&l2.v.length?l2.v:CORE).filter(v=>VERBS[v]);
+    const cv2=vs[Math.floor(Math.random()*vs.length)];
+    const cp2=Math.floor(Math.random()*6);
+    inner=`<div class="q">Leçon ${l2.n} · Conjugue :</div>
+    <div class="prompt">${esc(cv2)} — <i>${PRON[cp2]}</i> ______</div>
+    <input class="txt" id="rIn" autocomplete="off" onkeydown="if(event.key==='Enter')revConj()">
+    <div class="feedback" id="rFb"></div>
+    <div class="row"><button class="act" onclick="revConj()">Vérifier</button><button class="act ghost" onclick="revSkip()">Je ne sais pas</button></div>`;
+    RV.cur={verb:cv2,pi:cp2,l:l2,mode:"conj"};
+  }
+  $("app").innerHTML=`
+  <span class="back" onclick="renderHome()">← Quitter la révision</span>
+  <div class="lesson-title">Révision mixte — ${RV.i+1}/10</div>
+  <div class="lesson-meta">Score : ${RV.ok} ✓</div>
+  <div class="card">${inner}</div>`;
+  window.scrollTo(0,0);
+}
+function revNext(good){
+  if(good)RV.ok++;
+  RV.i++;
+  setTimeout(reviewStep,1300);
+}
+function revCheck(){
+  const c=RV.cur,inp=$("rIn").value;if(!inp.trim())return;
+  const f=$("rFb");
+  const ok=norm(inp)===norm(c.w[1])||stripArt(inp)===stripArt(c.w[1]);
+  if(ok){f.className="feedback ok";f.innerHTML=`✓ <b>${esc(c.w[1])}</b>`;scoreGood(wkey(c.l,c.w));revNext(true);}
+  else{f.className="feedback ko";f.innerHTML=`✗ <b>${esc(c.w[1])}</b>`;markWeak(wkey(c.l,c.w));saveAll();revNext(false);}
+}
+function revSkip(){
+  const c=RV.cur,f=$("rFb");
+  if(c.mode==="conj"){f.className="feedback ko";f.innerHTML=`Réponse : <b>${esc(VERBS[c.verb][c.pi])}</b>`;}
+  else{f.className="feedback ko";f.innerHTML=`Réponse : <b>${esc(c.w[1])}</b>`;markWeak(wkey(c.l,c.w));saveAll();}
+  revNext(false);
+}
+function revPick(el,ok){
+  const c=RV.cur,f=$("rFb");
+  if(ok){el.classList.add("okc");f.className="feedback ok";f.innerHTML=`✓ <b>${esc(c.w[1])}</b> = ${esc(c.w[0])}`;scoreGood(wkey(c.l,c.w));revNext(true);}
+  else{el.classList.add("koc");f.className="feedback ko";f.innerHTML=`✗ C'était <b>${esc(c.w[1])}</b> = ${esc(c.w[0])}`;markWeak(wkey(c.l,c.w));saveAll();revNext(false);}
+}
+function revGenre(g){
+  const c=RV.cur,f=$("rFb");
+  if(g===c.w[3]){f.className="feedback ok";f.innerHTML=`✓ <b>${esc(c.w[1])}</b>`;scoreGood(wkey(c.l,c.w));revNext(true);}
+  else{f.className="feedback ko";f.innerHTML=`✗ <b>${esc(c.w[1])}</b> (${c.w[3]})`;markWeak(wkey(c.l,c.w));saveAll();revNext(false);}
+}
+function revConj(){
+  const c=RV.cur,inp=$("rIn").value;if(!inp.trim())return;
+  const f=$("rFb");
+  const form=VERBS[c.verb][c.pi];
+  const cleaned=norm(inp).replace(/^(je|j|tu|il|elle|on|nous|vous|ils|elles) /,"");
+  if(cleaned===norm(form)){f.className="feedback ok";f.innerHTML=`✓ <b>${esc(form)}</b>`;scoreGood();revNext(true);}
+  else{f.className="feedback ko";f.innerHTML=`✗ <b>${esc(form)}</b>`;revNext(false);}
+}
+
+/* ================= exam ================= */
+let E=null,lScore=null,rScore=null;
+function openExam(n){
+  E=EXAMS[n-1];lScore=null;rScore=null;
+  const sc=P.exam[E.n];
+  if(!examUnlocked(E)&&!sc){
+    toast("Termine d'abord les leçons "+(E.after-4)+" à "+E.after+" !");return;
+  }
+  if(!E.ready){
+    $("app").innerHTML=`
+    <span class="back" onclick="renderHome()">← Toutes les leçons</span>
+    <div class="exam-title">Examen ${E.n} · Leçons ${E.after-4}–${E.after}</div>
+    <div class="note">📝 Cet examen sera préparé par le tuteur quand la classe approche de la leçon ${E.after}.
+    Dites-lui : <b>« Prépare l'examen ${E.n} »</b>.${E.n===8?" L'examen 8 sera un DELF blanc complet, avec les épreuves du livre « Le DELF A2 100% réussite » et ses vrais audios.":""}</div>`;
+    window.scrollTo(0,0);return;
+  }
+  let h=`
+  <span class="back" onclick="renderHome()">← Toutes les leçons</span>
+  <div class="exam-title">Examen ${E.n} · Leçons ${E.after-4}–${E.after}</div>
+  <div class="exam-sub">Format DELF A2 · 4 parties · 100 points · ~45 minutes · sans dictionnaire !</div>
+  <div class="rule"><b>Barème DELF :</b> réussite à partir de <b>50/100</b>, minimum 5/25 par partie.</div>
+  ${sc?`<div class="rule">Déjà passé : <b>${sc.total}/100</b> ${sc.pass?"(réussi ✓)":"(à refaire)"} — tu peux le repasser.</div>`:""}
+
+  <div class="part"><div class="ph"><span class="pn">1</span><span class="pt">Compréhension de l'oral</span><span class="pts">/25</span></div>
+  <p class="hint" style="text-align:left;margin:0 0 8px;">Écoute chaque document (2 fois maximum !), puis réponds.</p>`;
+  let qi=0;
+  E.listen.forEach((doc,di)=>{
+    h+=`<div class="rtext" style="text-align:center;font-style:normal;">Document ${di+1} · <button class="act ghost" style="padding:7px 16px;font-size:13px;" onclick="speak(E.listen[${di}].say)">▶ Écouter</button></div>`;
+    doc.qs.forEach(q=>{
+      h+=`<div class="mcq"><div class="qq">${esc(q.q)}</div>`;
+      q.o.forEach((o,oi)=>{h+=`<label id="lq_${qi}_${oi}"><input type="radio" name="lq${qi}" value="${oi}"> ${esc(o)}</label>`;});
+      h+=`</div>`;qi++;
+    });
+  });
+  h+=`<div class="row"><button class="act" onclick="gradeListen()">Corriger la partie 1</button></div>
+  <div class="feedback" id="lFb"></div></div>
+
+  <div class="part"><div class="ph"><span class="pn">2</span><span class="pt">Compréhension des écrits</span><span class="pts">/25</span></div>`;
+  qi=0;
+  E.read.forEach(tx=>{
+    h+=`<div class="rtext">${esc(tx.t)}</div>`;
+    tx.qs.forEach(q=>{
+      h+=`<div class="mcq"><div class="qq">${esc(q.q)}</div>`;
+      q.o.forEach((o,oi)=>{h+=`<label id="rq_${qi}_${oi}"><input type="radio" name="rq${qi}" value="${oi}"> ${esc(o)}</label>`;});
+      h+=`</div>`;qi++;
+    });
+  });
+  h+=`<div class="row"><button class="act" onclick="gradeReading()">Corriger la partie 2</button></div>
+  <div class="feedback" id="rFb2"></div></div>
+
+  <div class="part"><div class="ph"><span class="pn">3</span><span class="pt">Production écrite</span><span class="pts">/25</span></div>`;
+  E.write.forEach((w,wi)=>{
+    h+=`<div class="mcq"><div class="qq">${wi+1}. ${esc(w.p)}</div>
+    <textarea class="txt" id="w_${wi}" placeholder="écris ici…"></textarea>
+    <div class="model" id="wm_${wi}"><b>Modèle :</b> ${esc(w.m)}</div></div>`;
+  });
+  h+=`<div class="row">
+      <button class="act ghost" onclick="showModels()">Voir les modèles</button>
+      <button class="act goldb" onclick="copyWriting()">Copier → correction par le tuteur</button></div>
+      <div class="scoreline">Ta note (honnête, ou celle du tuteur) : <input type="number" id="wScore" min="0" max="25" placeholder="0–25"> /25</div></div>
+
+  <div class="part"><div class="ph"><span class="pn">4</span><span class="pt">Production orale</span><span class="pts">/25</span></div>
+  <div class="hint" style="text-align:left;margin:0 0 8px;">À faire à voix haute, ensemble en classe. Coche ce que tu as réussi (5 points chacun).</div>
+  <div class="speakx">`;
+  E.speak.forEach(s=>{h+=`<label><input type="checkbox" class="spkx"> ${esc(s)}</label>`;});
+  h+=`</div></div>
+
+  <div class="row"><button class="act goldb" style="font-size:15px;" onclick="finishExam()">Terminer l'examen</button></div>
+  <div id="exResult"></div>`;
+  $("app").innerHTML=h;
+  window.scrollTo(0,0);
+}
+function gradeMcq(prefix,docs,fbId){
+  const qs=[];docs.forEach(d=>d.qs.forEach(q=>qs.push(q)));
+  let corr=0;
+  qs.forEach((q,i)=>{
+    const sel=document.querySelector(`input[name="${prefix}${i}"]:checked`);
+    q.o.forEach((o,oi)=>{
+      const lab=$(`${prefix}_${i}_${oi}`);
+      if(!lab)return;
+      lab.classList.remove("okc","koc");
+      if(oi===q.c)lab.classList.add("okc");
+      else if(sel&&+sel.value===oi)lab.classList.add("koc");
+    });
+    if(sel&&+sel.value===q.c)corr++;
+  });
+  const score=Math.round(25*corr/qs.length);
+  const f=$(fbId);f.className="feedback "+(score>=13?"ok":"ko");
+  f.textContent=`${corr}/${qs.length} bonnes réponses → ${score}/25`;
+  return score;
+}
+function gradeListen(){lScore=gradeMcq("lq",E.listen,"lFb");}
+function gradeReading(){rScore=gradeMcq("rq",E.read,"rFb2");}
+function showModels(){E.write.forEach((w,wi)=>{$("wm_"+wi).style.display="block";});}
+function copyWriting(){
+  let txt="EXAMEN "+E.n+" — production écrite de "+cur+" ("+today()+")\n";
+  E.write.forEach((w,wi)=>{
+    txt+="\nSujet "+(wi+1)+" : "+w.p+"\nMa réponse : "+($("w_"+wi).value||"(vide)")+"\n";
+  });
+  txt+="\nTuteur : corrige selon la grille DELF A2 et donne une note sur 25.";
+  copyText(txt);
+}
+function finishExam(){
+  if(lScore===null){toast("Corrige d'abord la partie 1 (écoute) !");return;}
+  if(rScore===null){toast("Corrige d'abord la partie 2 (lecture) !");return;}
+  const wv=$("wScore").value;
+  if(wv===""){toast("Entre ta note d'écrit (0–25) — ou demande-la au tuteur.");return;}
+  const w=Math.max(0,Math.min(25,+wv));
+  const s=Array.from(document.querySelectorAll(".spkx")).filter(c=>c.checked).length*5;
+  const total=lScore+rScore+w+s;
+  const pass=total>=50&&lScore>=5&&rScore>=5&&w>=5&&s>=5;
+  P.exam[E.n]={l:lScore,r:rScore,w:w,s:s,total:total,pass:pass};
+  touch();saveAll();
+  $("exResult").innerHTML=`<div class="result">
+    <div class="big">${total}/100</div>
+    <div class="verdict" style="font-weight:700;color:${pass?"var(--good)":"var(--bad)"}">${pass?"✓ Réussi — félicitations !":"Pas encore 50 — on révise et on le repasse !"}</div>
+    <div class="det">Oral ${lScore}/25 · Écrits ${rScore}/25 · Écrite ${w}/25 · Orale ${s}/25</div>
+    <div class="row"><button class="act" onclick="renderHome()">← Retour aux leçons</button></div>
+  </div>`;
+  $("exResult").scrollIntoView({behavior:"smooth"});
+}
+
+/* ================= MODE CLASSE (shared device, teacher-led) ================= */
+/* À vous de parler ! — speaking activities per lesson, run by the two teachers */
+const PARLER={
+ 1:["Épelle ton prénom et ton nom à voix haute.","Compte de 60 à 80 — puis de 80 à 100 !","Dicte un nombre à deux chiffres — la classe l'écrit."],
+ 2:["Montre un objet de la classe et dis son nom avec l'article.","Quels jours avons-nous cours de français ? Réponds en phrase complète.","Donne un ordre à la classe : Écoutez ! Répétez ! Lisez !…"],
+ 3:["Présente-toi : nom, âge, situation (marié·e / célibataire).","Demande l'identité de ton voisin / ta voisine : Comment tu t'appelles ? Quel âge as-tu ?","Inventez un personnage et remplissez sa fiche d'identité à l'oral."],
+ 4:["Saluez-vous à deux : d'abord formel (vous), puis entre amis (tu).","Présente un(e) camarade à la classe : « Je vous présente… »","Quelle formule pour : le matin ? le soir ? avant de dormir ? en partant ?"],
+ 5:["Dis ta nationalité et les langues que tu parles.","Trois pays où tu veux aller — attention : en / au / aux !","Mime un pays — la classe devine la nationalité."],
+ 6:["Dicte ton numéro de téléphone (par deux chiffres) — on l'écrit.","Épelle ton adresse email (arobase, point).","Laisse un message vocal simple : qui tu es, pourquoi tu appelles, quand rappeler."],
+ 7:["Quel est ton métier ? Et les métiers dans ta famille ?","Mime un métier — la classe devine.","Cite trois métiers pour quelqu'un qui adore parler !"],
+ 8:["Dis trois choses que tu aimes et deux choses que tu détestes.","Jouer à ou jouer de ? Testez-vous avec des exemples.","Trouve un loisir commun avec ton voisin / ta voisine."],
+ 9:["Présente ta famille en cinq phrases.","Qui est-ce ? (le père de ma mère, la fille de mon oncle…) — testez-vous à deux.","Demande à trois camarades : « Tu as des frères et sœurs ? »"],
+ 10:["Jeu de rôle au marché : achète trois choses, demande le prix, dis merci.","Ta liste de courses pour un dîner français — présente-la.","Complète : un kilo de…, une bouteille de…, un morceau de…"],
+ 17:["Jouez : se dire bonjour en situation formelle (vous), puis entre amis (tu).","Présentez un(e) camarade : « Je vous présente… — Enchanté(e) ! »","Tu ou vous ? La classe propose des situations, vous répondez."],
+ 18:["Dessine ton arbre généalogique et présente trois personnes.","Compare les âges : « X a … ans de plus que Y. »","Parle de ton enfance : où ? avec qui ?"],
+ 19:["Racontez à deux l'histoire de Gabriel et Mathilde au présent.","Quelles émotions le lundi matin ? Et le vendredi soir ?","Mime une émotion — la classe devine (joie, colère, peur, surprise, ennui…)."],
+ 20:["Décris ton/ta meilleur(e) ami(e) : ses qualités, ses petits défauts.","Décris ton caractère à un recruteur : points forts, points faibles.","Décris quelqu'un de la classe — on devine qui c'est !"]
+};
+
+let CLS={n:parseInt(localStorage.getItem("fclc_pos")||"1",10)||1,slide:0,on:false,slides:[]};
+function clsSaveState(){localStorage.setItem("fclc_pos",String(CLS.n));}
+function buildSlides(l){
+  const slides=[{ty:"title"}];
+  for(let i=0;i<l.w.length;i+=8)slides.push({ty:"mots",from:i,to:Math.min(i+8,l.w.length)});
+  if(l.g)slides.push({ty:"gram"});
+  if(l.d)slides.push({ty:"dlg"});
+  if(PARLER[l.n]||l.x.length)slides.push({ty:"parler"});
+  slides.push({ty:"devoirs"});
+  return slides;
+}
+function openClasse(){
+  CLS.on=true;document.body.classList.add("classe");
+  const l=lessonByN(CLS.n);
+  CLS.slides=l.w.length?buildSlides(l):[];
+  if(CLS.slide>=CLS.slides.length)CLS.slide=0;
+  renderClasse();
+}
+function quitClasse(){CLS.on=false;document.body.classList.remove("classe");if(TTS)speechSynthesis.cancel();renderHome();}
+function clsLesson(delta){
+  const nn=CLS.n+delta;
+  if(nn<1||nn>40)return;
+  CLS.n=nn;CLS.slide=0;clsSaveState();
+  const l=lessonByN(CLS.n);
+  CLS.slides=l.w.length?buildSlides(l):[];
+  renderClasse();
+}
+function clsGo(delta){
+  const ns=CLS.slide+delta;
+  if(ns<0||ns>=CLS.slides.length)return;
+  CLS.slide=ns;renderClasse();
+}
+function clsJump(i){CLS.slide=i;renderClasse();}
+function playList(texts){
+  if(!TTS){toast("Pas de voix française sur cet appareil");return;}
+  speechSynthesis.cancel();
+  texts.forEach(t=>{
+    const u=new SpeechSynthesisUtterance(t);
+    u.lang="fr-FR";if(VOICE)u.voice=VOICE;u.rate=0.82;
+    speechSynthesis.speak(u);
+  });
+}
+function clsPlaySlide(){
+  const l=lessonByN(CLS.n),s=CLS.slides[CLS.slide];
+  if(s.ty==="mots")playList(l.w.slice(s.from,s.to).map(w=>w[1]));
+  else if(s.ty==="dlg")playList(l.d.lines.map(x=>x[1]));
+}
+function renderClasse(){
+  const l=lessonByN(CLS.n);
+  let top=`<div class="cls-top">
+    <button class="cls-lnav" onclick="clsLesson(-1)">‹ leçon préc.</button>
+    <span class="cls-lnav big">Leçon ${l.n} — ${esc(l.t)}</span>
+    <button class="cls-lnav" onclick="clsLesson(1)">leçon suiv. ›</button>
+    <button class="cls-lnav x" onclick="quitClasse()">✕ quitter</button>
+  </div>`;
+  if(!l.w.length){
+    $("app").innerHTML=top+`<div class="cls-slide" style="display:flex;align-items:center;justify-content:center;">
+      <div style="text-align:center;max-width:34em;">
+        <div class="cls-eyebrow">${esc(BOOKS[l.b])} · ${esc(l.ch)}</div>
+        <div class="cls-title">Leçon ${l.n} — ${esc(l.t)}</div>
+        <div class="cls-sub">📚 Cette leçon n'est pas encore chargée dans l'app.<br>
+        Utilisez le livre papier (${esc(l.ch)}) et dites au tuteur : <b>« Prépare la leçon ${l.n} »</b>.</div>
+      </div></div>`;
+    window.scrollTo(0,0);return;
+  }
+  const s=CLS.slides[CLS.slide];
+  let body="";
+  if(s.ty==="title"){
+    body=`<div style="text-align:center;display:flex;flex-direction:column;justify-content:center;min-height:50vh;">
+      <div class="cls-eyebrow">Mode Classe · ${esc(BOOKS[l.b])} · ${esc(l.ch)}</div>
+      <div class="cls-title">Leçon ${l.n}<br>${esc(l.t)}</div>
+      <div class="cls-sub">${esc(l.s)} · ${l.w.length} mots</div>
+    </div>`;
+  }else if(s.ty==="mots"){
+    body=`<div class="cls-eyebrow">Les mots · ${s.from+1}–${s.to} / ${l.w.length} — écoutez et répétez ensemble !</div>`;
+    l.w.slice(s.from,s.to).forEach(w=>{
+      body+=`<div class="cls-word"><span class="fr ${w[3]}">${esc(w[1])}</span>${w[3]?`<span class="gtag ${w[3]}">${w[3]}</span>`:""}${spkBtn(w[1])}<span class="en">${esc(w[0])}</span></div>`;
+    });
+    body+=`<div class="cls-nav" style="justify-content:flex-start;"><button onclick="clsPlaySlide()">▶ Écouter tout — la classe répète</button></div>`;
+  }else if(s.ty==="gram"){
+    body=`<div class="cls-eyebrow">La grammaire</div><div class="cls-gram">${l.g}</div>`;
+  }else if(s.ty==="dlg"){
+    body=`<div class="cls-eyebrow">Le dialogue · ${esc(l.d.t)}</div>`;
+    l.d.lines.forEach(x=>{
+      const me=x[0]==="M";
+      body+=`<div class="cls-bubble ${me?"me":"a"}"><span class="who">${me?"— élève —":"— l'autre —"}</span>${esc(x[1])} ${spkBtn(x[1])}</div>`;
+    });
+    body+=`<div class="cls-nav" style="justify-content:flex-start;"><button onclick="clsPlaySlide()">▶ Toute la scène</button></div>
+    <div class="cls-tip">🎭 Maintenant, jouez la scène à deux — puis changez les détails (les noms, les nombres…) !</div>`;
+  }else if(s.ty==="parler"){
+    const prompts=PARLER[l.n]||l.x.slice(0,3).map(x2=>"Dites en français : « "+x2[0]+" »");
+    body=`<div class="cls-eyebrow">À vous de parler ! — activités menées par les profs</div>
+    <ul class="cls-parler">${prompts.map(p2=>`<li>${esc(p2)}</li>`).join("")}</ul>
+    <div class="cls-tip">Chacun parle — les profs corrigent la prononciation. Pas de stress, on apprend !</div>`;
+  }else{
+    body=`<div class="cls-eyebrow">Devoirs — avant la prochaine classe</div>
+    <ul class="cls-parler">
+      <li>📖 Le livre : relisez ${esc(l.ch)} et faites les exercices de la page de droite (sur papier).</li>
+      <li>📱 L'app, sur VOTRE téléphone : Quiz + Écoute + Genre + Conjugaison de la leçon ${l.n}, et le Dialogue jusqu'au niveau ③.</li>
+      <li>🔁 Une Révision mixte (10 questions) par jour.</li>
+    </ul>
+    <div class="cls-tip">Les rapides peuvent prendre de l'avance sur la leçon suivante — la classe, elle, avance au rythme des profs !</div>`;
+  }
+  const dots=CLS.slides.map((x,i)=>`<span class="${i===CLS.slide?"on":""}" onclick="clsJump(${i})"></span>`).join("");
+  $("app").innerHTML=top+`<div class="cls-slide">${body}</div>
+  <div class="cls-nav">
+    <button onclick="clsGo(-1)" ${CLS.slide===0?"disabled":""}>◀</button>
+    <span class="cnt">${CLS.slide+1} / ${CLS.slides.length}</span>
+    <button onclick="clsGo(1)" ${CLS.slide===CLS.slides.length-1?"disabled":""}>▶</button>
+  </div>
+  <div class="cls-dots">${dots}</div>
+  <p class="hint">Flèches ← → du clavier pour changer de diapositive · la position de la classe est mémorisée sur cet appareil</p>`;
+  window.scrollTo(0,0);
+}
+document.addEventListener("keydown",e=>{
+  if(!CLS.on)return;
+  if(e.key==="ArrowRight")clsGo(1);
+  else if(e.key==="ArrowLeft")clsGo(-1);
+});
+
+/* ================= boot ================= */
+loadPeople();loadP();saveAll();renderHome();
+</script>
+</body>
+</html>
