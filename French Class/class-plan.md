@@ -24,7 +24,7 @@ Sources vérifiées : sommaires réels extraits des PDF échantillons oxico.sk
 | L9 | ch. 13 (p. 42–45) | J'ai un frère (la famille) | ✅ |
 | L10 | ch. 14–15 (p. 48–55) | 1 kilo d'oranges · Au supermarché | ✅ |
 | **EX2** | | **Examen 2 (leçons 6–10)** | ✅ |
-| L11 | ch. 16–17 (p. 56–61) | Un croissant, s'il vous plaît ! · À table ! | ⬜ |
+| L11 | ch. 16–17 (p. 56–61) | Un croissant, s'il vous plaît ! · À table ! | ✅📖 |
 | L12 | ch. 18–19 (p. 62–67) | Au restaurant · Bon appétit ! | ⬜ |
 | L13 | ch. 20 (p. 68–71) | Je peux payer par carte ? (l'argent) | ⬜ |
 | L14 | ch. 21–23 (p. 72–83) | Où est la gare ? · Bus, métro, tramway · la librairie | ⬜ |
